@@ -5,7 +5,8 @@ import Header from './Components/Header/Header';
 import FooterOne from './Components/Footer/FooterOne';
 import About from './Components/Page/About';
 import ServiceDetails from './Components/Page/ServiceDetails';
-import DentistDetails from './Components/Page/DentistDetails';
+import DoctorsList from './Components/Page/DoctorsList';
+import ProfileDetails from './Components/Page/ProfileDetails';
 import Contact from './Components/Page/Contact';
 import FooterData from './Components/Data/FooterData';
 import './App.css';
@@ -24,7 +25,8 @@ function App() {
         
         <Route path='/About' component={About} />
         <Route path='/ServiceDetails' component={ServiceDetails} />
-        <Route path='/Doctors' component={DentistDetails} />
+        <Route path='/Doctors' component={DoctorsList} />
+        <Route path='/Profile/:id' component={ProfileDetails} />
         <Route path='/Contact' component={Contact} />
 
 		    <FooterOne FooterData={FooterData} />

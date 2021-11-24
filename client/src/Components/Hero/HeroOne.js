@@ -26,8 +26,6 @@ class HeroOne extends Component {
                                     <h2>Better Life Through</h2>
                                     <h1>Better Dentistry</h1>
                                     <p>Join us to a fun and friendly dental environment. Our professionals are working so hard to see smile on your face that you deserve! We are dedicated about our duties.</p>
-                                    <a href=".#" className="theme-btn fill-btn">Appointment</a>
-                                    <a href=".#" className="theme-btn btn_black">Learn More</a>
                                 </div>
                             </div>
                             <div className="col-lg-6 col-12 col-md-10 offset-md-2 offset-lg-0">

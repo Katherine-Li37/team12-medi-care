@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Banner from '../Banner';
+import { Link } from 'react-router-dom';
 
 
-export default class DentistDetails extends Component {
+export default class DoctorsList extends Component {
     constructor(props) {
         super(props);
     
@@ -17,6 +18,7 @@ export default class DentistDetails extends Component {
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
         this.handleInStockChange = this.handleInStockChange.bind(this);
         this.fetchDoctorDetail = this.fetchDoctorDetail.bind(this);
+        this.mapFacilityInfoIntoDoctor = this.mapFacilityInfoIntoDoctor.bind(this);
     }
 
     componentDidMount() {
@@ -41,13 +43,26 @@ export default class DentistDetails extends Component {
         let newDoctorDetails=[]
         for(let i = 0 ;i< doctor.length;i++){
             const response = await fetch('http://localhost:3000/doctor_details/'+ doctor[i]._id.toString())
-            const data = await response.json()
-            newDoctorDetails.push(data)
-            // console.log({newDoctorDetails})
-            this.setState({ doctorDetails: newDoctorDetails })
+            const data = await response.json();
+            newDoctorDetails.push(data);
+            this.setState({ doctorDetails: newDoctorDetails });
+            this.mapFacilityInfoIntoDoctor();
         }
     }
 
+    mapFacilityInfoIntoDoctor(){
+        console.log(this.state);
+        var doctorUpdated = [];
+        this.state.doctors.forEach((doctor)=>{
+            var newDoctor = doctor;
+             if (doctor.detail){
+                 var index = this.state.facilities.findIndex(facility => facility._id.toString() === doctor.detail.facilities.facilityID.toString());
+                newDoctor.facility = this.state.facilities[index];
+                doctorUpdated.push(newDoctor);
+            }
+        });
+        this.setState({doctor: doctorUpdated});
+    }
 
     handleFilterTextChange(filterText) {
         this.setState({
@@ -179,7 +194,7 @@ class DoctorRow extends React.Component {
 
     render() {
         const doctor = this.props.doctor;
-        console.log(doctor.detail)
+        // console.log(doctor.detail)
         // const name = video.available ?
         //   video.title :
         //   <span style={{color: 'red'}}>
@@ -188,10 +203,19 @@ class DoctorRow extends React.Component {
 
         return (
             <tr>
-                <td>{ doctor.firstName } { doctor.lastName }</td>
-                <td>{doctor.title}</td>
-                <td>{doctor.services}</td>
-                <td>{doctor.detail.facilities.facilityIName}</td>
+                <td>
+                    <Link to={{
+                        pathname: `/Profile/${doctor._id}`,
+                        state: { user: doctor }
+                    }}>
+                    { doctor.firstName } { doctor.lastName }
+                    </Link>
+                </td>
+                <td>{ doctor.title }</td>
+                <td>                      
+                    {doctor.services.map((service) => (<li>{service}</li>))}
+                </td>
+                <td>{ doctor.detail.facilities.facilityIName }</td>
                 <td>Availablility</td>
             </tr>
 
