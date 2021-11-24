@@ -6,6 +6,7 @@ Description: Dentist and Medical React Template
 Version: 1.0
 */
 
+
 /*
 =================================
 |***    Table of contents:   ***|
@@ -90,6 +91,7 @@ body {
     font-weight: 400 !important;
     overflow-x: hidden !important;
 }
+
 body.style-two {
     font-family: var(--body-family-two) !important;
     color: var(--body-color-two) !important;
@@ -106,6 +108,7 @@ a:focus {
 a {
     cursor: pointer;
 }
+
 img {
     max-width: 100%;
     height: auto;
@@ -217,6 +220,7 @@ a:active {
     color: #000 !important;
     border-color: #fff;
 }
+
 .theme-btn {
     display: inline-block;
     border-width: 1px;
@@ -236,21 +240,23 @@ a:active {
     z-index: 2;
     border-radius: 3px;
 }
+
 .theme-btn.btn_black {
     border-color: #fff;
     color: #fff;
     background: transparent;
     transition: .4s;
 }
+
 .theme-btn.btn_black:hover {
     border-color: var(--main-color);
     color: #fff !important;
     background: var(--main-color);
 }
+
 .theme-btn.fill-btn {
     margin-right: 20px;
 }
-
 
 .text-white .btn_black:hover {
     color: #fff !important;
@@ -440,6 +446,7 @@ body.style-two>a {
 
 
 /* header */
+
 .main-menu {
     position: relative;
     -webkit-transition: all .5s ease-in-out;
@@ -479,10 +486,10 @@ body.style-two>a {
     -o-transition: all .5s;
     transition: all .5s;
     -webkit-transform: translateY(25px);
-        -ms-transform: translateY(25px);
-            transform: translateY(25px);
+    -ms-transform: translateY(25px);
+    transform: translateY(25px);
     -webkit-box-shadow: 0px 13px 35px -12px rgba(35, 35, 35, 0.15);
-            box-shadow: 0px 13px 35px -12px rgba(35, 35, 35, 0.15);
+    box-shadow: 0px 13px 35px -12px rgba(35, 35, 35, 0.15);
 }
 
 .menu-style-one ul li {
@@ -505,8 +512,8 @@ body.style-two>a {
     visibility: visible;
     opacity: 1;
     -webkit-transform: translateY(0px);
-        -ms-transform: translateY(0px);
-            transform: translateY(0px);
+    -ms-transform: translateY(0px);
+    transform: translateY(0px);
 }
 
 .navbar.navbar-expand-md {
@@ -520,11 +527,13 @@ body.style-two>a {
     padding: 0px;
     background: #fff;
     animation: sticky .9s ease-in-out;
-    box-shadow: 0 13px 35px -12px rgba(35,35,35,.15);
+    box-shadow: 0 13px 35px -12px rgba(35, 35, 35, .15);
 }
+
 .header-one.sticky {
     transform: translateY(0px);
 }
+
 .header-two.sticky {
     padding: 5px 0px;
 }
@@ -572,8 +581,8 @@ body.style-two>a {
     min-width: 200px;
     top: 0;
     -webkit-transform: translateY(100px);
-        -ms-transform: translateY(100px);
-            transform: translateY(100px);
+    -ms-transform: translateY(100px);
+    transform: translateY(100px);
     -webkit-transition: 1s;
     -o-transition: 1s;
     transition: 1s;
@@ -606,22 +615,24 @@ body.style-two>a {
 .home-slider-two p {
     color: #555;
 }
+
 .main-menu-two .menu-items li:last-child {
     margin-right: 0px;
 }
+
 .menu-items li .submenu li {
     margin-right: 0;
     display: block;
     text-align: center;
 }
+
 .main-menu-two .menu-items li .submenu li a {
     padding: 8px;
     border: none;
     border-bottom: 1px solid #fff3f496;
     display: block;
     -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-
+    box-sizing: border-box;
     transition: .4s;
 }
 
@@ -629,9 +640,9 @@ body.style-two>a {
     opacity: 1;
     visibility: visible;
     -webkit-transform: translateY(70px);
-        -ms-transform: translateY(70px);
-            transform: translateY(70px);
-            z-index: 999999;
+    -ms-transform: translateY(70px);
+    transform: translateY(70px);
+    z-index: 999999;
 }
 
 .main-menu-two .menu-items li .submenu li:last-child a {
@@ -654,7 +665,6 @@ body.style-two>a {
 .main-menu-two .menu-items>li:hover a::before {
     width: 100%;
 }
-
 
 
 /* hero slider home one */
@@ -700,8 +710,8 @@ body.style-two>a {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: end;
-        -ms-flex-align: end;
-            align-items: flex-end;
+    -ms-flex-align: end;
+    align-items: flex-end;
 }
 
 .animate-img {
@@ -709,8 +719,8 @@ body.style-two>a {
     bottom: 0;
     left: 50%;
     -webkit-transform: translateX(-50%);
-        -ms-transform: translateX(-50%);
-            transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
     z-index: 22;
 }
 
@@ -718,15 +728,15 @@ body.style-two>a {
     left: -91px;
     position: absolute;
     -webkit-animation-name: movebounce;
-            animation-name: movebounce;
+    animation-name: movebounce;
     -webkit-animation-delay: 100ms;
-            animation-delay: 100ms;
+    animation-delay: 100ms;
     -webkit-animation-iteration-count: infinite;
-            animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
     -webkit-animation-timing-function: ease-in-out;
-            animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
     -webkit-animation-duration: 2s;
-            animation-duration: 2s;
+    animation-duration: 2s;
     -webkit-animation-direction: alternate;
     animation-direction: alternate;
     bottom: 40px;
@@ -735,15 +745,15 @@ body.style-two>a {
 .animate-img .aimg2 {
     margin-left: 88px;
     -webkit-animation-name: movebounce;
-            animation-name: movebounce;
+    animation-name: movebounce;
     -webkit-animation-delay: 200ms;
-            animation-delay: 200ms;
+    animation-delay: 200ms;
     -webkit-animation-iteration-count: infinite;
-            animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
     -webkit-animation-timing-function: ease-in-out;
-            animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
     -webkit-animation-duration: 2.5s;
-            animation-duration: 2.5s;
+    animation-duration: 2.5s;
     -webkit-animation-direction: alternate;
     animation-direction: alternate;
     bottom: 30px;
@@ -763,8 +773,8 @@ body.style-two>a {
     width: 103px;
     height: 68px;
     -webkit-box-align: end;
-        -ms-flex-align: end;
-            align-items: flex-end;
+    -ms-flex-align: end;
+    align-items: flex-end;
     margin: 0px auto;
     text-align: center;
     margin-bottom: 45px;
@@ -773,6 +783,7 @@ body.style-two>a {
 .single-feature-box h3 {
     margin-bottom: 10px;
 }
+
 .single-feature-box {
     text-align: center;
 }
@@ -786,7 +797,7 @@ body.style-two>a {
     border-radius: 10px;
     background-color: rgb(255, 255, 255);
     -webkit-box-shadow: 8.135px 18.271px 40px 0px rgba(0, 0, 0, 0.08);
-            box-shadow: 8.135px 18.271px 40px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: 8.135px 18.271px 40px 0px rgba(0, 0, 0, 0.08);
     padding: 60px 50px 75px;
     -webkit-transition: all .4s;
     -o-transition: all .4s;
@@ -795,8 +806,8 @@ body.style-two>a {
 
 .single-feature-box:hover {
     -webkit-transform: translateY(-10px);
-        -ms-transform: translateY(-10px);
-            transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
 }
 
 
@@ -814,10 +825,11 @@ body.style-two>a {
 .about-us-one-right a {
     margin-top: 17px;
 }
+
 .fun-fact-section {
     background-color: #fff;
     -webkit-box-shadow: 8.135px 18.271px 40px 0px rgba(0, 0, 0, 0.08);
-            box-shadow: 8.135px 18.271px 40px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: 8.135px 18.271px 40px 0px rgba(0, 0, 0, 0.08);
     margin-top: 50px;
     padding: 65px 80px 21px;
     position: relative;
@@ -837,9 +849,11 @@ body.style-two>a {
     margin-top: 8px;
 }
 
-.single-service-box p, .single-service-box a {
-    color:#d7d3d3 !important
+.single-service-box p,
+.single-service-box a {
+    color: #d7d3d3 !important
 }
+
 .single-funfact-one span::before {
     position: absolute;
     content: "+";
@@ -858,6 +872,7 @@ body.style-two>a {
     margin-bottom: 45px;
     float: left;
 }
+
 .fun-fact-section .row {
     margin-bottom: -45px;
     margin-left: 0;
@@ -918,9 +933,11 @@ body.style-two>a {
     background-repeat: no-repeat;
     overflow: hidden;
 }
+
 .single-gallery-item img {
     max-width: 100% !important;
 }
+
 .single-gallery-item a {
     color: #fff;
 }
@@ -950,8 +967,8 @@ body.style-two>a {
     opacity: 0;
     visibility: hidden;
     -webkit-transform: scale(0);
-        -ms-transform: scale(0);
-            transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
     z-index: -1;
     border-radius: 12px;
 }
@@ -959,8 +976,8 @@ body.style-two>a {
 .gallery-over a {
     position: absolute;
     -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     left: 50%;
     font-size: 50px;
     top: 50%;
@@ -976,13 +993,13 @@ body.style-two>a {
 }
 
 .single-gallery-item:hover .gallery-over::before {
-            visibility: visible;
-            opacity: .8;
-            -webkit-transform: scale(1);
-            -ms-transform: scale(1);
-            transform: scale(1);
-            -moz-transform: scale(1);
-            -o-transform: scale(1);
+    visibility: visible;
+    opacity: .8;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
 }
 
 .single-gallery-item:hover .gallery-over a {
@@ -999,7 +1016,7 @@ body.style-two>a {
     border-radius: 5px;
     background-color: rgb(255, 255, 255);
     -webkit-box-shadow: 5.288px 11.876px 40px 0px rgba(0, 0, 0, 0.05);
-            box-shadow: 5.288px 11.876px 40px 0px rgba(0, 0, 0, 0.05);
+    box-shadow: 5.288px 11.876px 40px 0px rgba(0, 0, 0, 0.05);
     height: 68px;
     border: none;
     line-height: 68px;
@@ -1011,22 +1028,26 @@ body.style-two>a {
     margin-top: 30px;
 }
 
-.appointment-form form input::-webkit-input-placeholder, .appointment-form form textarea::-webkit-input-placeholder {
+.appointment-form form input::-webkit-input-placeholder,
+.appointment-form form textarea::-webkit-input-placeholder {
     color: #666;
     text-transform: capitalize;
 }
 
-.appointment-form form input::-moz-placeholder, .appointment-form form textarea::-moz-placeholder {
+.appointment-form form input::-moz-placeholder,
+.appointment-form form textarea::-moz-placeholder {
     color: #666;
     text-transform: capitalize;
 }
 
-.appointment-form form input:-ms-input-placeholder, .appointment-form form textarea:-ms-input-placeholder {
+.appointment-form form input:-ms-input-placeholder,
+.appointment-form form textarea:-ms-input-placeholder {
     color: #666;
     text-transform: capitalize;
 }
 
-.appointment-form form input::-ms-input-placeholder, .appointment-form form textarea::-ms-input-placeholder {
+.appointment-form form input::-ms-input-placeholder,
+.appointment-form form textarea::-ms-input-placeholder {
     color: #666;
     text-transform: capitalize;
 }
@@ -1065,14 +1086,16 @@ button.submit-btn:hover {
     right: 120px;
     top: 50%;
     -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
-@media (max-width: 1850px ) {
+
+@media (max-width: 1850px) {
     .appointment-right-banner {
         display: none;
     }
 }
+
 .promo-right-banner::before {
     position: absolute;
     left: -50px;
@@ -1112,7 +1135,7 @@ button.submit-btn:hover {
     border-radius: 10px;
     background-color: #fff;
     -webkit-box-shadow: 8.135px 18.271px 40px 0px rgba(0, 0, 0, 0.08);
-            box-shadow: 8.135px 18.271px 40px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: 8.135px 18.271px 40px 0px rgba(0, 0, 0, 0.08);
     padding: 50px 56px;
     margin-top: 30px;
     -webkit-transition: .4s;
@@ -1135,8 +1158,8 @@ button.submit-btn:hover {
     left: 54%;
     bottom: -5px;
     -webkit-transform: translateX(-50%);
-        -ms-transform: translateX(-50%);
-            transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
     z-index: 4;
 }
 
@@ -1181,6 +1204,7 @@ button.submit-btn:hover {
     -o-transition: .3s;
     transition: .3s;
 }
+
 .doctor-social-icons {
     border-top: 2px solid #dcdcdc7a;
     padding-top: 15px;
@@ -1189,8 +1213,8 @@ button.submit-btn:hover {
 
 .single-doctor:hover {
     -webkit-transform: translateY(-10px);
-        -ms-transform: translateY(-10px);
-            transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
 }
 
 .single-doctor:hover h3 a {
@@ -1204,7 +1228,7 @@ button.submit-btn:hover {
     border-radius: 10px;
     background-color: #fc51850d;
     -webkit-box-shadow: 5.288px 11.876px 40px 0px rgba(0, 0, 0, 0.05);
-            box-shadow: 5.288px 11.876px 40px 0px rgba(0, 0, 0, 0.05);
+    box-shadow: 5.288px 11.876px 40px 0px rgba(0, 0, 0, 0.05);
     text-align: center;
     padding: 60px 58px 50px;
 }
@@ -1237,8 +1261,8 @@ button.submit-btn:hover {
     left: 50%;
     bottom: 0;
     -webkit-transform: translateX(-50%);
-        -ms-transform: translateX(-50%);
-            transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
     z-index: 7;
 }
 
@@ -1253,7 +1277,7 @@ button.submit-btn:hover {
     bottom: -88px;
     border-radius: 5px;
     -webkit-box-shadow: 5.288px 11.876px 40px 0px rgba(0, 0, 0, 0.05);
-            box-shadow: 5.288px 11.876px 40px 0px rgba(0, 0, 0, 0.05);
+    box-shadow: 5.288px 11.876px 40px 0px rgba(0, 0, 0, 0.05);
     width: 51px;
     height: 52px;
     color: red;
@@ -1267,6 +1291,7 @@ button.submit-btn:hover {
 .clients-review-list i.fa-arrow-right {
     left: 83px;
 }
+
 .clients-review-list i:hover {
     color: #fff;
     cursor: pointer;
@@ -1280,15 +1305,17 @@ button.submit-btn:hover {
     border-radius: 10px;
     background-color: #fff;
     -webkit-box-shadow: 5.288px 11.876px 40px 0px rgba(0, 0, 0, 0.05);
-            box-shadow: 5.288px 11.876px 40px 0px rgba(0, 0, 0, 0.05);
+    box-shadow: 5.288px 11.876px 40px 0px rgba(0, 0, 0, 0.05);
     display: inline-block;
     margin-top: 40px;
     overflow: hidden;
 }
+
 .single-blog-card img {
     width: 100%;
     height: 100%;
 }
+
 .featured-thumb {
     background-color: #eee;
     width: 100%;
@@ -1296,7 +1323,6 @@ button.submit-btn:hover {
     border-radius: 10px 10px 0px 0px;
     background-size: cover;
     background-repeat: no-repeat;
-
 }
 
 .single-blog-card .card-content h3 {
@@ -1309,6 +1335,7 @@ button.submit-btn:hover {
 .single-blog-card .card-content:hover h3 {
     color: #FFF;
 }
+
 .single-blog-card .card-content {
     padding: 40px;
 }
@@ -1335,12 +1362,10 @@ button.submit-btn:hover {
 .single-blog-card:hover {
     background: var(--main-color);
     color: #fff;
-
 }
 
 .single-blog-card:hover h3 {
     color: #fff;
-
 }
 
 
@@ -1350,7 +1375,7 @@ button.submit-btn:hover {
     border-radius: 10px;
     background-color: rgb(255, 255, 255);
     -webkit-box-shadow: 8.135px 18.271px 40px 0px rgba(0, 0, 0, 0.08);
-            box-shadow: 8.135px 18.271px 40px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: 8.135px 18.271px 40px 0px rgba(0, 0, 0, 0.08);
     width: 100%;
     height: 362px;
     overflow: hidden;
@@ -1389,7 +1414,7 @@ button.submit-btn:hover {
     border-radius: 10px;
     background-color: rgb(255, 255, 255);
     -webkit-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.08);
-            box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.08);
     min-height: 405px;
     overflow: hidden;
 }
@@ -1406,6 +1431,7 @@ button.submit-btn:hover {
     line-height: 1;
     font-size: 30px;
 }
+
 .single-footer-widget a {
     font-weight: 400;
     display: block;
@@ -1413,7 +1439,8 @@ button.submit-btn:hover {
     color: #ddd !important;
 }
 
-.widegts-content p, .widegts-content li {
+.widegts-content p,
+.widegts-content li {
     color: #ddd !important;
 }
 
@@ -1458,14 +1485,14 @@ button.submit-btn:hover {
     right: 35%;
     bottom: 50px;
     -webkit-animation: movebounce 6s infinite linear;
-            animation: movebounce 6s infinite linear;
+    animation: movebounce 6s infinite linear;
 }
 
 .bannerimg.a3 {
     left: 28%;
     bottom: -20px;
     -webkit-animation: movebounce 4s infinite linear;
-            animation: movebounce 4s infinite linear;
+    animation: movebounce 4s infinite linear;
 }
 
 .bannerimg.a4 {
@@ -1557,13 +1584,13 @@ button.submit-btn:hover {
     min-height: 171px;
     background: #fff;
     -webkit-box-shadow: 0px 6px 26px rgba(0, 0, 0, 0.06);
-            box-shadow: 0px 6px 26px rgba(0, 0, 0, 0.06);
+    box-shadow: 0px 6px 26px rgba(0, 0, 0, 0.06);
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     text-align: center;
     padding: 0px 35px;
     -webkit-transition: .5s;
@@ -1573,8 +1600,8 @@ button.submit-btn:hover {
 
 .single-contact-info:hover {
     -webkit-transform: translateY(-10px);
-        -ms-transform: translateY(-10px);
-            transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
 }
 
 .single-contact-info .c-icon {
@@ -1650,7 +1677,7 @@ button.submit-btn:hover {
     height: 71px;
     background: #fff;
     -webkit-box-shadow: 0px 6px 26px rgba(0, 0, 0, 0.06);
-            box-shadow: 0px 6px 26px rgba(0, 0, 0, 0.06);
+    box-shadow: 0px 6px 26px rgba(0, 0, 0, 0.06);
     border: none;
     padding-left: 30px;
     text-transform: capitalize;
@@ -1677,7 +1704,6 @@ button.contact-submit-btn {
     margin-top: 30px;
     font-weight: 500;
 }
-
 
 
 /* blog deatils - page
@@ -2034,8 +2060,9 @@ form .radio-checked span {
 }
 
 .sidebar-wrapper {
-    padding-left: 40px  !important;
+    padding-left: 40px !important;
 }
+
 .single-sidebar-widgets .social-links a {
     display: inline-block;
     background: var(--main-color);
@@ -2048,6 +2075,7 @@ form .radio-checked span {
     margin-right: 5px;
     border-radius: 4px;
 }
+
 
 /* 
 ---------------------------------------
@@ -2127,8 +2155,8 @@ homepage two
     border-radius: 50%;
     top: 50%;
     -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 .about-two-video {
@@ -2160,8 +2188,8 @@ homepage two
     position: absolute;
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     left: 50%;
     z-index: 999;
 }
@@ -2227,8 +2255,8 @@ span.back-big-text {
 .second-section-title span.back-big-text {
     left: 50%;
     -webkit-transform: translateX(-50%);
-        -ms-transform: translateX(-50%);
-            transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
 }
 
 .dentist-service-boxs .single-dental-service {
@@ -2256,8 +2284,8 @@ span.back-big-text {
     background: var(--main-color-two);
     position: absolute;
     -webkit-transform: translateX(-50%);
-        -ms-transform: translateX(-50%);
-            transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
 }
 
 .footer-two-widgets-wrap {
@@ -2364,9 +2392,12 @@ span.back-big-text {
     display: block;
     transition: .2s;
 }
-.blog-two-content h3:hover, .blog-two-content a:hover {
+
+.blog-two-content h3:hover,
+.blog-two-content a:hover {
     color: var(--main-color);
 }
+
 .blog-two-content a {
     font-size: 16px;
     line-height: 25px;
@@ -2450,12 +2481,12 @@ span.back-big-text {
     background-repeat: no-repeat;
     background-position: right;
 }
+
 @media (max-width: 1191px) {
     .banner-promo-block {
         -webkit-background-size: cover;
         background-size: cover;
     }
-
     .banner-promo-block::before {
         position: absolute;
         left: 0;
@@ -2509,8 +2540,8 @@ span.back-big-text {
     visibility: hidden;
     opacity: 0;
     -webkit-transform: scale(0);
-        -ms-transform: scale(0);
-            transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
 }
 
 .showcase-over a {
@@ -2540,13 +2571,13 @@ span.back-big-text {
 }
 
 .single-showcase-item:hover .showcase-over {
-            opacity: 1;
-            visibility: visible;
-            -webkit-transform: scale(1);
-            -ms-transform: scale(1);
-            transform: scale(1);
-            -moz-transform: scale(1);
-            -o-transform: scale(1);
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
 }
 
 .single-dental-service h3 {
@@ -2577,7 +2608,7 @@ span.back-big-text {
     transition: .4s;
     border: 1px solid #125ab3;
     -webkit-box-sizing: border-box;
-            box-sizing: border-box;
+    box-sizing: border-box;
     border-radius: 4px;
     margin-top: 30px;
 }
@@ -2586,7 +2617,7 @@ span.back-big-text {
     background: #1259B0;
     border-color: #1259B0;
     -webkit-box-shadow: var(--box-shadow);
-            box-shadow: var(--box-shadow)
+    box-shadow: var(--box-shadow)
 }
 
 @media (max-width: 991px) {
@@ -2669,8 +2700,8 @@ div.promo-text p:last-child {
     top: 50%;
     line-height: 57px;
     -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     border-radius: 50%;
     font-weight: 700;
     color: #fff;
@@ -2690,7 +2721,7 @@ div.promo-text p:last-child {
 
 .video-play-button:hover {
     -webkit-box-shadow: var(--box-shadow-two);
-            box-shadow: var(--box-shadow-two);
+    box-shadow: var(--box-shadow-two);
     color: #fff;
 }
 
@@ -2730,8 +2761,8 @@ div.promo-text p:last-child {
 
 .footer-bottom-copyright .row {
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
 
 
@@ -2821,11 +2852,14 @@ div.promo-text p:last-child {
     border-color: var(--main-color);
 }
 
+
 /* home 2 slider */
+
 .slide-item .hero-slide-content h3 {
     font-size: 30px;
     font-weight: 300;
 }
+
 .slide-item .hero-slide-content h1 {
     font-size: 67px;
     line-height: 80px;
@@ -2860,11 +2894,13 @@ div.promo-text p:last-child {
     color: #000;
     border-color: #999;
 }
+
 .hero-slide-content .theme-btn.btn_black:hover {
     color: #fff;
     border-color: var(--main-color);
     background: var(--main-color);
 }
+
 .slide-item::before {
     position: absolute;
     left: 0;
@@ -2885,15 +2921,15 @@ div.promo-text p:last-child {
 
 .subscribe-news-block .row {
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
 
 .single-patients-img {
     text-align: center;
     background: #FF8A8B;
     -webkit-box-shadow: 10px 15px 40px rgba(0, 0, 0, 0.06);
-            box-shadow: 10px 15px 40px rgba(0, 0, 0, 0.06);
+    box-shadow: 10px 15px 40px rgba(0, 0, 0, 0.06);
     padding: 35px 21px;
     padding-bottom: 0;
     position: relative;
@@ -2913,7 +2949,7 @@ div.promo-text p:last-child {
     min-height: 360px;
     background: #fff;
     -webkit-box-shadow: 10px 15px 40px rgba(0, 0, 0, 0.06);
-            box-shadow: 10px 15px 40px rgba(0, 0, 0, 0.06);
+    box-shadow: 10px 15px 40px rgba(0, 0, 0, 0.06);
     padding: 55px;
     position: relative;
 }
@@ -2971,6 +3007,7 @@ div.promo-text p:last-child {
 .dentist-social-link {
     margin-top: 5px;
 }
+
 .dentist-award-membership li {
     position: relative;
     display: inline-block;
@@ -2994,39 +3031,49 @@ div.promo-text p:last-child {
     margin-bottom: 7px;
 }
 
-.single-dentist-details p {text-align: justify;}
+.single-dentist-details p {
+    text-align: justify;
+}
+
 .single-dentist-details h2 span {
     font-size: 20px;
     color: #666666;
 }
+
 .profile-img {
     border-radius: 10px;
     background-color: #fff;
     -webkit-box-shadow: 8.135px 18.271px 40px 0px rgba(0, 0, 0, 0.08);
-            box-shadow: 8.135px 18.271px 40px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: 8.135px 18.271px 40px 0px rgba(0, 0, 0, 0.08);
     height: 362px;
     overflow: hidden;
 }
+
 span.line {
     position: absolute;
     left: 50%;
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     width: 1px;
     height: 70%;
     background: #e6e6e6;
     content: "";
 }
-.single-funfact-one.sp-fun {padding-left: 60px;}
+
+.single-funfact-one.sp-fun {
+    padding-left: 60px;
+}
 
 .hero-shape {
     overflow: hidden;
 }
+
 .hero-slider-wrapper {
     overflow-x: hidden;
 }
+
 .our-specialist-list {
     position: relative;
 }
@@ -3040,8 +3087,8 @@ span.line {
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
     left: -20%;
     color: var(--second-color-two);
     -webkit-transition: all .4s;
@@ -3053,11 +3100,11 @@ span.line {
     left: auto;
     right: -20%;
 }
+
 .our-specialist-list .slick-arrow:hover {
     background: var(--second-color-two);
     color: #fff;
 }
-
 
 @media (max-width: 1191px) {
     span.back-big-text {
@@ -3078,51 +3125,58 @@ span.line {
     .specialist-img img {
         width: 100%;
     }
-} 
-
+}
 
 .mobile-menu {
     z-index: 999;
     position: relative;
     background-color: #ffffff;
 }
+
 .mobile-menu ul li a {
     display: block;
     text-transform: capitalize;
     color: var(--main-color);
 }
+
 .navbar {
     position: relative;
     float: right;
     text-align: right;
     display: block;
 }
+
 .navbar-light .navbar-toggler {
-  color: #fff;
-  border-color: #fff;
-  border-radius: 0px !important;
-  -webkit-border-radius: 0px !important;
-  -moz-border-radius: 0px !important;
-  -ms-border-radius: 0px !important;
-  -o-border-radius: 0px !important;
+    color: #fff;
+    border-color: #fff;
+    border-radius: 0px !important;
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    -ms-border-radius: 0px !important;
+    -o-border-radius: 0px !important;
 }
+
 .navbar-light .navbar-toggler span {
-  padding: 2.5px;
+    padding: 2.5px;
 }
+
 .sticky .mobile-menu {
-  position: absolute;
-  width: 80%;
-  top: 100%;
-  z-index: 111;
-  box-shadow: 4px 5px 15px #eee;
-  margin: 0px auto;
+    position: absolute;
+    width: 80%;
+    top: 100%;
+    z-index: 111;
+    box-shadow: 4px 5px 15px #eee;
+    margin: 0px auto;
 }
+
 .react-fancybox .box {
     z-index: 9999999999999;
 }
+
 .breadcrumb-nav a {
     color: #fff;
 }
+
 .dentist-award-membership {
     margin-top: 40px;
 }

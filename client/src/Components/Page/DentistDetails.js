@@ -1,74 +1,200 @@
-import React, { Component } from 'react'
-import Appointment from '../Appointment';
+import React, { Component } from 'react';
 import Banner from '../Banner';
 
 
-class DentistDetails extends Component {
-    render() {
-        var bg = require ('../../assets/img/dentist-profile-img.jpg');
-        var achievementImg = require('../../assets/img/achievement.jpg');
+export default class DentistDetails extends Component {
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+          filterText: '',
+          availableOnly: false,
+          doctors: [],
+          facilities: [],
+          doctorDetails: []
+        };
+        
+        this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+        this.handleInStockChange = this.handleInStockChange.bind(this);
+        this.fetchDoctorDetail = this.fetchDoctorDetail.bind(this);
+    }
 
+    componentDidMount() {
+        fetch('http://localhost:3000/users/doctors')
+        .then(res => res.json())
+        .then((data) => {
+          this.setState({ doctors: data })
+          this.fetchDoctorDetail(data);
+        })
+        .catch(console.log)
+
+        fetch('http://localhost:3000/facilities/')
+        .then(res => res.json())
+        .then((data) => {
+          this.setState({ facilities: data })
+        })
+        .catch(console.log)
+    }
+
+
+    async fetchDoctorDetail(doctor) {
+        let newDoctorDetails=[]
+        for(let i = 0 ;i< doctor.length;i++){
+            const response = await fetch('http://localhost:3000/doctor_details/'+ doctor[i]._id.toString())
+            const data = await response.json()
+            newDoctorDetails.push(data)
+            // console.log({newDoctorDetails})
+            this.setState({ doctorDetails: newDoctorDetails })
+        }
+    }
+
+
+    handleFilterTextChange(filterText) {
+        this.setState({
+          filterText: filterText
+        });
+    }
+      
+    handleInStockChange(availableOnly) {
+        this.setState({
+          availableOnly: availableOnly
+        })
+    }
+    
+    render() {
         return (
             <React.Fragment>
-                <Banner pageTitle='Dr. Nathan Currie' />
-
-                <section className="dentist-details-wrap section-padding">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-7 col-lg-8 col-12">
-                                <div className="single-dentist-details">
-                                    <h2>Dr. Nathan Currie <span>(DMD, MS, DICOI)</span></h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                                    <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy.</p>
-                                    <div className="dentist-award-membership">
-                                        <h3>Dental Associations</h3>
-                                        <li>American Dental Association</li>
-                                        <li>Academy of General Dentistry</li>
-                                        <li>Carolina Dental Society</li>
-                                        <li>Academy of General Dentistry</li>
-                                        <li>American Association of Women Dentists</li>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-5 col-lg-4 col-12">
-                                <div className="dentist-profile-details">
-                                    <div className="profile-img bg-cover mb-35" style={{ backgroundImage: "url(" + bg + ")" }}  >
-                                    </div>
-                                    <p>Name: <strong>Nathan Currie</strong></p>
-                                    <p>Specialization: <strong>Orthodontics</strong></p>
-                                    <p>Phone: <strong>1-866-764-5387</strong></p>
-                                    <div className="dentist-social-link">
-                                        <a href=".#"><i className="fab fa-facebook-f" /></a>
-                                        <a href=".#"><i className="fab fa-twitter" /></a>
-                                        <a href=".#"><i className="fab fa-linkedin-in" /></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section className="achievements-content-section section-padding pt-0 pb-0">
-                    <div className="container">
-                        <div className="row align-items-center">
-                            <div className="col-md-6 col-lg-6 col-12">
-                                <div className="achievement-img-banner bg-cover bg-center" style={{ backgroundImage: "url(" + achievementImg + ")" }}></div>
-                            </div>
-                            <div className="col-md-6 col-lg-6 col-12">
-                                <div className="promo-text">
-                                    <h2>Achievements</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt labore et dolore magna aliqua. Quis ipsum dolor sit suspendisse ultrices gravida</p>
-                                    <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and fail in their duty through weakness These cases are perfectly simple and easy.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <Appointment />                
+                <Banner pageTitle='Doctors & Orthodontists' />
+                <div class="container">
+                    <SearchBar
+                        filterText={this.state.filterText}
+                        availableOnly={this.state.availableOnly}
+                        onFilterTextChange={this.handleFilterTextChange}
+                        onInStockChange={this.handleInStockChange}
+                        failitiesFilterOption={this.state.facilities}
+                    />
+                    <DoctorTable
+                        doctors={this.state.doctors}
+                        filterText={this.state.filterText}
+                        availableOnly={this.state.availableOnly}
+                        facilities={this.state.facilities}
+                        doctorDetails={this.state.doctorDetails}
+                    />
+                </div>
             </React.Fragment>
         )
     }
 }
 
-export default DentistDetails
+class SearchBar extends React.Component {
+    constructor(props) {
+        super(props);        
+        
+        this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+        this.handleInStockChange = this.handleInStockChange.bind(this);
+    }
+    
+    handleFilterTextChange(e) {
+        this.props.onFilterTextChange(e.target.value);
+    }
+    
+    handleInStockChange(e) {
+        this.props.onInStockChange(e.target.checked);
+    }
+    
+    render() {
+      return (
+        <form>
+            <input
+                type="text"
+                placeholder="Search..."
+                value={this.props.filterText}
+                onChange={this.handleFilterTextChange}
+            />
+            <p>
+            <input
+                type="checkbox"
+                checked={this.props.availableOnly}
+                onChange={this.handleInStockChange}
+            />
+            {' '} 
+            Only show available doctors
+            </p>
+        </form>
+      );
+    }
+  }
+
+  class DoctorTable extends React.Component {
+    render() {
+        // const filterText = this.props.filterText;
+        // const availableOnly = this.props.availableOnly;
+  
+        const rows = [];
+      
+        this.props.doctors.forEach((doctor) => {
+            // if (doctor.firstName.indexOf(filterText) === -1 && doctor.lastName.indexOf(filterText) === -1) {
+            //     return;
+            // }
+            // if (availableOnly && !doctor.available) {
+            //     return;
+            // }
+        
+            var index = this.props.doctorDetails.findIndex(detail => detail.userID.toString() === doctor._id.toString());
+            if (index !== -1 ){
+                doctor.detail = this.props.doctorDetails[index];
+                    rows.push(
+                    <DoctorRow
+                        // doctor={this.state.doctorDetails.find( ({ _id }) => _id.toString() === doctor._id.toString() )}
+                        doctor={doctor}
+                        // key={video.name}
+                    />
+                );
+            }
+
+        });
+  
+        return (
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Title</th>
+                    <th>Service</th>
+                    <th>Facility</th>
+                    <th>Availablility</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {rows}
+                </tbody>
+            </table>
+            
+        );
+    }
+  }
+
+class DoctorRow extends React.Component {
+
+
+    render() {
+        const doctor = this.props.doctor;
+        console.log(doctor.detail)
+        // const name = video.available ?
+        //   video.title :
+        //   <span style={{color: 'red'}}>
+        //     {video.title}
+        //   </span>;
+
+        return (
+            <tr>
+                <td>{ doctor.firstName } { doctor.lastName }</td>
+                <td>{doctor.title}</td>
+                <td>{doctor.services}</td>
+                <td>{doctor.detail.facilities.facilityIName}</td>
+                <td>Availablility</td>
+            </tr>
+
+        );
+    }
+}

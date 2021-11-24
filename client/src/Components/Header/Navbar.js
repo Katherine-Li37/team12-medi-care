@@ -18,11 +18,11 @@ class Navbar extends Component {
                                 <nav id="responsive-menu" className="menu-style-one">
                                     <ul className="menu-items">
                                         <li><Link to='/'>home</Link></li>
-                                        <li><Link to='/Page/About'>about</Link></li>
-                                        <li><Link to='/Page/ServiceDetails'>Services</Link></li>
-                                        <li><Link to='/Page/DentistDetails'>Dentist</Link></li>
-                                        <li><Link to='/Page/Blog'>Blog</Link></li>
-                                        <li><Link to='/Page/Contact'>Contact</Link></li>
+                                        <li><Link to='/About'>about</Link></li>
+                                        <li><Link to='/ServiceDetails'>Services</Link></li>
+                                        <li><Link to='/Doctors'>Doctors</Link></li>
+                                        <li><Link to='/Blog'>Blog</Link></li>
+                                        <li><Link to='/Contact'>Contact</Link></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -39,19 +39,19 @@ class Navbar extends Component {
                                         <Link className="nav-link" to='/'>Home</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link" to='/Page/About'>about</Link>
+                                        <Link className="nav-link" to='/About'>about</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link" to='/Page/ServiceDetails'>Services</Link>
+                                        <Link className="nav-link" to='/ServiceDetails'>Services</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link" to='/Page/DentistDetails'>Dentist</Link>
+                                        <Link className="nav-link" to='/Doctors'>Doctors</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link" to='/Page/Blog'>Blog</Link>
+                                        <Link className="nav-link" to='/Blog'>Blog</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link" to='/Page/Contact'>Contact</Link>
+                                        <Link className="nav-link" to='/Contact'>Contact</Link>
                                     </li>
                                 </ul>
                             </div>

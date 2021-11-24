@@ -25,7 +25,7 @@ class AboutOne extends Component {
                                     <h1>Welcome to a Family</h1>
                                 </div>
                                 <p>Welcome to Datobbo Dental represents everything going to dentist necessary. We have upgraded your dreaded dentist appointment and transformed it into a relaxing.</p>
-                                <a href="/Page/About" className="btn-link">About Us</a>
+                                <a href="/About" className="btn-link">About Us</a>
                                 <div className="fun-fact-section ">
                                     <div className="single-funfact-one">
                                         < span > < CountUp

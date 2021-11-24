@@ -3,11 +3,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
+var app = express();
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
-var app = express();
+var patientDetailsRouter = require('./routes/patient_details');
+var doctorDetailsRouter = require('./routes/doctor_details');
+var facilitiesRouter = require('./routes/facilities');
 
 // // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -18,9 +22,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors({
+    'allowedHeaders': ['Content-Type'],
+    'origin': '*',
+    'preflightContinue': true
+  }));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/patient_details', patientDetailsRouter);
+app.use('/doctor_details', doctorDetailsRouter);
+app.use('/facilities', facilitiesRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

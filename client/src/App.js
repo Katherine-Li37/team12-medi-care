@@ -25,13 +25,13 @@ function App() {
           </React.Fragment>
         )} />
         
-        <Route path='/Page/About' component={About} />
-        <Route path='/Page/ServiceDetails' component={ServiceDetails} />
-        <Route path='/Page/DentistDetails' component={DentistDetails} />
-        <Route path='/Page/BlogDetails' component={BlogDetails} />
-        <Route path='/Page/Blog' component={Blog} />
-        <Route path='/Page/Team' component={Team} />
-        <Route path='/Page/Contact' component={Contact} />
+        <Route path='/About' component={About} />
+        <Route path='/ServiceDetails' component={ServiceDetails} />
+        <Route path='/Doctors' component={DentistDetails} />
+        <Route path='/BlogDetails' component={BlogDetails} />
+        <Route path='/Blog' component={Blog} />
+        <Route path='/Team' component={Team} />
+        <Route path='/Contact' component={Contact} />
 
 		    <FooterOne FooterData={FooterData} />
       </Router>
