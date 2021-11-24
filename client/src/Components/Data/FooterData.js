@@ -23,11 +23,6 @@ const FooterData = {
                     id: 4,
                     url: ".#",
                     title: "Contact Us"
-                },
-                {
-                    id: 5,
-                    url: ".#",
-                    title: "Blog"
                 }
             ]
         },
@@ -39,11 +34,6 @@ const FooterData = {
                     id: 1,
                     url: ".#",
                     title: "New Patients"
-                },
-                {
-                    id: 2,
-                    url: ".#",
-                    title: "Meet the Team"
                 },
                 {
                     id: 3,

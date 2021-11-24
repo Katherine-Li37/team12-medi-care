@@ -21,7 +21,6 @@ class Navbar extends Component {
                                         <li><Link to='/About'>about</Link></li>
                                         <li><Link to='/ServiceDetails'>Services</Link></li>
                                         <li><Link to='/Doctors'>Doctors</Link></li>
-                                        <li><Link to='/Blog'>Blog</Link></li>
                                         <li><Link to='/Contact'>Contact</Link></li>
                                     </ul>
                                 </nav>
@@ -46,9 +45,6 @@ class Navbar extends Component {
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link" to='/Doctors'>Doctors</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link className="nav-link" to='/Blog'>Blog</Link>
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link" to='/Contact'>Contact</Link>

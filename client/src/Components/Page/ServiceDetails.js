@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Appointment from '../Appointment';
 import Banner from '../Banner';
  
 class ServiceDetails extends Component {
@@ -100,7 +99,6 @@ class ServiceDetails extends Component {
                     </div>
                 </section>
 
-                <Appointment />
             </React.Fragment>
         )
     }
