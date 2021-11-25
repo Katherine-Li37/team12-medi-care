@@ -7,6 +7,28 @@ var cors = require('cors');
 var app = express();
 
 
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var session = require('express-session');
+
+app.use(session({ secret: 'this-is-a-secret-token' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// passport config
+var Account = require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+// mongoose
+mongoose.connect('mongodb://localhost:27017/dentist');
+
+
+
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var patientDetailsRouter = require('./routes/patient_details');
@@ -26,7 +48,7 @@ app.use(cors({
     'allowedHeaders': ['Content-Type'],
     'origin': '*',
     'preflightContinue': true
-  }));
+}));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
