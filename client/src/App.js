@@ -9,6 +9,7 @@ import DoctorsList from './Components/Page/DoctorsList';
 import ProfileDetails from './Components/Page/ProfileDetails';
 import Contact from './Components/Page/Contact';
 import FooterData from './Components/Data/FooterData';
+import LogIn from './Components/Page/LogIn';
 import './App.css';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path='/Doctors' component={DoctorsList} />
         <Route path='/Profile/:id' component={ProfileDetails} />
         <Route path='/Contact' component={Contact} />
+        <Route path='/LogIn' component={LogIn} />
 
 		    <FooterOne FooterData={FooterData} />
       </Router>
