@@ -32,7 +32,7 @@ export default class DoctorTable extends Component {
         });
   
         return (
-            <table class="table">
+            <table className="table">
                 <thead>
                 <tr>
                     <th>Name</th>

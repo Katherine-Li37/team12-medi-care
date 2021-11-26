@@ -64,8 +64,13 @@ router.post("/login", (req, res, next) => {
                         const token = jwt.sign({
                             userId: user._id,
                             username: user.username
-                        }, 'this-is-a-secret-token', { expiresIn: '24h' })
-                        res.json({ success: true, message: "Authentication successful", token: token });
+                        }, 'secret-token', { expiresIn: '24h' });
+                        // console.log(user);
+                        res.json({ 
+                            success: true, 
+                            message: "Authentication successful", 
+                            token: token, 
+                            username: user.username + ',' +  user._id});
                     }
                 })
             }

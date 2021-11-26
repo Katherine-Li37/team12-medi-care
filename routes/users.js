@@ -12,6 +12,10 @@ router.get('/', function(req, res) {
         res.json(users);
     })
 });
+// // users/user
+// router.get("/user", (req, res) => {
+//     res.send(req.user); 
+// });
 
 // users/doctors
 router.get('/doctors', function(req, res) {
@@ -20,7 +24,7 @@ router.get('/doctors', function(req, res) {
     })
 });
 
-// user/id
+// users/id
 router.get('/:id', function(req, res) {
     collection.findOne({ _id: req.params.id }, function(err, user) {
         if (err) throw err

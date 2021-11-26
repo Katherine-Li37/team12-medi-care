@@ -13,56 +13,42 @@ import LogIn from './Components/Page/LogIn';
 import AdminPanel from './Components/Page/AdminPanel'; // change later
 import './App.css';
 
+// function setToken(userToken) {
+//     sessionStorage.setItem('token', JSON.stringify(userToken));
+// }
 
+// function getToken() {
+//     const tokenString = sessionStorage.getItem('username');
+//     console.log(tokenString)
+// }
 function App() {
-    return ( <
-        div className = "main-wrapper" >
-        <
-        Router >
-        <
-        Header / >
+    // const token = getToken();
 
-        <
-        Route exact path = '/'
-        render = {
-            props => ( <
-                React.Fragment >
-                <
-                HomeOne / >
-                <
-                /React.Fragment>
-            )
-        }
-        />
+    // if(!token) {
+    //   return <LogIn setToken={setToken} />
+    // }
 
-        <
-        Route path = '/About'
-        component = { About }
-        /> <
-        Route path = '/ServiceDetails'
-        component = { ServiceDetails }
-        /> <
-        Route path = '/Doctors'
-        component = { DoctorsList }
-        /> <
-        Route path = '/Profile/:id'
-        component = { ProfileDetails }
-        /> <
-        Route path = '/Contact'
-        component = { Contact }
-        /> <
-        Route path = '/LogIn'
-        component = { LogIn }
-        /> <
-        Route path = '/Admin'
-        component = { AdminPanel }
-        />
+    return ( 
+        <div className = "main-wrapper" >
+        <Router >
+            <Header />
 
-        <
-        FooterOne FooterData = { FooterData }
-        /> <
-        /Router> <
-        /div>
+            <Route exact path = '/'render = {props => ( 
+                <React.Fragment >
+                    <HomeOne />
+                </React.Fragment>
+            )} />
+
+            <Route path = '/About'component = { About } /> 
+            <Route path = '/ServiceDetails'component = { ServiceDetails }/> 
+            <Route path = '/Doctors' component = { DoctorsList }/> 
+            <Route path = '/Profile/:id' component = { ProfileDetails }/> 
+            <Route path = '/Contact' component = { Contact }/> 
+            <Route path = '/LogIn' component = { LogIn }/> 
+            <Route path = '/Admin' component = { AdminPanel }/>
+            <FooterOne FooterData = { FooterData }/>
+        </Router> 
+        </div>
     );
 }
 

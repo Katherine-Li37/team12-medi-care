@@ -2,8 +2,38 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
 
 
-class Navbar extends Component {
+export default class Navbar extends Component {
+    constructor(props) {
+        super(props);
+        this.state ={
+            userID: null,
+            username: null,
+            userLoggedIn: null
+        }       
+    }
+    async componentDidMount(){
+        const user = sessionStorage.getItem('username').split(',');
+        const userID = user[1];
+        const response = await fetch('http://localhost:3000/users/'+ userID)
+        const data = await response.json();
+        this.setState({
+            userID: userID,
+            username: user[0],
+            userLoggedIn: data
+        });
+    }
+
+    // getUser() {
+    //     const user = sessionStorage.getItem('username').split(',');
+
+    //     this.setState({
+    //         userID: user[1],
+    //         username: user[0]
+    //     });
+    // }
+
     render() {
+        
         return (
             <header className="header-one">
                 <div className="main-menu">
@@ -22,8 +52,14 @@ class Navbar extends Component {
                                         <li><Link to='/ServiceDetails'>Services</Link></li>
                                         <li><Link to='/Doctors'>Doctors</Link></li>
                                         <li><Link to='/Contact'>Contact</Link></li>
-                                        <li><Link to='/LogIn'>Sign up/ Log in</Link></li>
-                                        <li><Link to='/Admin'>Admin</Link></li>
+                                        {!this.state.username && <li><Link to='/LogIn'>Sign up/ Log in</Link></li>}
+                                        {this.state.username && 
+                                            <Link to={{
+                                                pathname: `/Profile/${this.state.userID}`,
+                                                state: { user: this.state.userLoggedIn }
+                                            }}>{this.state.username}
+                                            </Link>}
+                                        {/* <li><Link to='/Admin'>Admin</Link></li> */}
                                     </ul>
                                 </nav>
                             </div>
@@ -63,5 +99,3 @@ class Navbar extends Component {
         )
     }
 }
-
-export default Navbar
