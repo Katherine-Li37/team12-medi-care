@@ -75,6 +75,7 @@ export default class LogIn extends Component {
         return (
             <React.Fragment>
                 <Banner pageTitle='Sign Up / Log In' />
+                <div className="contact-form-wraper">
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-12 col-lg-8">
@@ -82,17 +83,21 @@ export default class LogIn extends Component {
                                 <h1>Register</h1>
                                 <div className="col-lg-6 col-md-6 col-12">
                                     <input placeholder="username" onChange={this.setRegisterUsername}/>
+                                </div>    
+                                <div className="col-lg-6 col-md-6 col-12">
                                     <input placeholder="password" onChange={this.setRegisterPassword}/>
                                 </div>
-                                <button onClick={this.register}>Submit</button>
+                                <button className="contact-submit-btn" onClick={this.register}>Submit</button>
                             </div>
                             <div className="section-title-one">
                                 <h1>Login</h1>
                                 <div className="col-lg-6 col-md-6 col-12">
                                     <input placeholder="username" onChange={this.setLoginUsername}/>
+                                </div>
+                                <div className="col-lg-6 col-md-6 col-12">
                                     <input placeholder="password" onChange={this.setLoginPassword}/>
                                 </div>
-                                <button onClick={this.login}>Submit</button>
+                                <button className="contact-submit-btn" onClick={this.login}>Submit</button>
                             </div>
                             <div className="section-title-one">
                                 <h1>Get User</h1>
@@ -101,6 +106,7 @@ export default class LogIn extends Component {
                             </div>
                         </div>
                     </div>    
+                </div>
                 </div>
             </React.Fragment>
         )

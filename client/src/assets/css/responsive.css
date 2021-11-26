@@ -544,8 +544,8 @@
         height: 50px;
         font-size: 15px;
     }
-    .contact-form-wraper form input,
-    .contact-form-wraper form textarea {
+    .contact-form-wraper input,
+    .contact-form-wraper textarea {
         font-size: 14px;
     }
     form .radio-checked span {

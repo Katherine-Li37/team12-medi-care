@@ -6,9 +6,16 @@ var db = monk('localhost:27017/dentist');
 
 var collection = db.get('users');
 
+// users/
+router.get('/', function(req, res) {
+    collection.find({}, function(err, users) {
+        res.json(users);
+    })
+});
+
 // users/doctors
 router.get('/doctors', function(req, res) {
-    collection.find({"type": "Doctor"}, function(err, doctors) {
+    collection.find({ "type": "Doctor" }, function(err, doctors) {
         res.json(doctors);
     })
 });
