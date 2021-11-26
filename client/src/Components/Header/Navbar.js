@@ -10,17 +10,21 @@ export default class Navbar extends Component {
             username: null,
             userLoggedIn: null
         }       
+        this.signOut = this.signOut.bind(this);
     }
     async componentDidMount(){
-        const user = sessionStorage.getItem('username').split(',');
-        const userID = user[1];
-        const response = await fetch('http://localhost:3000/users/'+ userID)
-        const data = await response.json();
-        this.setState({
-            userID: userID,
-            username: user[0],
-            userLoggedIn: data
-        });
+        const user = localStorage.getItem('username');
+        console.log(user)
+        if(user && user!=="null"){
+            const userID = user.split(',')[1];
+            const response = await fetch('http://localhost:3000/users/'+ userID)
+            const data = await response.json();
+            this.setState({
+                userID: userID,
+                username: user.split(',')[0],
+                userLoggedIn: data
+            });
+        }
     }
 
     // getUser() {
@@ -31,6 +35,16 @@ export default class Navbar extends Component {
     //         username: user[0]
     //     });
     // }
+    signOut(){
+        console.log("sign out")
+        localStorage.clear();
+        this.setState({
+            userID: null,
+            username: null,
+            userLoggedIn: null
+        });      
+        
+    };
 
     render() {
         
@@ -51,15 +65,17 @@ export default class Navbar extends Component {
                                         <li><Link to='/About'>about</Link></li>
                                         <li><Link to='/ServiceDetails'>Services</Link></li>
                                         <li><Link to='/Doctors'>Doctors</Link></li>
-                                        <li><Link to='/Contact'>Contact</Link></li>
                                         {!this.state.username && <li><Link to='/LogIn'>Sign up/ Log in</Link></li>}
                                         {this.state.username && 
-                                            <Link to={{
+                                            <li><Link to={{
                                                 pathname: `/Profile/${this.state.userID}`,
                                                 state: { user: this.state.userLoggedIn }
                                             }}>{this.state.username}
-                                            </Link>}
-                                        {/* <li><Link to='/Admin'>Admin</Link></li> */}
+                                            </Link></li>
+                                        }
+                                        {this.state.username && 
+                                            <li onClick={this.signOut}><Link to='/'>Sign out</Link></li>
+                                        }
                                     </ul>
                                 </nav>
                             </div>
@@ -84,12 +100,21 @@ export default class Navbar extends Component {
                                     <li className="nav-item">
                                         <Link className="nav-link" to='/Doctors'>Doctors</Link>
                                     </li>
-                                    <li className="nav-item">
-                                        <Link className="nav-link" to='/Contact'>Contact</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link className="nav-link" to='/Admin'>Admin</Link>
-                                    </li>
+                                    {!this.state.username &&
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to='/LogIn'>Sign up/ Log in</Link>
+                                        </li>
+                                    }
+                                    {this.state.username && 
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to={{
+                                                pathname: `/Profile/${this.state.userID}`,
+                                                state: { user: this.state.userLoggedIn }
+                                            }}>
+                                                {this.state.username}
+                                            </Link>
+                                        </li>
+                                    }
                                 </ul>
                             </div>
                         </div>

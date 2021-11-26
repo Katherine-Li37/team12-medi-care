@@ -32,6 +32,14 @@ router.get('/:id', function(req, res) {
     })
 });
 
+// delete a user
+router.delete('/:id', function(req, res) {
+    collection.remove({ _id: req.params.id }, function(err, user) {
+        if (err) throw err
+        res.json(user);
+    })
+});
+
 // // add new video
 // router.post('/', function(req, res) {
 //     collection.insert({
@@ -58,11 +66,4 @@ router.get('/:id', function(req, res) {
 //     })
 // });
 
-// // delete an existing video
-// router.delete('/:id', function(req, res) {
-//     collection.remove({ _id: req.params.id }, function(err, video) {
-//         if (err) throw err
-//         res.json(video);
-//     })
-// });
 module.exports = router;

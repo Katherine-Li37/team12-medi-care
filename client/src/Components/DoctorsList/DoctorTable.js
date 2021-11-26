@@ -80,7 +80,7 @@ export default class DoctorTable extends Component {
                 </td>
                 <td>{ doctor.detail.facilities.facilityIName }</td>
                 {!this.props.admin && <td>Availablility</td>}
-                {this.props.admin && <td>Delete</td>}
+                {this.props.admin && <td><i className="fa fa-trash fa-2x" ></i></td>}
             </tr>
 
         );

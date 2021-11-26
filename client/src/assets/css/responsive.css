@@ -223,7 +223,8 @@
         min-height: 70px;
         background: #fff;
     }
-    .main-menu .container {
+    .main-menu .container,
+    .new-container {
         background: transparent;
         border-radius: 0;
         transition: all .5s ease-in-out;
@@ -544,8 +545,8 @@
         height: 50px;
         font-size: 15px;
     }
-    .contact-form-wraper input,
-    .contact-form-wraper textarea {
+    .user-form-wrapper input,
+    .user-form-wrapper textarea {
         font-size: 14px;
     }
     form .radio-checked span {
@@ -576,7 +577,7 @@
         font-size: 20px;
         line-height: 30px;
     }
-    .contact-form-wraper h1 {
+    .user-form-wrapper h1 {
         font-size: 36px;
         line-height: 1;
         margin-bottom: 30px;
@@ -687,7 +688,7 @@
     .section-text-wrap a {
         margin-top: 25px;
     }
-    .contact-form-wraper h1 {
+    .user-form-wrapper h1 {
         font-size: 36px;
         line-height: 1;
         margin-bottom: 30px;
@@ -719,7 +720,7 @@
         bottom: 35px;
     }
     h1,
-    .contact-form-wraper h1 {
+    .user-form-wrapper h1 {
         line-height: 40px;
         font-size: 30px;
     }

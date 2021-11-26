@@ -14,7 +14,7 @@ export default class ProfileDetails extends Component {
 
     render() {
         let user = this.state.user;
-        console.log(user);
+        // console.log(user);
         if (user.detail){
             Object.entries(user.detail.facilities.availability).map((day) => (
                 console.log(day)
@@ -27,7 +27,7 @@ export default class ProfileDetails extends Component {
             return (
                 <React.Fragment>
                     <Banner pageTitle='Profile / Details' />
-                    <div className="container">
+                    <div className="container new-container">
                         <div className="card">
                             <div className="card-body">
                                 <h5 className="card-title">Information</h5>

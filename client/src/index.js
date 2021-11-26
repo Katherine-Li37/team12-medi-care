@@ -12,7 +12,7 @@ import "./assets/css/animate.css";
 import "./assets/css/style-two.css";
 import "./assets/css/responsive.css";
 import "./assets/css/slick-theme.css";
-import "./assets/css/fontawesome.min.css";
+import 'font-awesome/css/font-awesome.min.css';
 import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 

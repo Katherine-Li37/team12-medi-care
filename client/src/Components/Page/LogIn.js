@@ -24,7 +24,8 @@ export default class LogIn extends Component {
           withCredentials: true,
           url: "http://localhost:3000/register",
         }).then((res) => console.log(res));
-      };
+    };
+
     login = () => {
         Axios({
           method: "POST",
@@ -36,22 +37,11 @@ export default class LogIn extends Component {
           url: "http://localhost:3000/login",
         }).then((res) => {
             console.log(res)
-            sessionStorage.setItem('token', res.data.token);
-            sessionStorage.setItem('username', res.data.username);
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('username', res.data.username);
+            // window.location.reload(false);
         });
-      };
-    // getUser = () => {
-    //     Axios({
-    //       method: "GET",
-    //       withCredentials: true,
-    //       url: "http://localhost:3000/users/user",
-    //     }).then((res) => {
-    //         this.setState({
-    //             data: res.data
-    //         })
-    //     //   console.log(res.data);
-    //     });
-    //   };
+    };
 
     setRegisterUsername = (event) => {
         this.setState({
@@ -78,38 +68,30 @@ export default class LogIn extends Component {
         return (
             <React.Fragment>
                 <Banner pageTitle='Sign Up / Log In' />
-                <div className="contact-form-wraper">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-sm-12 col-lg-8">
-                            <div className="section-title-one">
-                                <h1>Register</h1>
-                                <div className="col-lg-6 col-md-6 col-12">
-                                    <input placeholder="username" onChange={this.setRegisterUsername}/>
-                                </div>    
-                                <div className="col-lg-6 col-md-6 col-12">
-                                    <input placeholder="password" onChange={this.setRegisterPassword}/>
-                                </div>
-                                <button className="contact-submit-btn" onClick={this.register}>Submit</button>
+                <div className="user-form-wrapper">
+                    <div className="container">
+                        <div className="user-form-one">
+                            <h1>Register</h1>
+                            <div className="col-lg-6 col-md-6 col-12">
+                                <input placeholder="username" onChange={this.setRegisterUsername}/>
+                            </div>    
+                            <div className="col-lg-6 col-md-6 col-12">
+                                <input placeholder="password" onChange={this.setRegisterPassword}/>
                             </div>
-                            <div className="section-title-one">
-                                <h1>Login</h1>
-                                <div className="col-lg-6 col-md-6 col-12">
-                                    <input placeholder="username" onChange={this.setLoginUsername}/>
-                                </div>
-                                <div className="col-lg-6 col-md-6 col-12">
-                                    <input placeholder="password" onChange={this.setLoginPassword}/>
-                                </div>
-                                <button className="contact-submit-btn" onClick={this.login}>Submit</button>
-                            </div>
-                            {/* <div className="section-title-one">
-                                <h1>Get User</h1>
-                                <button onClick={this.getUser}>Submit</button>
-                                {this.state.data ? <h1>Welcome Back {this.state.data.username}</h1> : null}
-                            </div> */}
+                            <button className="contact-submit-btn" onClick={this.register}>Submit</button>
                         </div>
-                    </div>    
-                </div>
+                    
+                        <div className="user-form-one">
+                            <h1>Login</h1>
+                            <div className="col-lg-6 col-md-6 col-12">
+                                <input placeholder="username" onChange={this.setLoginUsername}/>
+                            </div>
+                            <div className="col-lg-6 col-md-6 col-12">
+                                <input placeholder="password" onChange={this.setLoginPassword}/>
+                            </div>
+                            <button className="contact-submit-btn" onClick={this.login}>Submit</button>
+                        </div>
+                    </div>
                 </div>
             </React.Fragment>
         )

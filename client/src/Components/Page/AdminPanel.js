@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
 import Banner from '../Banner';
 import DoctorTable from '../DoctorsList/DoctorTable';
+
 
 export default class AdminPanel extends Component {
     constructor(props) {
@@ -12,10 +14,12 @@ export default class AdminPanel extends Component {
             doctors: [],
             facilities: [],
             doctorDetails: []
-        }       
+        }
+        this.deleteUser = this.deleteUser.bind(this);
+        
     }
 
-    componentWillMount() {
+    componentDidMount() {
         fetch('http://localhost:3000/users/')
         .then(res => res.json())
         .then((data) => {
@@ -44,6 +48,7 @@ export default class AdminPanel extends Component {
         });
         this.setState({doctors: doctorsList});
         this.fetchDoctorDetail(doctorsList);
+        console.log(patientsList);
         this.setState({patients: patientsList});
     }
 
@@ -59,7 +64,7 @@ export default class AdminPanel extends Component {
     }
 
     mapFacilityInfoIntoDoctor(){
-        console.log(this.state);
+        // console.log(this.state);
         var doctorUpdated = [];
         this.state.doctors.forEach((doctor)=>{
             var newDoctor = doctor;
@@ -72,28 +77,42 @@ export default class AdminPanel extends Component {
         this.setState({doctor: doctorUpdated});
     }
 
+    deleteUser(id){
+        Axios({
+          method: "DELETE",
+          url: "http://localhost:3000/users/" + id,
+        }).then((res) => {
+            console.log(res)
+        });
+    };
+
+
 
     render() {
         const rows = [];
-      
         this.state.patients.forEach((patient) => {       
             rows.push(
                 <tr>
-                <td>
-                    { patient.firstName } { patient.lastName }
-                </td>
-                <td>{ patient.email }</td>
-                <td>{ patient.phone }</td>
-                <td>{ patient.address}, {patient.city}, {patient.state} {patient.zipcode}</td>
-                <td>Delete</td>
-            </tr>
+                    <td>{ patient.username }</td>
+                    <td>
+                        { patient.firstName } { patient.lastName }
+                    </td>
+                    <td>{ patient.email }</td>
+                    <td>{ patient.phone }</td>
+                    <td>{ patient.address}, {patient.city}, {patient.state} {patient.zipcode}</td>
+                    <td>
+                        <button type="button" onClick={() => this.deleteUser(patient._id)}>
+                        <i className="fa fa-trash fa-2x"></i>
+                        </button>
+                    </td>
+                </tr>
             );
         });
 
         return (
             <React.Fragment>
                 <Banner pageTitle='List of Users' />
-                <div class="container">
+                <div class="container new-container">
                     <div className="row">
                         <h1>Doctors</h1>
                         <DoctorTable
@@ -105,14 +124,13 @@ export default class AdminPanel extends Component {
                             admin={true}
                         />
                     </div>
-                </div>
 
-                <div class="container">
                     <div className="row">
                         <h1>Patients</h1>
                             <table class="table">
                                 <thead>
                                 <tr>
+                                    <th>Username</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
