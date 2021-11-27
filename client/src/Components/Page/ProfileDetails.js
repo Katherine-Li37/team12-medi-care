@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { useParams } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import Banner from '../Banner';
 import AdminPanel from './AdminPanel';
 
@@ -10,6 +10,10 @@ export default class ProfileDetails extends Component {
             user: this.props.location.state.user,
             facilityInfo: this.props.location.state.facility? null: this.props.location.state.facility
         }       
+    }
+
+    openUpdateInfoModal(user){
+
     }
 
     render() {
@@ -32,37 +36,46 @@ export default class ProfileDetails extends Component {
                             <div className="card-body">
                                 <h5 className="card-title">Information</h5>
                                 <div className="row">
-                                        <div className="col-sm-3"><h6 className="mb-0">Full Name</h6></div>
-                                        <div className="col-sm-9 text-secondary"> {user.firstName} {user.lastName}</div>
-                                    </div>
-                                    {user.type === "Doctor" &&
-                                        <div className="row">
-                                            <div className="col-sm-3"><h6 className="mb-0">Title</h6></div>
-                                            <div className="col-sm-9 text-secondary"> {user.title}</div>
-                                        </div>
-                                    }
+                                    <div className="col-sm-3"><h6 className="mb-0">Full Name</h6></div>
+                                    <div className="col-sm-9 text-secondary"> {user.firstName} {user.lastName}</div>
+                                </div>
+                                {user.type === "Doctor" &&
                                     <div className="row">
-                                        <div className="col-sm-3"><h6 className="mb-0">Email</h6></div>
-                                        <div className="col-sm-9 text-secondary"> {user.email}</div>
+                                        <div className="col-sm-3"><h6 className="mb-0">Title</h6></div>
+                                        <div className="col-sm-9 text-secondary"> {user.title}</div>
                                     </div>
+                                }
+                                <div className="row">
+                                    <div className="col-sm-3"><h6 className="mb-0">Email</h6></div>
+                                    <div className="col-sm-9 text-secondary"> {user.email}</div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-sm-3"><h6 className="mb-0">Phone Number</h6></div>
+                                    <div className="col-sm-9 text-secondary"> {user.phone}</div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-sm-3"><h6 className="mb-0">Address</h6></div>
+                                    <div className="col-sm-9 text-secondary"> {user.address}, {user.city}, {user.state} {user.zipcode}</div>
+                                </div>
+
+                                {user.type === "Doctor" &&
                                     <div className="row">
-                                        <div className="col-sm-3"><h6 className="mb-0">Phone Number</h6></div>
-                                        <div className="col-sm-9 text-secondary"> {user.phone}</div>
-                                    </div>
-
-
-                                    {user.type === "Doctor" &&
-                                        <div className="row">
-                                            <div className="col-sm-3"><h6 className="mb-0">Service</h6></div>
-                                            <div className="col-sm-9 ">
-                                                {user.services.map((service) => (
-                                                    <li key={service}>{service}</li>
-                                                ))}
-                                            </div>
+                                        <div className="col-sm-3"><h6 className="mb-0">Service</h6></div>
+                                        <div className="col-sm-9 ">
+                                            {user.services.map((service) => (
+                                                <li key={service}>{service}</li>
+                                            ))}
                                         </div>
-                                    }
-
-                                    {/* <a className="btn btn-info " target="__blank" href="">Edit</a> */}
+                                    </div>
+                                }
+                                {/* <button type="button"> */}
+                                    <Link to={{
+                                        pathname: `/ProfileEdit/${user._id}`,
+                                        state: { user: user }
+                                    }}>
+                                    Edit
+                                    </Link>
+                                {/* </button> */}
                             </div>
                         </div>
                         {user.type === "Doctor" &&

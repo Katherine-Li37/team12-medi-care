@@ -7,6 +7,7 @@ import About from './Components/Page/About';
 import ServiceDetails from './Components/Page/ServiceDetails';
 import DoctorsList from './Components/DoctorsList/DoctorsList';
 import ProfileDetails from './Components/Page/ProfileDetails';
+import EditProfile from './Components/Page/EditProfile';
 import Contact from './Components/Page/Contact';
 import FooterData from './Components/Data/FooterData';
 import LogIn from './Components/Page/LogIn';
@@ -43,6 +44,7 @@ function App() {
             <Route path = '/ServiceDetails'component = { ServiceDetails }/> 
             <Route path = '/Doctors' component = { DoctorsList }/> 
             <Route path = '/Profile/:id' component = { ProfileDetails }/> 
+            <Route path = '/ProfileEdit/:id' component = { EditProfile }/> 
             <Route path = '/Contact' component = { Contact }/> 
             <Route path = '/LogIn' component = { LogIn }/> 
             <Route path = '/Admin' component = { AdminPanel }/>

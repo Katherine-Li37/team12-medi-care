@@ -237,7 +237,7 @@ a:active {
     padding: 0px 55px;
     background: var(--main-color);
     color: #fff;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     -webkit-transition: .4s;
     -o-transition: .4s;
     transition: .4s;
@@ -271,7 +271,7 @@ a:active {
     color: var(--main-color);
     font-size: 16px;
     line-height: 24px;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     font-weight: 700;
     padding-bottom: 4px;
     border-bottom: 2px solid var(--main-color);
@@ -461,7 +461,7 @@ body.style-two>a {
 
 .main-menu nav li a {
     color: #000066;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     padding-left: 40px;
     font-size: 18px;
     font-weight: 500;
@@ -598,7 +598,7 @@ body.style-two>a {
 }
 
 .main-menu-two .menu-items li a {
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     padding: 20px 0px;
     font-size: 18px;
     display: inline-block;
@@ -1037,31 +1037,31 @@ body.style-two>a {
 .appointment-form form input::-webkit-input-placeholder,
 .appointment-form form textarea::-webkit-input-placeholder {
     color: #666;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
 }
 
 .appointment-form form input::-moz-placeholder,
 .appointment-form form textarea::-moz-placeholder {
     color: #666;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
 }
 
 .appointment-form form input:-ms-input-placeholder,
 .appointment-form form textarea:-ms-input-placeholder {
     color: #666;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
 }
 
 .appointment-form form input::-ms-input-placeholder,
 .appointment-form form textarea::-ms-input-placeholder {
     color: #666;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
 }
 
 .appointment-form form input::placeholder,
 .appointment-form form textarea::placeholder {
     color: #666;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
 }
 
 button.submit-btn {
@@ -1550,12 +1550,12 @@ button.submit-btn:hover {
 .page-banner-breadcrumb h1 {
     font-size: 46px;
     line-height: 1;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
 }
 
 .breadcrumb-nav a {
     font-weight: 400;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     margin-right: 15px;
     position: relative;
 }
@@ -1663,7 +1663,7 @@ button.submit-btn:hover {
 }
 
 .c-info h4 {
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
 }
 
 .user-form-wrapper {
@@ -1694,7 +1694,7 @@ button.submit-btn:hover {
     box-shadow: 0px 6px 26px rgba(0, 0, 0, 0.06);
     border: none;
     padding-left: 30px;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     margin-bottom: 29px;
     color: #666666;
 }
@@ -1708,7 +1708,7 @@ button.contact-submit-btn {
     height: 62px;
     background: var(--main-color);
     color: #fff;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     -webkit-transition: .5s;
     -o-transition: .5s;
     transition: .5s;
@@ -1976,7 +1976,7 @@ form .radio-checked span {
 
 .single-sidebar-widgets h3 {
     margin-top: -8px;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     color: #3B3B3B;
     font-weight: 900;
     font-size: 24px;
@@ -2251,7 +2251,7 @@ span.back-big-text {
     font-weight: 600;
     color: #F9F9F9;
     top: -24px;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
 }
 
 .about-welcome-message {
@@ -3149,7 +3149,7 @@ span.line {
 
 .mobile-menu ul li a {
     display: block;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     color: var(--main-color);
 }
 

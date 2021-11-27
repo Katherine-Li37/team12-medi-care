@@ -112,7 +112,7 @@ export default class AdminPanel extends Component {
         return (
             <React.Fragment>
                 <Banner pageTitle='List of Users' />
-                <div class="container new-container">
+                <div className="container new-container">
                     <div className="row">
                         <h1>Doctors</h1>
                         <DoctorTable
@@ -127,7 +127,7 @@ export default class AdminPanel extends Component {
 
                     <div className="row">
                         <h1>Patients</h1>
-                            <table class="table">
+                            <table className="table">
                                 <thead>
                                 <tr>
                                     <th>Username</th>

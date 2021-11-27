@@ -80,7 +80,7 @@ export default class DoctorsList extends Component {
         return (
             <React.Fragment>
                 <Banner pageTitle='Doctors & Orthodontists' />
-                <div class="container new-container">
+                <div className="container new-container">
                     <SearchBar
                         filterText={this.state.filterText}
                         availableOnly={this.state.availableOnly}
