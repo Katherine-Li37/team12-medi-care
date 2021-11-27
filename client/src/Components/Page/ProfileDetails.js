@@ -18,7 +18,6 @@ export default class ProfileDetails extends Component {
 
     render() {
         let user = this.state.user;
-        // console.log(user);
         if (user.detail){
             Object.entries(user.detail.facilities.availability).map((day) => (
                 console.log(day)

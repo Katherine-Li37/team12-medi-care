@@ -31,17 +31,6 @@ app.use(
         credentials: true,
     })
 );
-// app.use(
-//     session({
-//         secret: "secretcode",
-//         resave: true,
-//         saveUninitialized: true,
-//     })
-// );
-// app.use(cookieParser("secretcode"));
-// app.use(passport.initialize());
-// app.use(passport.session());
-// require("./passportConfig")(passport);
 
 app.use(session({ secret: 'this-is-a-secret-token' }));
 app.use(passport.initialize());
@@ -57,21 +46,6 @@ var usersRouter = require('./routes/users');
 var patientDetailsRouter = require('./routes/patient_details');
 var doctorDetailsRouter = require('./routes/doctor_details');
 var facilitiesRouter = require('./routes/facilities');
-
-// // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
-
-// app.use(logger('dev'));
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
-// app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
-// app.use(cors({
-//     'allowedHeaders': ['Content-Type'],
-//     'origin': '*',
-//     'preflightContinue': true
-// }));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

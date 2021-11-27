@@ -90,7 +90,6 @@ export default class LogIn extends Component {
     }
 
     checkIfUsernameExists = () => {
-        // console.log(this.state.registerUsername);
         fetch('http://localhost:3000/users/register/' + this.state.registerUsername)
           .then(res => res.json())
           .then((data) => {
@@ -184,7 +183,6 @@ export default class LogIn extends Component {
     }
 
     render() {
-        // console.log(this.state);
         return (
             <React.Fragment>
                 <Banner pageTitle='Sign Up / Log In' />

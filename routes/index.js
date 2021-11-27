@@ -9,12 +9,8 @@ router.get('/', function(req, res) {
 });
 
 router.post('/register', function(req, res) {
-    console.log(req.body);
     User.register(new User({ username: req.body.username, email: req.body.email, type: "Patient" }), req.body.password, function(err, user) {
-        if (err) {
-            throw err;
-        }
-
+        if (err) throw err;
         passport.authenticate('local')(req, res, function() {
             res.send("User Created");
         });
@@ -22,14 +18,8 @@ router.post('/register', function(req, res) {
 });
 
 
-// router.get('/login', function(req, res) {
-//     res.render('login');
-// });
-
 router.post("/login", (req, res, next) => {
     passport.authenticate('local', function(err, user, info) {
-        // console.log(user)
-        // console.log(info)
         if (err) {
             res.json({ success: false, message: err })
         } else {
@@ -38,14 +28,12 @@ router.post("/login", (req, res, next) => {
             } else {
                 req.login(user, function(err) {
                     if (err) {
-                        console.log(err)
                         res.json({ success: false, message: err })
                     } else {
                         const token = jwt.sign({
                             userId: user._id,
                             username: user.username
                         }, 'secret-token', { expiresIn: '24h' });
-                        // console.log(user);
                         res.json({ 
                             success: true, 
                             message: "Authentication successful", 
@@ -57,14 +45,5 @@ router.post("/login", (req, res, next) => {
         }
     })(req, res);
 });
-
-// router.get("/user", (req, res) => {
-//     res.send(req.user); // The req.user stores the entire user that has been authenticated inside of it.
-// });
-
-// // router.get('/logout', function(req, res) {
-// //     req.logout();
-// //     res.redirect('/');
-// // });
 
 module.exports = router;

@@ -8,7 +8,6 @@ export default class AdminPanel extends Component {
     constructor(props) {
         super(props);
         this.state ={
-            // isLoading: true,
             users:[],
             patients: [],
             doctors: [],
@@ -48,7 +47,6 @@ export default class AdminPanel extends Component {
         });
         this.setState({doctors: doctorsList});
         this.fetchDoctorDetail(doctorsList);
-        console.log(patientsList);
         this.setState({patients: patientsList});
     }
 
@@ -64,7 +62,6 @@ export default class AdminPanel extends Component {
     }
 
     mapFacilityInfoIntoDoctor(){
-        // console.log(this.state);
         var doctorUpdated = [];
         this.state.doctors.forEach((doctor)=>{
             var newDoctor = doctor;
@@ -85,8 +82,6 @@ export default class AdminPanel extends Component {
             console.log(res)
         });
     };
-
-
 
     render() {
         const rows = [];

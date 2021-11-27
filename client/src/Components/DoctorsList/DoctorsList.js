@@ -53,7 +53,6 @@ export default class DoctorsList extends Component {
     }
 
     mapFacilityInfoIntoDoctor(){
-        // console.log(this.state);
         var doctorUpdated = [];
         this.state.doctors.forEach((doctor)=>{
             var newDoctor = doctor;
@@ -64,7 +63,6 @@ export default class DoctorsList extends Component {
                 doctorUpdated.push(newDoctor);
             }
         });
-        // this.setState({doctors: doctorUpdated});
         this.setState({
             doctors: doctorUpdated,
             filteredList: doctorUpdated
@@ -112,11 +110,8 @@ export default class DoctorsList extends Component {
             filteredList: doctorFiltered,
         });
     }
-
-      
     
     render() {
-        // console.log(this.state);
         return (
             <React.Fragment>
                 <Banner pageTitle='Doctors & Orthodontists' />

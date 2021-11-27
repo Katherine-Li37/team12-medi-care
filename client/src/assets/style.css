@@ -3200,3 +3200,7 @@ span.line {
         margin-bottom: 80px;
     }
 }
+
+.error-msg {
+    color: red
+}

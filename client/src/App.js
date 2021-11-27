@@ -6,29 +6,16 @@ import FooterOne from './Components/Footer/FooterOne';
 import About from './Components/Page/About';
 import ServiceDetails from './Components/Page/ServiceDetails';
 import DoctorsList from './Components/DoctorsList/DoctorsList';
+import AppointmentPage from './Components/Page/AppointmentPage';
 import ProfileDetails from './Components/Page/ProfileDetails';
 import EditProfile from './Components/Page/EditProfile';
 import Contact from './Components/Page/Contact';
 import FooterData from './Components/Data/FooterData';
 import LogIn from './Components/Page/LogIn';
-import AdminPanel from './Components/Page/AdminPanel'; // change later
+import AdminPanel from './Components/Page/AdminPanel';
 import './App.css';
 
-// function setToken(userToken) {
-//     sessionStorage.setItem('token', JSON.stringify(userToken));
-// }
-
-// function getToken() {
-//     const tokenString = sessionStorage.getItem('username');
-//     console.log(tokenString)
-// }
 function App() {
-    // const token = getToken();
-
-    // if(!token) {
-    //   return <LogIn setToken={setToken} />
-    // }
-
     return ( 
         <div className = "main-wrapper" >
         <Router >
@@ -43,6 +30,7 @@ function App() {
             <Route path = '/About'component = { About } /> 
             <Route path = '/ServiceDetails'component = { ServiceDetails }/> 
             <Route path = '/Doctors' component = { DoctorsList }/> 
+            <Route path = '/ScheduleAppointment' component = { AppointmentPage }/>
             <Route path = '/Profile/:id' component = { ProfileDetails }/> 
             <Route path = '/ProfileEdit/:id' component = { EditProfile }/> 
             <Route path = '/Contact' component = { Contact }/> 

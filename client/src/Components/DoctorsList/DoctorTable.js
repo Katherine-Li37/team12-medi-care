@@ -2,33 +2,42 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 export default class DoctorTable extends Component {
+    constructor(props) {
+        super(props);
+    
+        this.state ={
+            // confirm logged-in
+            userID: null,
+            username: null,
+            userLoggedIn: null
+        }  
+    }
+
+    async componentDidMount(){
+        const user = localStorage.getItem('username');
+        if(user && user!=="null"){
+            const userID = user.split(',')[1];
+            const response = await fetch('http://localhost:3000/users/'+ userID)
+            const data = await response.json();
+            this.setState({
+                userID: userID,
+                username: user.split(',')[0],
+                userLoggedIn: data
+            });
+        }
+    }
+
     render() {
-        // const filterText = this.props.filterText;
-        // const availableOnly = this.props.availableOnly;
-  
         const rows = [];
       
         this.props.doctors.forEach((doctor) => {
-            // if (doctor.firstName.indexOf(filterText) === -1 && doctor.lastName.indexOf(filterText) === -1) {
-            //     return;
-            // }
-            // if (availableOnly && !doctor.available) {
-            //     return;
-            // }
-        
             var index = this.props.doctorDetails.findIndex(detail => detail.userID.toString() === doctor._id.toString());
             if (index !== -1 ){
                 doctor.detail = this.props.doctorDetails[index];
                     rows.push(
-                    <DoctorRow
-                        // doctor={this.state.doctorDetails.find( ({ _id }) => _id.toString() === doctor._id.toString() )}
-                        doctor={doctor}
-                        admin={this.props.admin}
-                        // key={video.name}
-                    />
+                    <DoctorRow doctor={doctor} userLoggedIn={this.state.userLoggedIn} admin={this.props.admin}/>
                 );
             }
-
         });
   
         return (
@@ -40,7 +49,7 @@ export default class DoctorTable extends Component {
                     <th>Position</th>
                     <th>Service</th>
                     <th>Facility</th>
-                    {!this.props.admin && <th>Availablility</th>}
+                    {!this.props.admin && <th></th>}
                     {this.props.admin && <th>Actions</th>}
                 </tr>
                 </thead>
@@ -48,21 +57,14 @@ export default class DoctorTable extends Component {
                     {rows}
                 </tbody>
             </table>
-            
         );
     }
   }
 
+
   class DoctorRow extends React.Component {
     render() {
         const doctor = this.props.doctor;
-        // console.log(doctor.detail)
-        // const name = video.available ?
-        //   video.title :
-        //   <span style={{color: 'red'}}>
-        //     {video.title}
-        //   </span>;
-
         return (
             <tr>
                 <td></td>
@@ -79,7 +81,16 @@ export default class DoctorTable extends Component {
                     {doctor.services.map((service) => (<li>{service}</li>))}
                 </td>
                 <td>{ doctor.detail.facilities.facilityIName }</td>
-                {!this.props.admin && <td>Availablility</td>}
+                {!this.props.admin && <td>                    
+                    <Link to={{
+                        pathname: '/ScheduleAppointment',
+                        state: { 
+                            doctor: doctor,
+                            userLoggedIn: this.props.userLoggedIn
+                        }
+                    }}>
+                    Schedule Appointment
+                    </Link></td>}
                 {this.props.admin && <td><i className="fa fa-trash fa-2x" ></i></td>}
             </tr>
 

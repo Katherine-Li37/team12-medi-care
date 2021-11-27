@@ -12,10 +12,7 @@ router.get('/', function(req, res) {
         res.json(users);
     })
 });
-// // users/user
-// router.get("/user", (req, res) => {
-//     res.send(req.user); 
-// });
+
 
 // users/doctors
 router.get('/doctors', function(req, res) {

@@ -25,13 +25,16 @@ export default class SearchBar extends Component{
     
     render() {
       return (
-        <form>
+        <div className="container">
+        <form className="row">
+            <div className="col-lg-3 col-md-3">
             <input
                 type="text"
                 placeholder="Search by Name"
                 value={this.props.filterText}
                 onChange={this.searchChange}
             />
+            </div>
             {/* <p>
             <input
                 type="checkbox"
@@ -41,6 +44,8 @@ export default class SearchBar extends Component{
             {' '} 
             Only show available doctors
             </p> */}
+            <div className="col-lg-6 col-md-6">
+            <span>Filter by position: </span>
             <select 
                 value={this.state.titleFilter} 
                 onChange={this.filterChange} 
@@ -49,7 +54,9 @@ export default class SearchBar extends Component{
                 <option value="Dentist">Dentist</option>
                 <option value="Orthodontist">Orthodontist</option>
             </select>
+            </div>
         </form>
+        </div>
       );
     }
   }

@@ -14,7 +14,6 @@ export default class Navbar extends Component {
     }
     async componentDidMount(){
         const user = localStorage.getItem('username');
-        console.log(user)
         if(user && user!=="null"){
             const userID = user.split(',')[1];
             const response = await fetch('http://localhost:3000/users/'+ userID)
@@ -27,14 +26,6 @@ export default class Navbar extends Component {
         }
     }
 
-    // getUser() {
-    //     const user = sessionStorage.getItem('username').split(',');
-
-    //     this.setState({
-    //         userID: user[1],
-    //         username: user[0]
-    //     });
-    // }
     signOut(){
         console.log("sign out")
         localStorage.clear();
@@ -43,7 +34,6 @@ export default class Navbar extends Component {
             username: null,
             userLoggedIn: null
         });      
-        
     };
 
     render() {
@@ -114,6 +104,9 @@ export default class Navbar extends Component {
                                                 {this.state.username}
                                             </Link>
                                         </li>
+                                    }
+                                    {this.state.username && 
+                                        <li className="nav-item" onClick={this.signOut}><Link className="nav-link" to='/'>Sign out</Link></li>
                                     }
                                 </ul>
                             </div>
