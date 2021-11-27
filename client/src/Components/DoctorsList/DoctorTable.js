@@ -35,8 +35,9 @@ export default class DoctorTable extends Component {
             <table className="table">
                 <thead>
                 <tr>
+                    <th>Photo</th>
                     <th>Name</th>
-                    <th>Title</th>
+                    <th>Position</th>
                     <th>Service</th>
                     <th>Facility</th>
                     {!this.props.admin && <th>Availablility</th>}
@@ -53,8 +54,6 @@ export default class DoctorTable extends Component {
   }
 
   class DoctorRow extends React.Component {
-
-
     render() {
         const doctor = this.props.doctor;
         // console.log(doctor.detail)
@@ -66,6 +65,7 @@ export default class DoctorTable extends Component {
 
         return (
             <tr>
+                <td></td>
                 <td>
                     <Link to={{
                         pathname: `/Profile/${doctor._id}`,

@@ -8,15 +8,14 @@ export default class DoctorsList extends Component {
         super(props);
     
         this.state = {
-          filterText: '',
-          availableOnly: false,
+          searchText: '',
+          titleFilter: 'All',
+          filteredList: [],
           doctors: [],
           facilities: [],
           doctorDetails: []
         };
         
-        this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
-        this.handleInStockChange = this.handleInStockChange.bind(this);
         this.fetchDoctorDetail = this.fetchDoctorDetail.bind(this);
         this.mapFacilityInfoIntoDoctor = this.mapFacilityInfoIntoDoctor.bind(this);
     }
@@ -25,7 +24,10 @@ export default class DoctorsList extends Component {
         fetch('http://localhost:3000/users/doctors')
         .then(res => res.json())
         .then((data) => {
-          this.setState({ doctors: data })
+            this.setState({
+                doctors: data,
+                filteredList: data
+            });
           this.fetchDoctorDetail(data);
         })
         .catch(console.log)
@@ -39,59 +41,93 @@ export default class DoctorsList extends Component {
     }
 
 
-    async fetchDoctorDetail(doctor) {
+    async fetchDoctorDetail(doctors) {
         let newDoctorDetails=[]
-        for(let i = 0 ;i< doctor.length;i++){
-            const response = await fetch('http://localhost:3000/doctor_details/'+ doctor[i]._id.toString())
+        for(let i = 0 ;i< doctors.length;i++){
+            const response = await fetch('http://localhost:3000/doctor_details/'+ doctors[i]._id.toString())
             const data = await response.json();
             newDoctorDetails.push(data);
             this.setState({ doctorDetails: newDoctorDetails });
-            this.mapFacilityInfoIntoDoctor();
         }
+        this.mapFacilityInfoIntoDoctor();
     }
 
     mapFacilityInfoIntoDoctor(){
-        console.log(this.state);
+        // console.log(this.state);
         var doctorUpdated = [];
         this.state.doctors.forEach((doctor)=>{
             var newDoctor = doctor;
              if (doctor.detail){
-                 var index = this.state.facilities.findIndex(facility => facility._id.toString() === doctor.detail.facilities.facilityID.toString());
+                var index = this.state.facilities.findIndex(facility => facility._id.toString() === doctor.detail.facilities.facilityID.toString());
                 newDoctor.facility = this.state.facilities[index];
+                newDoctor.fullName = doctor.firstName + ' ' + doctor.lastName;
                 doctorUpdated.push(newDoctor);
             }
         });
-        this.setState({doctor: doctorUpdated});
-    }
-
-    handleFilterTextChange(filterText) {
+        // this.setState({doctors: doctorUpdated});
         this.setState({
-          filterText: filterText
+            doctors: doctorUpdated,
+            filteredList: doctorUpdated
+        });
+    } 
+
+    onFilterChange = (filterValue) => {
+        var doctorFiltered = [];
+        this.state.doctors.forEach((doctor)=>{
+            if (filterValue==="All"){
+                doctorFiltered = this.state.doctors
+            } else{
+                if (doctor.title === filterValue){
+                    doctorFiltered.push(doctor);
+                }
+            }
+        });
+        this.setState({
+            titleFilter: filterValue,
+            filteredList: doctorFiltered,
         });
     }
-      
-    handleInStockChange(availableOnly) {
+
+    onSearchChange = (searchText) => {
+        var doctorFiltered = [];
+        if(!searchText.length && this.state.titleFilter==='All'){
+            doctorFiltered = this.state.doctors
+        } else if(!searchText.length && this.state.titleFilter!=='All'){
+            this.state.doctors.forEach((doctor)=>{
+                if (doctor.title === this.state.titleFilter){
+                    doctorFiltered.push(doctor);
+                }
+            });
+        }
+        else{
+            this.state.filteredList.forEach((doctor)=>{
+            if (doctor.fullName.toLowerCase().includes(searchText.toLowerCase())){
+                doctorFiltered.push(doctor);
+            }
+        });
+        }
+
         this.setState({
-          availableOnly: availableOnly
-        })
+            searchText: searchText,
+            filteredList: doctorFiltered,
+        });
     }
+
+      
     
     render() {
+        // console.log(this.state);
         return (
             <React.Fragment>
                 <Banner pageTitle='Doctors & Orthodontists' />
                 <div className="container new-container">
                     <SearchBar
-                        filterText={this.state.filterText}
-                        availableOnly={this.state.availableOnly}
-                        onFilterTextChange={this.handleFilterTextChange}
-                        onInStockChange={this.handleInStockChange}
+                        onSearchChange={this.onSearchChange}
+                        onFilterChange={this.onFilterChange}
                         failitiesFilterOption={this.state.facilities}
                     />
                     <DoctorTable
-                        doctors={this.state.doctors}
-                        filterText={this.state.filterText}
-                        availableOnly={this.state.availableOnly}
+                        doctors={this.state.filteredList}
                         facilities={this.state.facilities}
                         doctorDetails={this.state.doctorDetails}
                         admin={false}
