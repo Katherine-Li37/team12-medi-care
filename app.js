@@ -46,12 +46,14 @@ var usersRouter = require('./routes/users');
 var patientDetailsRouter = require('./routes/patient_details');
 var doctorDetailsRouter = require('./routes/doctor_details');
 var facilitiesRouter = require('./routes/facilities');
+var appointmentsRouter = require('./routes/appointments');
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/patient_details', patientDetailsRouter);
 app.use('/doctor_details', doctorDetailsRouter);
 app.use('/facilities', facilitiesRouter);
+app.use('/appointments', appointmentsRouter);
 
 
 // catch 404 and forward to error handler

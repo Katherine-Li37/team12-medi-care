@@ -3204,3 +3204,26 @@ span.line {
 .error-msg {
     color: red
 }
+
+.date-field {
+    display: flex;
+}
+
+.disabled-date {
+    pointer-events: none;
+}
+
+.contact-submit-btn-disabled {
+    height: 62px;
+    color: #fff;
+    /* text-transform: capitalize; */
+    -webkit-transition: .5s;
+    -o-transition: .5s;
+    transition: .5s;
+    margin-left: 15px;
+    display: inline-block;
+    padding: 0px 45px;
+    margin-top: 30px;
+    font-weight: 500;
+    background-color: gray;
+}

@@ -18,6 +18,7 @@ export default class LogIn extends Component {
                 ifPasswordMatch: true,
                 registerEmail:"",
                 ifEmailFormat:true,
+                buttonEnabled: false,
                 registerSuccess: null,
 
                 loginUsername: "",
@@ -25,11 +26,8 @@ export default class LogIn extends Component {
                 loginSuccess: null,
 
             data: null,
-
         }       
     }
-
-
 
     register = () => {
         Axios({
@@ -95,11 +93,14 @@ export default class LogIn extends Component {
           .then((data) => {
             if (data.length!==0){
                 this.setState({ifUserNameExist: true});
+                this.checkIfEnableButton();
             } else {
                 this.setState({ifUserNameExist: false});
+                this.checkIfEnableButton();
             }
           })
           .catch(console.log)
+        
     }
 
     setRegisterPassword = (event) => {
@@ -125,6 +126,7 @@ export default class LogIn extends Component {
             } else {
               this.setState({ifStrongPassword:false});
             }
+        this.checkIfEnableButton();
     }
 
     setRegisterRepeatPassword = (event) => {
@@ -147,6 +149,7 @@ export default class LogIn extends Component {
         } else{
             this.setState({ifPasswordMatch: false })
         }
+        this.checkIfEnableButton();
     }
 
     setRegisterEmail=(event)=>{
@@ -169,6 +172,18 @@ export default class LogIn extends Component {
           } else {
             this.setState({ifEmailFormat:false});
           }
+        this.checkIfEnableButton();
+    }
+
+    checkIfEnableButton=()=>{
+        if ((this.state.registerUsername.length && !this.state.ifUserNameExist 
+            && this.state.registerPassword.length && this.state.ifStrongPassword
+            && this.state.registerRepeatPassword.length && this.state.ifPasswordMatch
+            && this.state.registerEmail.length && this.state.ifEmailFormat)){
+            this.setState({buttonEnabled: true});
+        } else{
+            this.setState({buttonEnabled: false});
+        }
     }
 
     setLoginUsername = (event) => {
@@ -207,17 +222,11 @@ export default class LogIn extends Component {
                             </div>  
                             {!this.state.ifEmailFormat && <span className="error-msg">Not valid email</span>}
 
-                            {(this.state.registerUsername.length && !this.state.ifUserNameExist 
-                            && this.state.registerPassword.length && this.state.ifStrongPassword
-                            && this.state.registerRepeatPassword.length && this.state.ifPasswordMatch
-                            && this.state.registerEmail.length && this.state.ifEmailFormat) &&
+                            {this.state.buttonEnabled &&
                                 <button className="contact-submit-btn" onClick={this.register}>Submit</button>
                             }   
-                            {(!this.state.registerUsername.length || this.state.ifUserNameExist 
-                            || !this.state.registerPassword.length || !this.state.ifStrongPassword
-                            || !this.state.registerRepeatPassword.length || !this.state.ifPasswordMatch
-                            || !this.state.registerEmail.length || !this.state.ifEmailFormat )&&
-                                <button onClick={this.register} disabled={true}>Submit</button>
+                            {!this.state.buttonEnabled &&
+                                <button className="contact-submit-btn-disabled" disabled={true}>Submit</button>
                             }   
                             {this.state.registerSuccess===true && <span className="error-msg">New User created</span>}
                             
