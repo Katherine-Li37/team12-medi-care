@@ -51,15 +51,15 @@ export default class Navbar extends Component {
                             <div className="col-lg-10 col-md-9 d-none d-lg-block text-lg-right">
                                 <nav id="responsive-menu" className="menu-style-one">
                                     <ul className="menu-items">
-                                        <li><Link to='/'>home</Link></li>
-                                        <li><Link to='/About'>about</Link></li>
+                                        <li><Link to='/'>Home</Link></li>
+                                        <li><Link to='/About'>About</Link></li>
                                         <li><Link to='/ServiceDetails'>Services</Link></li>
                                         <li><Link to='/Doctors'>Doctors</Link></li>
                                         {!this.state.username && <li><Link to='/LogIn'>Sign up/ Log in</Link></li>}
                                         {this.state.username && 
                                             <li><Link to={{
                                                 pathname: `/Profile/${this.state.userID}`,
-                                                state: { user: this.state.userLoggedIn }
+                                                state: { userLoggedIn: this.state.userLoggedIn }
                                             }}>{this.state.username}
                                             </Link></li>
                                         }
@@ -99,7 +99,7 @@ export default class Navbar extends Component {
                                         <li className="nav-item">
                                             <Link className="nav-link" to={{
                                                 pathname: `/Profile/${this.state.userID}`,
-                                                state: { user: this.state.userLoggedIn }
+                                                state: { userLoggedIn: this.state.userLoggedIn }
                                             }}>
                                                 {this.state.username}
                                             </Link>

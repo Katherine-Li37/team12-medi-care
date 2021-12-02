@@ -71,7 +71,7 @@ export default class DoctorTable extends Component {
                 <td>
                     <Link to={{
                         pathname: `/Profile/${doctor._id}`,
-                        state: { user: doctor }
+                        state: { user: doctor, userLoggedIn: this.props.userLoggedIn }
                     }}>
                     { doctor.firstName } { doctor.lastName }
                     </Link>
