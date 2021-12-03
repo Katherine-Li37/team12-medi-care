@@ -40,4 +40,18 @@ router.post('/create', function(req, res) {
     })
 });
 
+// update appointment: appointments/update/:id
+router.post('/update/:id', function(req, res) {
+    collection.update({ _id: req.params.id }, {
+        $set: {
+            date: req.body.date,
+            time: req.body.time,
+            procedure: req.body.procedure,
+        }
+    }, function(err, appointment) {
+        if (err) throw err
+        res.json(appointment);
+    })
+});
+
 module.exports = router;

@@ -140,7 +140,7 @@ export default class ProfileDetails extends Component {
 
 
     render() {
-        console.log(this.state);
+        // console.log(this.state);
         let user = this.state.user;
         let userLoggedIn = this.state.userLoggedIn;
 
@@ -289,9 +289,8 @@ export default class ProfileDetails extends Component {
                                                             <td>{ appointment.procedure }</td>
                                                             <td> 
                                                                 <Link to={{
-                                                                    pathname: '/ScheduleAppointment',
+                                                                    pathname: '/EditAppointment',
                                                                     state: {
-                                                                        action: 'edit',
                                                                         appointment: appointment,
                                                                         userLoggedIn: this.props.userLoggedIn
                                                                     }

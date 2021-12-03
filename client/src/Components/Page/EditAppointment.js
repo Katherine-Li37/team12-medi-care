@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import Banner from '../Banner';
 
-
 import FullCalendar, { formatDate } from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -22,41 +21,69 @@ weekday[6] = 'Saturday';
 
 let eventGuid = 0;
 
-export default class AppointmentPage extends Component {
+export default class EditAppointment extends Component {
     constructor(props) {
         super(props);
     
         this.state ={
             // confirm logged-in
             userLoggedIn: this.props.location.state.userLoggedIn,
-            doctor: this.props.location.state.doctor,
+            // action: this.props.location.state.action,
+
+            doctor: null,
+            doctorID: this.props.location.state.appointment.doctorID, 
+            appointment: this.props.location.state.appointment,
             hours: null,
             existedAppointments: [],
             displayedAppointments: [],
 
-            serviceSelected: this.props.location.state.doctor.services[0],
+            serviceSelected: this.props.location.state.doctor ? this.props.location.state.doctor.services[0] : null,
             dateSelected: null,
             availableTimeList: [],
             timeSelected: null,
             buttonEnabled: false,
-            createAppointmentSuccess: false,
+            updateAppointmentSuccess: false,
 
             weekendsVisible: true,
             currentEvents: []
         };
-        
-        this.getWorkHours();
     }
 
     async componentDidMount(){
-        const doctorID = this.state.doctor._id;
-        const response = await fetch('http://localhost:3000/appointments/doctor/'+ doctorID)
-        const data = await response.json();
+        const response1 = await fetch('http://localhost:3000/users/'+ this.state.doctorID)
+        const data1 = await response1.json();
+        const response2 = await fetch('http://localhost:3000/appointments/doctor/'+  this.state.doctorID)
+        const data2 = await response2.json();
         
         this.setState({
-            existedAppointments: data
+            doctor: data1,
+            existedAppointments: data2
         });
-        this.displayAppointments(data);
+        this.loadDoctorDetails(this.state.doctorID);
+        this.loadCurrentAppointment();
+        this.displayAppointments(data2); //TODO
+    }
+
+    loadDoctorDetails=(doctorID)=>{
+        fetch('http://localhost:3000/doctor_details/'+ doctorID)
+        .then(res => res.json())
+        .then((data) => {
+            let doctorObj = this.state.doctor;
+            doctorObj.detail = data;
+            this.setState({ doctor: doctorObj });
+            // this.displayAppointments(data);
+            this.getWorkHours();
+            this.loadTimeSlots(new Date(this.state.appointment.date));
+        })
+        .catch(console.log)    
+    }
+
+    loadCurrentAppointment=()=>{
+        const appointment = this.state.appointment;
+        this.setState({  
+            serviceSelected: appointment.procedure,
+            dateSelected: new Date(appointment.date)
+        });
     }
 
     getWorkHours=()=>{
@@ -67,8 +94,8 @@ export default class AppointmentPage extends Component {
                 dateList.push({day, hours});
             }
         });
-        this.state.hours=dateList
-        // this.setState({hours: dateList});
+        // this.state.hours=dateList
+        this.setState({hours: dateList});
     }
     
     createEventId = () => {
@@ -90,10 +117,7 @@ export default class AppointmentPage extends Component {
         this.setState({
             displayedAppointments: appointmentEvents
         });
-        
     }
-
-
 
     serviceChange =(e)=>{
         this.setState({
@@ -105,8 +129,7 @@ export default class AppointmentPage extends Component {
         this.setState({
           dateSelected: date
         }, this.checkIfEnableButton());
-        this.loadTimeSlots(date);
-        
+        this.loadTimeSlots(date);     
     }
 
     timeChange =(e)=>{
@@ -123,7 +146,7 @@ export default class AppointmentPage extends Component {
             let startTime = new Date(date.toLocaleDateString('en-US') + ' ' + hours[0]);
             let endTime = new Date(date.toLocaleDateString('en-US') + ' ' + hours[1]);
             
-            let timeSlotArray=['Select Time'];
+            let timeSlotArray=[];
             let timeSlot = startTime;
             while (timeSlot.getTime()< endTime.getTime()){
         
@@ -141,12 +164,15 @@ export default class AppointmentPage extends Component {
                 existedAppointmentTime.push(appointment.time);
             }
         })
-        const filteredArray = timeSlotArray.filter(value => !existedAppointmentTime.includes(value));
+        const appointment = this.state.appointment;
+        const filteredArray = ([new Date(new Date(appointment.date).toLocaleDateString('en-US') + ' ' + appointment.time).toLocaleTimeString('it-IT')])
+        .concat(timeSlotArray.filter(value => !existedAppointmentTime.includes(value)));
 
-        console.log(filteredArray);
+        // console.log(filteredArray);
+        const index = filteredArray.findIndex((time) => time === this.state.appointment.time);
         this.setState({
             availableTimeList: filteredArray,
-            timeSelected: timeSlotArray[0]
+            timeSelected: filteredArray[index]
         })
         this.checkIfEnableButton();
     }
@@ -160,26 +186,20 @@ export default class AppointmentPage extends Component {
     }
 
     onSumbit = () => {
-        // console.log('submit')
         Axios({
           method: 'POST',
           data: {
-            doctorID: this.state.doctor._id,
-            doctorName: this.state.doctor.firstName + ' ' + this.state.doctor.lastName,
-            facilityID: this.state.doctor.detail.facilities.facilityID,
-            facilityName: this.state.doctor.detail.facilities.facilityName,
-            patientID: this.state.userLoggedIn._id,
-            patientName: this.state.userLoggedIn.firstName + ' ' + this.state.userLoggedIn.lastName,
             date: this.state.dateSelected,
             time: this.state.timeSelected,
             procedure: this.state.serviceSelected,
           },
-          url: 'http://localhost:3000/appointments/create',
+          url: 'http://localhost:3000/appointments/update/' + this.state.appointment._id,
         }).then((res) => {
             if(res.data){
+                console.log(res.data)
                 this.setState({
-                    createAppointmentSuccess: true
-                })
+                    updateAppointmentSuccess: true
+                });
             }
         });
     };
@@ -189,21 +209,18 @@ export default class AppointmentPage extends Component {
         return (
             <React.Fragment>
                 <Banner pageTitle='Schedule an Appointment' />
+                {this.state.doctor &&
                 <div className="contact-form-wraper">
                     <div className='container new-container'>
-                        
-                    
                         <h2>Schedule an Appointment with Dr. {this.state.doctor.firstName} {this.state.doctor.lastName}</h2>
-                    <div>
-                                <div className='col-lg-6 col-md-6 col-12'>
+                        <div>
+                            <div className='col-lg-6 col-md-6 col-12'>
                             <label>Procedure: </label>
                             <select 
                                 value={this.state.serviceSelected} 
                                 onChange={this.serviceChange}
                             >
-                                {this.state.doctor.services.map((service) => 
-                                    (<option value={service}>{service}</option>))
-                                }
+                                {this.state.doctor.services.map((service) => (<option value={service}>{service}</option>))}
                             </select>
                             </div>
 
@@ -241,12 +258,13 @@ export default class AppointmentPage extends Component {
 
                         </div>
 
-                        {this.state.createAppointmentSuccess && <span className="error-msg">Appointment created</span>}
+                        {this.state.updateAppointmentSuccess && <span className="error-msg">Appointment updated</span>}
                     {/* </form> */}
                 </div>
                 </div>
+                }
                 
-                {this.state.displayedAppointments.length &&
+                {this.state.doctor &&
                 <div className='container new-container'>
                     <h2>Availability Calendar for Dr. {this.state.doctor.firstName} {this.state.doctor.lastName}</h2>                
                     <div className='demo-app'>
@@ -282,7 +300,6 @@ export default class AppointmentPage extends Component {
             </React.Fragment>
         )
     }
-
 
 // renderSidebar=()=> {
 //     return (
@@ -351,7 +368,6 @@ export default class AppointmentPage extends Component {
 //     })
 //   }
 
-
 renderEventContent=(eventInfo)=> {
   return (
     <>
@@ -370,3 +386,4 @@ renderEventContent=(eventInfo)=> {
   )
 }
 }
+
