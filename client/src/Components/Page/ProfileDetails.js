@@ -8,7 +8,7 @@ import FullCalendar, { formatDate } from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import DatePicker from 'react-datepicker';
+// import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -38,7 +38,11 @@ export default class ProfileDetails extends Component {
             existedAppointments: [],
             displayedAppointments: [],
             weekendsVisible: true,
-            currentEvents: []
+            currentEvents: [],
+
+            // For patient's profile
+            pastAppointment: [],
+            upcomingAppointment: []
         }       
     }
 
@@ -59,6 +63,27 @@ export default class ProfileDetails extends Component {
                 this.displayAppointments(data);
             })
             .catch(console.log)
+        } else if (this.state.userLoggedIn.type === "Patient"){
+            fetch('http://localhost:3000/appointments/patient/' + this.state.userLoggedIn._id.toString())
+            .then(res => res.json())
+            .then((data) => {
+                console.log(data);
+                let pastAppointment = [ ];
+                let upcomingAppointment = [];
+                data.forEach((appointment) =>{
+                    if (new Date(appointment.date)>= new Date()){
+                        upcomingAppointment.push(appointment);
+                    }else{
+                        pastAppointment.push(appointment);
+                    }
+                });
+                this.setState({ 
+                    pastAppointment: pastAppointment,
+                    upcomingAppointment: upcomingAppointment
+                });
+                // this.displayAppointments(data);
+            })
+            .catch(console.log)
         }
     }
 
@@ -70,8 +95,8 @@ export default class ProfileDetails extends Component {
                 dateList.push({day, hours});
             }
         });
-        this.state.hours=dateList
-        // this.setState({hours: dateList});
+        // this.state.hours=dateList
+        this.setState({hours: dateList});
     }
 
     createEventId = () => {
@@ -231,6 +256,89 @@ export default class ProfileDetails extends Component {
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        
+                        {userLoggedIn.type === "Patient" &&
+                            <div className="card">
+                                <div className="card-body">
+                                    <h5 className="card-title">Appointment</h5>
+                                    <div className="row">
+                                        <div className="col-sm-6"><h4 className="mb-0">Upcoming Appointment</h4></div>
+                                        <table className="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                                <th>Doctor</th>
+                                                <th>Facility</th>
+                                                <th>Procedure</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                {this.state.upcomingAppointment.map((appointment) => {
+                                                    return (
+                                                        <tr>
+                                                            <td>{ new Date(appointment.date).toLocaleDateString('en-US') }</td>
+                                                            <td>{ appointment.time }</td>
+                                                            <td>{ appointment.doctorName }</td>
+                                                            <td>{ appointment.facilityName }</td>
+                                                            <td>{ appointment.procedure }</td>
+                                                            <td> 
+                                                                <Link to={{
+                                                                    pathname: '/ScheduleAppointment',
+                                                                    state: {
+                                                                        action: 'edit',
+                                                                        appointment: appointment,
+                                                                        userLoggedIn: this.props.userLoggedIn
+                                                                    }
+                                                                }}><i className="fa fa-edit fa-2x"></i></Link>
+                                                                
+                                                                <i className="fa fa-trash fa-2x">
+                                                                {/* <Link to={{
+                                                                    pathname: '/ScheduleAppointment',
+                                                                    state: { 
+                                                                        doctor: doctor,
+                                                                        userLoggedIn: this.props.userLoggedIn
+                                                                    }
+                                                                }}></Link> */}
+                                                                </i>                  
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-sm-6"><h4 className="mb-0">Past Appointment</h4></div>
+                                        <table className="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                                <th>Doctor</th>
+                                                <th>Facility</th>
+                                                <th>Procedure</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                {this.state.pastAppointment.map((appointment) => {
+                                                    return (
+                                                        <tr>
+                                                            <td>{ new Date(appointment.date).toLocaleDateString('en-US') }</td>
+                                                            <td>{ appointment.time }</td>
+                                                            <td>{ appointment.doctorName }</td>
+                                                            <td>{ appointment.facilityName }</td>
+                                                            <td>{ appointment.procedure }</td>
+                                                        </tr>
+                                                    )
+                                                })}
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
