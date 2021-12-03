@@ -47,6 +47,7 @@ router.post('/update/:id', function(req, res) {
             date: req.body.date,
             time: req.body.time,
             procedure: req.body.procedure,
+            status: req.body.status,
         }
     }, function(err, appointment) {
         if (err) throw err

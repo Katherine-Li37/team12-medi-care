@@ -113,7 +113,7 @@ export default class EditAppointment extends Component {
             }
             appointmentEvents.push(event);
         });
-        console.log(appointmentEvents);
+        // console.log(appointmentEvents);
         this.setState({
             displayedAppointments: appointmentEvents
         });
@@ -192,11 +192,12 @@ export default class EditAppointment extends Component {
             date: this.state.dateSelected,
             time: this.state.timeSelected,
             procedure: this.state.serviceSelected,
+            status: 'active',
           },
           url: 'http://localhost:3000/appointments/update/' + this.state.appointment._id,
         }).then((res) => {
             if(res.data){
-                console.log(res.data)
+                // console.log(res.data)
                 this.setState({
                     updateAppointmentSuccess: true
                 });
@@ -205,7 +206,7 @@ export default class EditAppointment extends Component {
     };
 
     render() {
-        console.log(this.state);
+        // console.log(this.state);
         return (
             <React.Fragment>
                 <Banner pageTitle='Schedule an Appointment' />

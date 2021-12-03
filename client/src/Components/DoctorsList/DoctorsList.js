@@ -24,9 +24,15 @@ export default class DoctorsList extends Component {
         fetch('http://localhost:3000/users/doctors')
         .then(res => res.json())
         .then((data) => {
+            const activeDoctorList = [];
+            data.forEach((doctor)=>{
+                if (doctor.status = 'active') {
+                    activeDoctorList.push(doctor);
+                }
+            })
             this.setState({
-                doctors: data,
-                filteredList: data
+                doctors: activeDoctorList,
+                filteredList: activeDoctorList
             });
           this.fetchDoctorDetail(data);
         })
@@ -35,11 +41,16 @@ export default class DoctorsList extends Component {
         fetch('http://localhost:3000/facilities/')
         .then(res => res.json())
         .then((data) => {
-          this.setState({ facilities: data })
+            const activeFacilityList = [];
+            data.forEach((facility)=>{
+                if (facility.status = 'active') {
+                    activeFacilityList.push(facility);
+                }
+            })
+            this.setState({ facilities: activeFacilityList })
         })
         .catch(console.log)
     }
-
 
     async fetchDoctorDetail(doctors) {
         let newDoctorDetails=[]

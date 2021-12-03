@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
 import { Link } from 'react-router-dom';
 import Banner from '../Banner';
 import AdminPanel from './AdminPanel';
@@ -8,9 +9,11 @@ import FullCalendar, { formatDate } from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-// import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
 const weekday = new Array(7);
@@ -42,7 +45,8 @@ export default class ProfileDetails extends Component {
 
             // For patient's profile
             pastAppointment: [],
-            upcomingAppointment: []
+            upcomingAppointment: [],
+
         }       
     }
 
@@ -67,14 +71,16 @@ export default class ProfileDetails extends Component {
             fetch('http://localhost:3000/appointments/patient/' + this.state.userLoggedIn._id.toString())
             .then(res => res.json())
             .then((data) => {
-                console.log(data);
+                // console.log(data);
                 let pastAppointment = [ ];
                 let upcomingAppointment = [];
                 data.forEach((appointment) =>{
-                    if (new Date(appointment.date)>= new Date()){
-                        upcomingAppointment.push(appointment);
-                    }else{
-                        pastAppointment.push(appointment);
+                    if(appointment.status === "active"){
+                        if (new Date(appointment.date)>= new Date()){
+                            upcomingAppointment.push(appointment);
+                        }else{
+                            pastAppointment.push(appointment);
+                        }
                     }
                 });
                 this.setState({ 
@@ -113,11 +119,50 @@ export default class ProfileDetails extends Component {
             }
             appointmentEvents.push(event);
         });
-        console.log(appointmentEvents);
+        // console.log(appointmentEvents);
         this.setState({
             displayedAppointments: appointmentEvents
         });
         
+    }
+
+    confirmDeleteAppointment = (appointment) => {
+        // console.log(appointment);
+        confirmAlert({
+            customUI: ({ onClose }) => {
+              return (
+                <div className='custom-ui'>
+                  <h1>Confirm to delete appointment</h1>
+                  <p>Are you sure to delete the appointment on {new Date(appointment.date).toLocaleDateString('en-US')}  {appointment.time} with Dr. {appointment.doctorName}</p>
+                  <button onClick={() => {
+                      this.handleDeleteAppointment(appointment)
+                      onClose()
+                  }}>Yes</button>
+                  <button onClick={onClose}>No</button>
+                </div>
+              )
+            }
+        })
+    }
+
+    handleDeleteAppointment=(appointment)=>{
+        Axios({
+            method: 'POST',
+            data: {
+                date: appointment.date,
+                time: appointment.time,
+                procedure: appointment.procedure,
+                status: 'inactive'
+            },
+            url: 'http://localhost:3000/appointments/update/' + appointment._id,
+          }).then((res) => {
+              if(res.data){
+                //   console.log(res.data)
+                //   this.setState({
+                //       updateAppointmentSuccess: true
+                //   });
+              }
+          });
     }
 
     renderEventContent=(eventInfo)=> {
@@ -129,14 +174,14 @@ export default class ProfileDetails extends Component {
         )
       }
       
-       renderSidebarEvent=(event)=> {
+    renderSidebarEvent=(event)=> {
         return (
           <li key={event.id}>
             <b>{formatDate(event.start, {year: 'numeric', month: 'short', day: 'numeric'})}</b>
             <i>{event.title}</i>
           </li>
         )
-      }
+    }
 
 
     render() {
@@ -288,23 +333,20 @@ export default class ProfileDetails extends Component {
                                                             <td>{ appointment.facilityName }</td>
                                                             <td>{ appointment.procedure }</td>
                                                             <td> 
-                                                                <Link to={{
-                                                                    pathname: '/EditAppointment',
-                                                                    state: {
-                                                                        appointment: appointment,
-                                                                        userLoggedIn: this.props.userLoggedIn
-                                                                    }
-                                                                }}><i className="fa fa-edit fa-2x"></i></Link>
-                                                                
-                                                                <i className="fa fa-trash fa-2x">
-                                                                {/* <Link to={{
-                                                                    pathname: '/ScheduleAppointment',
-                                                                    state: { 
-                                                                        doctor: doctor,
-                                                                        userLoggedIn: this.props.userLoggedIn
-                                                                    }
-                                                                }}></Link> */}
-                                                                </i>                  
+                                                                <button>
+                                                                    <Link to={{
+                                                                        pathname: '/EditAppointment',
+                                                                        state: {
+                                                                            appointment: appointment,
+                                                                            userLoggedIn: this.props.userLoggedIn
+                                                                        }
+                                                                    }}><i className="fa fa-edit fa-2x"></i>
+                                                                    </Link>
+                                                                </button>
+
+                                                                <button onClick={() => this.confirmDeleteAppointment(appointment)}>
+                                                                    <i className="fa fa-trash fa-2x"></i>
+                                                                </button>
                                                             </td>
                                                         </tr>
                                                     )

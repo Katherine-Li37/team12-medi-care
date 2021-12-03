@@ -86,7 +86,7 @@ export default class AppointmentPage extends Component {
             }
             appointmentEvents.push(event);
         });
-        console.log(appointmentEvents);
+        // console.log(appointmentEvents);
         this.setState({
             displayedAppointments: appointmentEvents
         });
@@ -143,7 +143,7 @@ export default class AppointmentPage extends Component {
         })
         const filteredArray = timeSlotArray.filter(value => !existedAppointmentTime.includes(value));
 
-        console.log(filteredArray);
+        // console.log(filteredArray);
         this.setState({
             availableTimeList: filteredArray,
             timeSelected: timeSlotArray[0]
@@ -185,7 +185,7 @@ export default class AppointmentPage extends Component {
     };
 
     render() {
-        console.log(this.state);
+        // console.log(this.state);
         return (
             <React.Fragment>
                 <Banner pageTitle='Schedule an Appointment' />
