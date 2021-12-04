@@ -16,5 +16,28 @@ router.get('/:id', function(req, res) {
     })
 });
 
+// doctor_details/create
+router.post('/create', function(req, res) {
+    collection.insert({
+        userID: mongoose.Types.ObjectId(req.body.userID),
+        facilities: {
+            facilityID: mongoose.Types.ObjectId(req.body.facilityID),
+            facilityName: req.body.facilityName,
+            availability: {
+                Monday: [],
+                Tuesday: [],
+                Wednesday: [],
+                Thursday: [],
+                Friday: [],
+                Saturday: [],
+                Sunday: []
+            }
+        }
+    }, function(err, facility) {
+        if (err) throw err
+        res.json(facility);
+    })
+});
+
 
 module.exports = router;

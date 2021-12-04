@@ -21,7 +21,7 @@ router.get('/:id', function(req, res) {
     })
 });
 
-// update a facility
+// update a facility facilities/update/:id
 router.post('/update/:id', function(req, res) {
     collection.update({ _id: req.params.id }, {
         $set: {
@@ -30,6 +30,24 @@ router.post('/update/:id', function(req, res) {
             // procedure: req.body.procedure,
             status: req.body.status,
         }
+    }, function(err, facility) {
+        if (err) throw err
+        res.json(facility);
+    })
+});
+
+// add new facility: facilities/create
+router.post('/create', function(req, res) {
+    collection.insert({
+        name: req.body.name,
+        email: req.body.email,
+        phone: req.body.phone,
+        address: req.body.address,
+        city: req.body.city,
+        state: req.body.state,
+        zipcode: req.body.zipcode,
+        services: req.body.services,
+        status: req.body.status,
     }, function(err, facility) {
         if (err) throw err
         res.json(facility);

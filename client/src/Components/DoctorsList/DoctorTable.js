@@ -97,6 +97,14 @@ export default class DoctorTable extends Component {
                             Schedule Appointment
                             </Link></td>}
                         {this.props.admin && <td>
+                            <button>
+                                <Link to={{
+                                        pathname: `/AdminUpdate`,
+                                        state: { type: 'Doctor' }
+                                    }}>
+                                    <i className="fa fa-edit fa-2x"></i>
+                                </Link>
+                            </button>
                             <button onClick={() => this.confirmDeleteDoctor(doctor)}>
                                 <i className="fa fa-trash fa-2x"></i>
                             </button>

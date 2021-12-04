@@ -14,6 +14,8 @@ import Contact from './Components/Page/Contact';
 import FooterData from './Components/Data/FooterData';
 import LogIn from './Components/Page/LogIn';
 import AdminPanel from './Components/Page/AdminPanel';
+import AdminCreatePage from './Components/Page/AdminCreatePage';
+import AdminUpdateePage from './Components/Page/AdminUpatePage';
 import './App.css';
 
 function App() {
@@ -38,6 +40,9 @@ function App() {
             <Route path = '/Contact' component = { Contact }/> 
             <Route path = '/LogIn' component = { LogIn }/> 
             <Route path = '/Admin' component = { AdminPanel }/>
+            <Route path = '/AdminCreate' component = { AdminCreatePage }/>
+            <Route path = '/AdminUpdate' component = { AdminUpdateePage }/>
+
             <FooterOne FooterData = { FooterData }/>
         </Router> 
         </div>

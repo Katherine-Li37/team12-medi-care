@@ -15,7 +15,8 @@ var user = new Schema({
     state: { type: String, default: '' },
     zipcode: { type: String, default: '' },
     title: { type: String, default: '' },
-    services: []
+    services: [],
+    status: { type: String, default: 'active' },
 });
 
 user.plugin(passportLocalMongoose);

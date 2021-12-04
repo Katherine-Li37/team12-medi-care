@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import { Link } from 'react-router-dom';
 import Banner from '../Banner';
 import DoctorTable from '../DoctorsList/DoctorTable';
 import { confirmAlert } from 'react-confirm-alert'; 
@@ -171,6 +172,14 @@ export default class AdminPanel extends Component {
                     <td>{ patient.phone }</td>
                     <td>{ patient.address}, {patient.city}, {patient.state} {patient.zipcode}</td>
                     <td>
+                        <button>
+                            <Link to={{
+                                    pathname: `/AdminUpdate`,
+                                    state: { type: 'Patient' }
+                                }}>
+                                <i className="fa fa-edit fa-2x"></i>
+                            </Link>
+                        </button>
                         <button onClick={() => this.confirmDeletePatient(patient)}>
                             <i className="fa fa-trash fa-2x"></i>
                         </button>
@@ -191,6 +200,14 @@ export default class AdminPanel extends Component {
                         {facility.services.map((service,index) => (<li key={index}>{service}</li>))}
                     </td>
                     <td>
+                        <button>
+                            <Link to={{
+                                    pathname: `/AdminUpdate`,
+                                    state: { type: 'Facility' }
+                                }}>
+                                <i className="fa fa-edit fa-2x"></i>
+                            </Link>
+                        </button>
                         <button onClick={() => this.confirmDeleteFacility(facility)}>
                             <i className="fa fa-trash fa-2x"></i>
                         </button>
@@ -204,7 +221,17 @@ export default class AdminPanel extends Component {
                 <Banner pageTitle='List of Users' />
                 <div className="container new-container">
                     <div className="row">
-                        <h1>Doctors</h1>
+                        <div className="col-lg-9 col-md-9 col-12">
+                            <h1>Doctors</h1>
+                        </div>
+                        <div className="col-lg-3 col-md-3 col-12">
+                            <Link to={{
+                                    pathname: `/AdminCreate`,
+                                    state: { type: 'Doctor' }
+                                }}>
+                                Add New Doctor
+                            </Link>
+                        </div>
                         <DoctorTable
                             doctors={this.state.doctors}
                             filterText={this.state.filterText}
@@ -214,43 +241,65 @@ export default class AdminPanel extends Component {
                             admin={true}
                         />
                     </div>
+                    <br/>
 
                     <div className="row">
-                        <h1>Facilities</h1>
-                            <table className="table">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
-                                    <th>Services</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    {facilityRows}
-                                </tbody>
-                            </table>
+                        <div className="col-lg-9 col-md-9 col-12">
+                            <h1>Facilities</h1>
+                        </div>
+                        <div className="col-lg-3 col-md-3 col-12">
+                            <Link to={{
+                                    pathname: `/AdminCreate`,
+                                    state: { type: 'Facility' }
+                                }}>
+                                Add New Facility
+                            </Link>
+                        </div>
+                        <table className="table">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Services</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {facilityRows}
+                            </tbody>
+                        </table>
                     </div>
+                    <br/>
 
                     <div className="row">
-                        <h1>Patients</h1>
-                            <table className="table">
-                                <thead>
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    {patientRows}
-                                </tbody>
-                            </table>
+                        <div className="col-lg-9 col-md-9 col-12">
+                            <h1>Patients</h1>
+                        </div>
+                        {/* <div className="col-lg-3 col-md-3 col-12">
+                            <Link to={{
+                                    pathname: `/AdminCreate`,
+                                    state: { type: 'Patient' }
+                                }}>
+                                Add New Patient
+                            </Link>
+                        </div> */}
+                        <table className="table">
+                            <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {patientRows}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </React.Fragment>

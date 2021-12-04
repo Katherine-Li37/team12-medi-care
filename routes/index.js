@@ -9,10 +9,25 @@ router.get('/', function(req, res) {
 });
 
 router.post('/register', function(req, res) {
-    User.register(new User({ username: req.body.username, email: req.body.email, type: "Patient" }), req.body.password, function(err, user) {
+    console.log(req.body);
+    User.register(new User({ 
+        username: req.body.username,
+        type: req.body.type,
+        firstName: req.body.firstname ? req.body.firstname : null,
+        lastName: req.body.lastname ? req.body.lastname : null,
+        email: req.body.email,
+        phone: req.body.phone ? req.body.phone : null,
+        address: req.body.address ? req.body.address : null,
+        city: req.body.city ? req.body.city : null,
+        state: req.body.state ? req.body.state : null,
+        zipcode: req.body.zipcode ? req.body.zipcode : null,
+        services: req.body.services ? req.body.services : [],
+        title: req.body.title ? req.body.title : null,
+        status: 'active'
+    }), req.body.password, function(err, user) {
         if (err) throw err;
         passport.authenticate('local')(req, res, function() {
-            res.send("User Created");
+            res.send({message: "User Created", user});
         });
     });
 });

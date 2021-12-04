@@ -10,20 +10,20 @@ export default class LogIn extends Component {
             typing: false,
             typingTimeout: 0,
             
-                registerUsername: "",
-                ifUserNameExist: false,
-                registerPassword: "",
-                ifStrongPassword: true,
-                registerRepeatPassword: "",
-                ifPasswordMatch: true,
-                registerEmail:"",
-                ifEmailFormat:true,
-                buttonEnabled: false,
-                registerSuccess: null,
+            registerUsername: "",
+            ifUserNameExist: false,
+            registerPassword: "",
+            ifStrongPassword: true,
+            registerRepeatPassword: "",
+            ifPasswordMatch: true,
+            registerEmail:"",
+            ifEmailFormat:true,
+            buttonEnabled: false,
+            registerSuccess: null,
 
-                loginUsername: "",
-                loginPassword: "",
-                loginSuccess: null,
+            loginUsername: "",
+            loginPassword: "",
+            loginSuccess: null,
 
             data: null,
         }       
@@ -34,13 +34,14 @@ export default class LogIn extends Component {
           method: "POST",
           data: {
             username: this.state.registerUsername,
+            type: 'Patient',
             password: this.state.registerPassword,
-            email: this.state.registerEmail,
+            email: this.state.registerEmail
           },
           withCredentials: true,
           url: "http://localhost:3000/register",
         }).then((res) => {
-            if(res.data==="User Created"){
+            if(res.data.message==="User Created"){
                 this.setState({
                     registerSuccess: true
                 })
