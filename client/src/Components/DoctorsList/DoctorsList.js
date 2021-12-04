@@ -17,16 +17,21 @@ export default class DoctorsList extends Component {
         };
         
         this.fetchDoctorDetail = this.fetchDoctorDetail.bind(this);
-        this.mapFacilityInfoIntoDoctor = this.mapFacilityInfoIntoDoctor.bind(this);
+        // this.mapFacilityInfoIntoDoctor = this.mapFacilityInfoIntoDoctor.bind(this);
     }
 
     componentDidMount() {
+        this.fetchDoctors();
+        this.fetchFacilities();
+    }
+
+    fetchDoctors = () => {
         fetch('http://localhost:3000/users/doctors')
         .then(res => res.json())
         .then((data) => {
             const activeDoctorList = [];
             data.forEach((doctor)=>{
-                if (doctor.status = 'active') {
+                if (doctor.status === 'active') {
                     activeDoctorList.push(doctor);
                 }
             })
@@ -37,13 +42,15 @@ export default class DoctorsList extends Component {
           this.fetchDoctorDetail(data);
         })
         .catch(console.log)
+    }
 
+    fetchFacilities = () => {
         fetch('http://localhost:3000/facilities/')
         .then(res => res.json())
         .then((data) => {
             const activeFacilityList = [];
             data.forEach((facility)=>{
-                if (facility.status = 'active') {
+                if (facility.status === 'active') {
                     activeFacilityList.push(facility);
                 }
             })
@@ -63,7 +70,7 @@ export default class DoctorsList extends Component {
         this.mapFacilityInfoIntoDoctor();
     }
 
-    mapFacilityInfoIntoDoctor(){
+    mapFacilityInfoIntoDoctor = ()=>{
         var doctorUpdated = [];
         this.state.doctors.forEach((doctor)=>{
             var newDoctor = doctor;

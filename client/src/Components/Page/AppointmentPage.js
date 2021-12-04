@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import Banner from '../Banner';
 
-
 import FullCalendar, { formatDate } from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -29,6 +28,7 @@ export default class AppointmentPage extends Component {
         this.state ={
             // confirm logged-in
             userLoggedIn: this.props.location.state.userLoggedIn,
+
             doctor: this.props.location.state.doctor,
             hours: null,
             existedAppointments: [],
@@ -81,16 +81,13 @@ export default class AppointmentPage extends Component {
             let event = {
                 id: this.createEventId(),
                 title: 'Appointment time taken',
-                // title: appointment.procedure + ' - ' + appointment.patientName,
                 start: new Date(appointment.date).toISOString().replace(/T.*$/, '') + 'T' + appointment.time // YYYY-MM-DD
             }
             appointmentEvents.push(event);
         });
-        // console.log(appointmentEvents);
         this.setState({
             displayedAppointments: appointmentEvents
         });
-        
     }
 
 
@@ -173,6 +170,7 @@ export default class AppointmentPage extends Component {
             date: this.state.dateSelected,
             time: this.state.timeSelected,
             procedure: this.state.serviceSelected,
+            status: 'active'
           },
           url: 'http://localhost:3000/appointments/create',
         }).then((res) => {

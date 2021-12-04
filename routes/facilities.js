@@ -21,4 +21,19 @@ router.get('/:id', function(req, res) {
     })
 });
 
+// update a facility
+router.post('/update/:id', function(req, res) {
+    collection.update({ _id: req.params.id }, {
+        $set: {
+            // date: req.body.date,
+            // time: req.body.time,
+            // procedure: req.body.procedure,
+            status: req.body.status,
+        }
+    }, function(err, facility) {
+        if (err) throw err
+        res.json(facility);
+    })
+});
+
 module.exports = router;

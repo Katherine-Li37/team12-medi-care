@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import Banner from '../Banner';
 import DoctorTable from '../DoctorsList/DoctorTable';
-
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 export default class AdminPanel extends Component {
     constructor(props) {
@@ -14,23 +15,40 @@ export default class AdminPanel extends Component {
             facilities: [],
             doctorDetails: []
         }
-        this.deleteUser = this.deleteUser.bind(this);
-        
     }
 
     componentDidMount() {
+        this.fetchUsers();
+        this.fetchFacilities();
+    }
+
+    fetchUsers = () =>{
         fetch('http://localhost:3000/users/')
         .then(res => res.json())
         .then((data) => {
-          this.setState({ users: data })
-          this.splitDataGroups();
+            const activeUserList = [];
+            data.forEach((user)=>{
+                if (user.status === 'active') {
+                    activeUserList.push(user);
+                }
+            })
+            this.setState({ users: activeUserList })
+            this.splitDataGroups();
         })
         .catch(console.log)
+    }
 
+    fetchFacilities = () => {
         fetch('http://localhost:3000/facilities/')
         .then(res => res.json())
         .then((data) => {
-          this.setState({ facilities: data })
+            const activeFacilityList = [];
+            data.forEach((facility)=>{
+                if (facility.status === 'active') {
+                    activeFacilityList.push(facility);
+                }
+            });
+            this.setState({ facilities: activeFacilityList })
         })
         .catch(console.log)
     }
@@ -74,19 +92,76 @@ export default class AdminPanel extends Component {
         this.setState({doctor: doctorUpdated});
     }
 
-    deleteUser(id){
+    confirmDeletePatient = (patient) => {
+        // console.log(appointment);
+        confirmAlert({
+            customUI: ({ onClose }) => {
+              return (
+                <div className='custom-ui'>
+                  <h1>Confirm to delete patient</h1>
+                  <p>Are you sure to delete this patient?</p>
+                  <button onClick={() => {
+                      this.handleDeletePatient(patient)
+                      onClose()
+                  }}>Yes</button>
+                  <button onClick={onClose}>No</button>
+                </div>
+              )
+            }
+        })
+    }
+
+    handleDeletePatient=(patient)=>{
         Axios({
-          method: "DELETE",
-          url: "http://localhost:3000/users/" + id,
-        }).then((res) => {
-            console.log(res)
-        });
-    };
+            method: 'POST',
+            data: {
+                status: 'inactive'
+            },
+            url: 'http://localhost:3000/users/update/' + patient._id,
+          }).then((res) => {
+              if(res.data){
+                  this.fetchUsers();
+              }
+          });
+    }
+
+    confirmDeleteFacility = (facility) => {
+        // console.log(appointment);
+        confirmAlert({
+            customUI: ({ onClose }) => {
+              return (
+                <div className='custom-ui'>
+                  <h1>Confirm to delete facility</h1>
+                  <p>Are you sure to delete this facility?</p>
+                  <button onClick={() => {
+                      this.handleDeleteFacility(facility)
+                      onClose()
+                  }}>Yes</button>
+                  <button onClick={onClose}>No</button>
+                </div>
+              )
+            }
+        })
+    }
+
+    handleDeleteFacility=(facility)=>{
+        Axios({
+            method: 'POST',
+            data: {
+                status: 'inactive'
+            },
+            url: 'http://localhost:3000/facilities/update/' + facility._id,
+          }).then((res) => {
+              if(res.data){
+                  this.fetchFacilities();
+              }
+          });
+    }
 
     render() {
-        const rows = [];
+        const patientRows = [];
         this.state.patients.forEach((patient) => {       
-            rows.push(
+            patientRows.push(
                 <tr>
                     <td>{ patient.username }</td>
                     <td>
@@ -96,8 +171,28 @@ export default class AdminPanel extends Component {
                     <td>{ patient.phone }</td>
                     <td>{ patient.address}, {patient.city}, {patient.state} {patient.zipcode}</td>
                     <td>
-                        <button type="button" onClick={() => this.deleteUser(patient._id)}>
-                        <i className="fa fa-trash fa-2x"></i>
+                        <button onClick={() => this.confirmDeletePatient(patient)}>
+                            <i className="fa fa-trash fa-2x"></i>
+                        </button>
+                    </td>
+                </tr>
+            );
+        });
+
+        const facilityRows = [];
+        this.state.facilities.forEach((facility) => {       
+            facilityRows.push(
+                <tr>
+                    <td>{ facility.name }</td>
+                    <td>{ facility.email }</td>
+                    <td>{ facility.phone }</td>
+                    <td>{ facility.address}, {facility.city}, {facility.state} {facility.zipcode}</td>
+                    <td>                      
+                        {facility.services.map((service,index) => (<li key={index}>{service}</li>))}
+                    </td>
+                    <td>
+                        <button onClick={() => this.confirmDeleteFacility(facility)}>
+                            <i className="fa fa-trash fa-2x"></i>
                         </button>
                     </td>
                 </tr>
@@ -121,6 +216,25 @@ export default class AdminPanel extends Component {
                     </div>
 
                     <div className="row">
+                        <h1>Facilities</h1>
+                            <table className="table">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>Services</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {facilityRows}
+                                </tbody>
+                            </table>
+                    </div>
+
+                    <div className="row">
                         <h1>Patients</h1>
                             <table className="table">
                                 <thead>
@@ -134,7 +248,7 @@ export default class AdminPanel extends Component {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {rows}
+                                    {patientRows}
                                 </tbody>
                             </table>
                     </div>

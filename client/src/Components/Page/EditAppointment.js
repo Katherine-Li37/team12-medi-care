@@ -28,7 +28,6 @@ export default class EditAppointment extends Component {
         this.state ={
             // confirm logged-in
             userLoggedIn: this.props.location.state.userLoggedIn,
-            // action: this.props.location.state.action,
 
             doctor: null,
             doctorID: this.props.location.state.appointment.doctorID, 
@@ -108,12 +107,10 @@ export default class EditAppointment extends Component {
             let event = {
                 id: this.createEventId(),
                 title: 'Appointment time taken',
-                // title: appointment.procedure + ' - ' + appointment.patientName,
                 start: new Date(appointment.date).toISOString().replace(/T.*$/, '') + 'T' + appointment.time // YYYY-MM-DD
             }
             appointmentEvents.push(event);
         });
-        // console.log(appointmentEvents);
         this.setState({
             displayedAppointments: appointmentEvents
         });
@@ -265,7 +262,7 @@ export default class EditAppointment extends Component {
                 </div>
                 }
                 
-                {this.state.doctor &&
+                {this.state.displayedAppointments.length &&
                 <div className='container new-container'>
                     <h2>Availability Calendar for Dr. {this.state.doctor.firstName} {this.state.doctor.lastName}</h2>                
                     <div className='demo-app'>

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
 import { Link } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 export default class DoctorTable extends Component {
     constructor(props) {
@@ -27,6 +30,39 @@ export default class DoctorTable extends Component {
         }
     }
 
+    confirmDeleteDoctor = (doctor) => {
+        // console.log(appointment);
+        confirmAlert({
+            customUI: ({ onClose }) => {
+              return (
+                <div className='custom-ui'>
+                  <h1>Confirm to delete doctor</h1>
+                  <p>Are you sure to delete this doctor?</p>
+                  <button onClick={() => {
+                      this.handleDeleteDoctor(doctor)
+                      onClose()
+                  }}>Yes</button>
+                  <button onClick={onClose}>No</button>
+                </div>
+              )
+            }
+        })
+    }
+
+    handleDeleteDoctor=(doctor)=>{
+        Axios({
+            method: 'POST',
+            data: {
+                status: 'inactive'
+            },
+            url: 'http://localhost:3000/users/update/' + doctor._id,
+          }).then((res) => {
+                // if(res.data){
+                //     this.props.rerenderDoctorList();
+                // }
+          });
+    }
+
     render() {
         const rows = [];
       
@@ -35,7 +71,37 @@ export default class DoctorTable extends Component {
             if (index !== -1 ){
                 doctor.detail = this.props.doctorDetails[index];
                     rows.push(
-                    <DoctorRow doctor={doctor} userLoggedIn={this.state.userLoggedIn} admin={this.props.admin}/>
+                        <tr>
+                        <td></td>
+                        <td>
+                            <Link to={{
+                                pathname: `/Profile/${doctor._id}`,
+                                state: { user: doctor, userLoggedIn: this.props.userLoggedIn }
+                            }}>
+                            { doctor.firstName } { doctor.lastName }
+                            </Link>
+                        </td>
+                        <td>{ doctor.title }</td>
+                        <td>                      
+                            {doctor.services.map((service,index) => (<li key={index}>{service}</li>))}
+                        </td>
+                        <td>{ doctor.detail.facilities.facilityName }</td>
+                        {!this.props.admin && <td>                    
+                            <Link to={{
+                                pathname: '/ScheduleAppointment',
+                                state: { 
+                                    doctor: doctor,
+                                    userLoggedIn: this.props.userLoggedIn
+                                }
+                            }}>
+                            Schedule Appointment
+                            </Link></td>}
+                        {this.props.admin && <td>
+                            <button onClick={() => this.confirmDeleteDoctor(doctor)}>
+                                <i className="fa fa-trash fa-2x"></i>
+                            </button>
+                        </td>}
+                    </tr>
                 );
             }
         });
@@ -60,40 +126,3 @@ export default class DoctorTable extends Component {
         );
     }
   }
-
-
-  class DoctorRow extends React.Component {
-    render() {
-        const doctor = this.props.doctor;
-        return (
-            <tr>
-                <td></td>
-                <td>
-                    <Link to={{
-                        pathname: `/Profile/${doctor._id}`,
-                        state: { user: doctor, userLoggedIn: this.props.userLoggedIn }
-                    }}>
-                    { doctor.firstName } { doctor.lastName }
-                    </Link>
-                </td>
-                <td>{ doctor.title }</td>
-                <td>                      
-                    {doctor.services.map((service) => (<li>{service}</li>))}
-                </td>
-                <td>{ doctor.detail.facilities.facilityIName }</td>
-                {!this.props.admin && <td>                    
-                    <Link to={{
-                        pathname: '/ScheduleAppointment',
-                        state: { 
-                            doctor: doctor,
-                            userLoggedIn: this.props.userLoggedIn
-                        }
-                    }}>
-                    Schedule Appointment
-                    </Link></td>}
-                {this.props.admin && <td><i className="fa fa-trash fa-2x" ></i></td>}
-            </tr>
-
-        );
-    }
-}

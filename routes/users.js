@@ -21,9 +21,9 @@ router.get('/doctors', function(req, res) {
     })
 });
 
-// users/register/:idfor new user register checking
+// users/register/:id for new user register checking
 router.get('/register/:id', function(req, res) {
-    console.log("username", req.params.id)
+    // console.log("username", req.params.id)
     collection.find({ "username": req.params.id }, function(err, user) {
         if (err) throw err
         res.json(user);
@@ -37,16 +37,19 @@ router.get('/:id', function(req, res) {
     })
 });
 
-// delete a user
-router.delete('/:id', function(req, res) {
+// update a user
+router.post('/update/:id', function(req, res) {
     collection.update({ _id: req.params.id }, {
         $set: {
-            active: false
+            // date: req.body.date,
+            // time: req.body.time,
+            // procedure: req.body.procedure,
+            status: req.body.status,
         }
     }, function(err, user) {
         if (err) throw err
         res.json(user);
-    });
+    })
 });
 
 // // add new video
