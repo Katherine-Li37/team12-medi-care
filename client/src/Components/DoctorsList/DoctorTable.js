@@ -18,7 +18,7 @@ export default class DoctorTable extends Component {
 
     async componentDidMount(){
         const user = localStorage.getItem('username');
-        if(user && user!=="null"){
+        if(user && user!=='null'){
             const userID = user.split(',')[1];
             const response = await fetch('http://localhost:3000/users/'+ userID)
             const data = await response.json();
@@ -53,7 +53,17 @@ export default class DoctorTable extends Component {
         Axios({
             method: 'POST',
             data: {
-                status: 'inactive'
+                firstName: doctor.firstName,
+                lastName: doctor.lastName,
+                email: doctor.email,
+                phone: doctor.phone,
+                address: doctor.address,
+                city: doctor.city,
+                state: doctor.state,
+                zipcode: doctor.zipcode,
+                status: 'inactive',
+                title: doctor.title,
+                services: doctor.services,
             },
             url: 'http://localhost:3000/users/update/' + doctor._id,
           }).then((res) => {
@@ -100,7 +110,7 @@ export default class DoctorTable extends Component {
                             <button>
                                 <Link to={{
                                         pathname: `/AdminUpdate`,
-                                        state: { type: 'Doctor' }
+                                        state: { type: 'Doctor', savedObj: doctor  }
                                     }}>
                                     <i className="fa fa-edit fa-2x"></i>
                                 </Link>

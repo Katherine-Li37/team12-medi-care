@@ -58,9 +58,9 @@ export default class AdminPanel extends Component {
         var doctorsList = [];
         var patientsList = [];
         this.state.users.forEach((user) =>{
-            if(user.type==="Doctor"){
+            if(user.type==='Doctor'){
                 doctorsList.push(user);
-            }else if (user.type === "Patient"){
+            }else if (user.type === 'Patient'){
                 patientsList.push(user);
             }
         });
@@ -116,7 +116,17 @@ export default class AdminPanel extends Component {
         Axios({
             method: 'POST',
             data: {
-                status: 'inactive'
+                firstName: patient.firstName,
+                lastName: patient.lastName,
+                email: patient.email,
+                phone: patient.phone,
+                address: patient.address,
+                city: patient.city,
+                state: patient.state,
+                zipcode: patient.zipcode,
+                status: 'inactive',
+                title: patient.title,
+                services: patient.services,
             },
             url: 'http://localhost:3000/users/update/' + patient._id,
           }).then((res) => {
@@ -149,6 +159,14 @@ export default class AdminPanel extends Component {
         Axios({
             method: 'POST',
             data: {
+                name: facility.name,
+                email: facility.email,
+                phone: facility.phone,
+                address: facility.address,
+                city: facility.city,
+                state: facility.state,
+                zipcode: facility.zipcode,
+                services: facility.services,
                 status: 'inactive'
             },
             url: 'http://localhost:3000/facilities/update/' + facility._id,
@@ -175,7 +193,7 @@ export default class AdminPanel extends Component {
                         <button>
                             <Link to={{
                                     pathname: `/AdminUpdate`,
-                                    state: { type: 'Patient' }
+                                    state: { type: 'Patient', savedObj: patient}
                                 }}>
                                 <i className="fa fa-edit fa-2x"></i>
                             </Link>
@@ -203,7 +221,7 @@ export default class AdminPanel extends Component {
                         <button>
                             <Link to={{
                                     pathname: `/AdminUpdate`,
-                                    state: { type: 'Facility' }
+                                    state: { type: 'Facility', savedObj: facility }
                                 }}>
                                 <i className="fa fa-edit fa-2x"></i>
                             </Link>

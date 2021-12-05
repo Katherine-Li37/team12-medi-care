@@ -16,15 +16,15 @@ router.get('/', function(req, res) {
 
 // users/doctors
 router.get('/doctors', function(req, res) {
-    collection.find({ "type": "Doctor" }, function(err, doctors) {
+    collection.find({ 'type': 'Doctor' }, function(err, doctors) {
         res.json(doctors);
     })
 });
 
 // users/register/:id for new user register checking
 router.get('/register/:id', function(req, res) {
-    // console.log("username", req.params.id)
-    collection.find({ "username": req.params.id }, function(err, user) {
+    // console.log('username', req.params.id)
+    collection.find({ 'username': req.params.id }, function(err, user) {
         if (err) throw err
         res.json(user);
     })
@@ -41,10 +41,17 @@ router.get('/:id', function(req, res) {
 router.post('/update/:id', function(req, res) {
     collection.update({ _id: req.params.id }, {
         $set: {
-            // date: req.body.date,
-            // time: req.body.time,
-            // procedure: req.body.procedure,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            phone: req.body.phone,
+            address: req.body.address,
+            city: req.body.city,
+            state: req.body.state,
+            zipcode: req.body.zipcode,
             status: req.body.status,
+            title: req.body.title,
+            services: req.body.services,
         }
     }, function(err, user) {
         if (err) throw err

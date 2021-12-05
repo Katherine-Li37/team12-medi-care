@@ -10,19 +10,19 @@ export default class LogIn extends Component {
             typing: false,
             typingTimeout: 0,
             
-            registerUsername: "",
+            registerUsername: '',
             ifUserNameExist: false,
-            registerPassword: "",
+            registerPassword: '',
             ifStrongPassword: true,
-            registerRepeatPassword: "",
+            registerRepeatPassword: '',
             ifPasswordMatch: true,
-            registerEmail:"",
+            registerEmail:'',
             ifEmailFormat:true,
             buttonEnabled: false,
             registerSuccess: null,
 
-            loginUsername: "",
-            loginPassword: "",
+            loginUsername: '',
+            loginPassword: '',
             loginSuccess: null,
 
             data: null,
@@ -31,7 +31,7 @@ export default class LogIn extends Component {
 
     register = () => {
         Axios({
-          method: "POST",
+          method: 'POST',
           data: {
             username: this.state.registerUsername,
             type: 'Patient',
@@ -39,9 +39,9 @@ export default class LogIn extends Component {
             email: this.state.registerEmail
           },
           withCredentials: true,
-          url: "http://localhost:3000/register",
+          url: 'http://localhost:3000/register',
         }).then((res) => {
-            if(res.data.message==="User Created"){
+            if(res.data.message==='User Created'){
                 this.setState({
                     registerSuccess: true
                 })
@@ -51,13 +51,13 @@ export default class LogIn extends Component {
 
     login = () => {
         Axios({
-          method: "POST",
+          method: 'POST',
           data: {
             username: this.state.loginUsername,
             password: this.state.loginPassword,
           },
           withCredentials: true,
-          url: "http://localhost:3000/login",
+          url: 'http://localhost:3000/login',
         }).then((res) => {
             if(res.data.success){
                 localStorage.setItem('token', res.data.token);

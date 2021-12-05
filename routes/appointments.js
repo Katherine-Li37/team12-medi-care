@@ -10,14 +10,14 @@ var collection = db.get('appointments');
 
 // appointments/doctor/id: get appointment by doctor id
 router.get('/doctor/:id', function(req, res) {
-    collection.find({ "doctorID": req.params.id }, function(err, appointments) {
+    collection.find({ 'doctorID': req.params.id }, function(err, appointments) {
         res.json(appointments);
     })
 });
 
 // appointments/patient/id: get appointment by patient id
 router.get('/patient/:id', function(req, res) {
-    collection.find({ "patientID": req.params.id }, function(err, appointments) {
+    collection.find({ 'patientID': req.params.id }, function(err, appointments) {
         res.json(appointments);
     })
 });

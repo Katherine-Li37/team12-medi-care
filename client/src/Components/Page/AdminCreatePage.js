@@ -24,8 +24,8 @@ export default class AdminCreatePage extends Component {
 
             username: null,
             ifUserNameExist: false,
-            firstname: null,
-            lastname: null,
+            firstName: null,
+            lastName: null,
             name: null,
             email: null,
             ifEmailFormat: true,
@@ -45,23 +45,25 @@ export default class AdminCreatePage extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:3000/facilities/')
-        .then(res => res.json())
-        .then((data) => {
-            const activeFacilityList = [];
-            const activeFacilityOptions = [];
-            data.forEach((facility)=>{
-                if (facility.status === 'active') {
-                    activeFacilityList.push(facility);
-                    activeFacilityOptions.push({ value: facility._id, label: facility.name })
-                }
+        if(this.props.location.state.type==='Doctor'){
+            fetch('http://localhost:3000/facilities/')
+            .then(res => res.json())
+            .then((data) => {
+                const activeFacilityList = [];
+                const activeFacilityOptions = [];
+                data.forEach((facility)=>{
+                    if (facility.status === 'active') {
+                        activeFacilityList.push(facility);
+                        activeFacilityOptions.push({ value: facility._id, label: facility.name })
+                    }
+                })
+                this.setState({ 
+                    facilitiesList: activeFacilityList,
+                    facilityOptions: activeFacilityOptions
+                })
             })
-            this.setState({ 
-                facilitiesList: activeFacilityList,
-                facilityOptions: activeFacilityOptions
-            })
-        })
-        .catch(console.log)
+            .catch(console.log)
+        }
     }
     
     setUsername = (event) => {
@@ -95,12 +97,12 @@ export default class AdminCreatePage extends Component {
     }
 
     setFirstname = (event) => {
-        this.setState({ firstname: event.target.value });
+        this.setState({ firstName: event.target.value });
         this.checkIfEnableButton();
     }
 
     setLastname = (event) => {
-        this.setState({ lastname: event.target.value });
+        this.setState({ lastName: event.target.value });
         this.checkIfEnableButton();
     }
 
@@ -189,7 +191,7 @@ export default class AdminCreatePage extends Component {
             }
         } else { // type === 'Doctor'
             if ((this.state.username && !this.state.ifUserNameExist && this.state.email && this.state.ifEmailFormat 
-                && this.state.firstname && this.state.lastname && this.state.title && this.state.facility 
+                && this.state.firstName && this.state.lastName && this.state.title && this.state.facility 
                 && this.state.services.length)){
                 this.setState({buttonEnabled: true});
             } else{
@@ -200,7 +202,7 @@ export default class AdminCreatePage extends Component {
 
     createNewFacility = () => {
         Axios({
-        method: "POST",
+        method: 'POST',
         data: {
             name: this.state.name,
             email: this.state.email,
@@ -213,7 +215,7 @@ export default class AdminCreatePage extends Component {
             status: 'active'
         },
         withCredentials: true,
-        url: "http://localhost:3000/facilities/create",
+        url: 'http://localhost:3000/facilities/create',
         }).then((res) => {
             if(res.data){
                 this.setState({
@@ -225,13 +227,13 @@ export default class AdminCreatePage extends Component {
 
     createNewDoctor = () => {
         Axios({
-            method: "POST",
+            method: 'POST',
             data: {
                 username: this.state.username,
                 type: 'Doctor',
                 password: 'DefaultPW',
-                firstname: this.state.firstname,
-                lastname: this.state.lastname,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
                 email: this.state.email,
                 phone: this.state.phone,
                 address: this.state.address,
@@ -242,9 +244,9 @@ export default class AdminCreatePage extends Component {
                 title: this.state.title
             },
             withCredentials: true,
-            url: "http://localhost:3000/register",
+            url: 'http://localhost:3000/register',
         }).then((res) => {
-            if(res.data.message==="User Created"){
+            if(res.data.message==='User Created'){
                 this.addDoctorDetail(res.data.user);
             }
         });
@@ -252,14 +254,14 @@ export default class AdminCreatePage extends Component {
 
     addDoctorDetail=(doctor)=>{
         Axios({
-            method: "POST",
+            method: 'POST',
             data: {
                 userID: doctor._id,
                 facilityID: this.state.facility._id,
                 facilityName: this.state.facility.name,
             },
             withCredentials: true,
-            url: "http://localhost:3000/doctor_details/create",
+            url: 'http://localhost:3000/doctor_details/create',
         }).then((res) => {
             if(res.data){
                 this.setState({

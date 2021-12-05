@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var express = require('express');
 var cors = require('cors');
 var cookieParser = require('cookie-parser');
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
@@ -10,7 +10,7 @@ var createError = require('http-errors');
 var path = require('path');
 var logger = require('morgan');
 var app = express();
-var User = require("./models/user");
+var User = require('./models/user');
 
 //----------------------------------------- END OF IMPORTS---------------------------------------------------
 mongoose.connect('mongodb://localhost:27017/dentist', {
@@ -18,7 +18,7 @@ mongoose.connect('mongodb://localhost:27017/dentist', {
         useUnifiedTopology: true,
     },
     () => {
-        console.log("Mongoose is connected");
+        console.log('Mongoose is connected');
     }
 );
 
@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
     cors({
-        origin: "http://localhost:3006", // <-- location of the react app were connecting to
+        origin: 'http://localhost:3006', // <-- location of the react app were connecting to
         credentials: true,
     })
 );

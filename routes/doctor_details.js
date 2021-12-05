@@ -10,7 +10,7 @@ var collection = db.get('doctor_details');
 
 // doctor_details/id
 router.get('/:id', function(req, res) {
-    collection.findOne({"userID": mongoose.Types.ObjectId(req.params.id)}, function(err, userDetail) {
+    collection.findOne({'userID': mongoose.Types.ObjectId(req.params.id)}, function(err, userDetail) {
         if (err) throw err
         res.json(userDetail);
     })
@@ -33,11 +33,26 @@ router.post('/create', function(req, res) {
                 Sunday: []
             }
         }
-    }, function(err, facility) {
+    }, function(err, userDetail) {
         if (err) throw err
-        res.json(facility);
+        res.json(userDetail);
     })
 });
 
+
+// doctor_details/update/:id
+router.post('/update/:id', function(req, res) {
+    collection.update({ _id: req.params.id }, {
+        $set: {
+            facilities: {
+                facilityID: mongoose.Types.ObjectId(req.body.facilityID),
+                facilityName: req.body.facilityName,
+            }
+        }
+    }, function(err, userDetail) {
+        if (err) throw err
+        res.json(userDetail);
+    })
+});
 
 module.exports = router;

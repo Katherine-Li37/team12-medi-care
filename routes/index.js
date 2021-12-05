@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var User = require('../models/user');
-var jwt = require("jsonwebtoken");
+var jwt = require('jsonwebtoken');
 
 router.get('/', function(req, res) {
     res.render('index', { user: req.user });
@@ -13,8 +13,8 @@ router.post('/register', function(req, res) {
     User.register(new User({ 
         username: req.body.username,
         type: req.body.type,
-        firstName: req.body.firstname ? req.body.firstname : null,
-        lastName: req.body.lastname ? req.body.lastname : null,
+        firstName: req.body.firstName ? req.body.firstName : null,
+        lastName: req.body.lastName ? req.body.lastName : null,
         email: req.body.email,
         phone: req.body.phone ? req.body.phone : null,
         address: req.body.address ? req.body.address : null,
@@ -27,13 +27,13 @@ router.post('/register', function(req, res) {
     }), req.body.password, function(err, user) {
         if (err) throw err;
         passport.authenticate('local')(req, res, function() {
-            res.send({message: "User Created", user});
+            res.send({message: 'User Created', user});
         });
     });
 });
 
 
-router.post("/login", (req, res, next) => {
+router.post('/login', (req, res, next) => {
     passport.authenticate('local', function(err, user, info) {
         if (err) {
             res.json({ success: false, message: err })
@@ -51,7 +51,7 @@ router.post("/login", (req, res, next) => {
                         }, 'secret-token', { expiresIn: '24h' });
                         res.json({ 
                             success: true, 
-                            message: "Authentication successful", 
+                            message: 'Authentication successful', 
                             token: token, 
                             username: user.username + ',' +  user._id});
                     }

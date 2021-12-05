@@ -25,9 +25,14 @@ router.get('/:id', function(req, res) {
 router.post('/update/:id', function(req, res) {
     collection.update({ _id: req.params.id }, {
         $set: {
-            // date: req.body.date,
-            // time: req.body.time,
-            // procedure: req.body.procedure,
+            name: req.body.name,
+            email: req.body.email,
+            phone: req.body.phone,
+            address: req.body.address,
+            city: req.body.city,
+            state: req.body.state,
+            zipcode: req.body.zipcode,
+            services: req.body.services,
             status: req.body.status,
         }
     }, function(err, facility) {

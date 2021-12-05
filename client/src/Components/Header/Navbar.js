@@ -14,7 +14,7 @@ export default class Navbar extends Component {
     }
     async componentDidMount(){
         const user = localStorage.getItem('username');
-        if(user && user!=="null"){
+        if(user && user!=='null'){
             const userID = user.split(',')[1];
             const response = await fetch('http://localhost:3000/users/'+ userID)
             const data = await response.json();
@@ -27,7 +27,7 @@ export default class Navbar extends Component {
     }
 
     signOut(){
-        console.log("sign out")
+        console.log('sign out')
         localStorage.clear();
         this.setState({
             userID: null,

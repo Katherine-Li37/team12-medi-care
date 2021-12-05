@@ -3227,3 +3227,7 @@ span.line {
     font-weight: 500;
     background-color: gray;
 }
+
+.input-disabled {
+    background-color: #ccc!important;
+}

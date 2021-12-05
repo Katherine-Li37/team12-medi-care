@@ -51,7 +51,7 @@ export default class ProfileDetails extends Component {
     }
 
     componentDidMount() {
-        if (this.state.userLoggedIn.type === "Doctor"){
+        if (this.state.userLoggedIn.type === 'Doctor'){
             fetch('http://localhost:3000/doctor_details/' + this.state.userLoggedIn._id.toString())
             .then(res => res.json())
             .then((data) => {
@@ -67,7 +67,7 @@ export default class ProfileDetails extends Component {
                 this.displayAppointments(data);
             })
             .catch(console.log)
-        } else if (this.state.userLoggedIn.type === "Patient"){
+        } else if (this.state.userLoggedIn.type === 'Patient'){
             fetch('http://localhost:3000/appointments/patient/' + this.state.userLoggedIn._id.toString())
             .then(res => res.json())
             .then((data) => {
@@ -75,7 +75,7 @@ export default class ProfileDetails extends Component {
                 let pastAppointment = [ ];
                 let upcomingAppointment = [];
                 data.forEach((appointment) =>{
-                    if(appointment.status === "active"){
+                    if(appointment.status === 'active'){
                         if (new Date(appointment.date)>= new Date()){
                             upcomingAppointment.push(appointment);
                         }else{
@@ -189,9 +189,9 @@ export default class ProfileDetails extends Component {
         let user = this.state.user;
         let userLoggedIn = this.state.userLoggedIn;
 
-        if (user && user.type==="Doctor") {  // view doctor's page via doctor list
+        if (user && user.type==='Doctor') {  // view doctor's page via doctor list
             return <DoctorDetail doctor={user} facilityInfo={this.state.facilityInfo} userLoggedIn={userLoggedIn}/>
-        } else if (userLoggedIn.type==="Admin"){
+        } else if (userLoggedIn.type==='Admin'){
             return <AdminPanel/>
         } else { // user view own profile page
             return (
@@ -244,7 +244,7 @@ export default class ProfileDetails extends Component {
                                 </button> */}
                             </div>
                         </div>
-                        {userLoggedIn.type === "Doctor" && this.state.doctorDetails && 
+                        {userLoggedIn.type === 'Doctor' && this.state.doctorDetails && 
                             <div className="card">
                             <div className="card-body">
                                 <h5 className="card-title">Facility</h5>
@@ -265,7 +265,7 @@ export default class ProfileDetails extends Component {
                                 </div>
                             </div>
                         }
-                        {userLoggedIn.type === "Doctor" && this.state.doctorDetails && this.state.displayedAppointments.length &&
+                        {userLoggedIn.type === 'Doctor' && this.state.doctorDetails && this.state.displayedAppointments.length &&
                             <div className="card">
                                 <div className="card-body">
                                     <h5 className="card-title">Appointment Calendar</h5>
@@ -306,7 +306,7 @@ export default class ProfileDetails extends Component {
                             </div>
                         }
                         
-                        {userLoggedIn.type === "Patient" &&
+                        {userLoggedIn.type === 'Patient' &&
                             <div className="card">
                                 <div className="card-body">
                                     <h5 className="card-title">Appointment</h5>

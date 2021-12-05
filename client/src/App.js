@@ -15,12 +15,12 @@ import FooterData from './Components/Data/FooterData';
 import LogIn from './Components/Page/LogIn';
 import AdminPanel from './Components/Page/AdminPanel';
 import AdminCreatePage from './Components/Page/AdminCreatePage';
-import AdminUpdateePage from './Components/Page/AdminUpatePage';
+import AdminUpdatePage from './Components/Page/AdminUpdatePage';
 import './App.css';
 
 function App() {
     return ( 
-        <div className = "main-wrapper" >
+        <div className = 'main-wrapper' >
         <Router >
             <Header />
 
@@ -41,7 +41,7 @@ function App() {
             <Route path = '/LogIn' component = { LogIn }/> 
             <Route path = '/Admin' component = { AdminPanel }/>
             <Route path = '/AdminCreate' component = { AdminCreatePage }/>
-            <Route path = '/AdminUpdate' component = { AdminUpdateePage }/>
+            <Route path = '/AdminUpdate' component = { AdminUpdatePage }/>
 
             <FooterOne FooterData = { FooterData }/>
         </Router> 

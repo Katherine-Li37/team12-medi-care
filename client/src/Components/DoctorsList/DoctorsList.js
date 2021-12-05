@@ -90,7 +90,7 @@ export default class DoctorsList extends Component {
     onFilterChange = (filterValue) => {
         var doctorFiltered = [];
         this.state.doctors.forEach((doctor)=>{
-            if (filterValue==="All"){
+            if (filterValue==='All'){
                 doctorFiltered = this.state.doctors
             } else{
                 if (doctor.title === filterValue){
