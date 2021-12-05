@@ -28,7 +28,7 @@ router.post('/create', function(req, res) {
         doctorID: req.body.doctorID,
         doctorName: req.body.doctorName,
         facilityID: req.body.facilityID,
-        facilityIName: req.body.facilityIName,
+        facilityName: req.body.facilityName,
         patientID: req.body.patientID,
         patientName: req.body.patientName,
         date: req.body.date,

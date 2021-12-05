@@ -403,7 +403,7 @@ export default class AdminUpdatePage extends Component {
 
                             {this.state.type === 'Doctor' && 
                                 <div className="row">
-                                    <input className="input-disabled" placeholder="Username" value={this.state.username} value={this.state.username} disabled={true}/>
+                                    <input className="input-disabled" placeholder="Username" value={this.state.username} disabled={true}/>
                                     <input placeholder="Firstname" value={this.state.firstName} onChange={this.setFirstname}/>
                                     <input placeholder="Lastname" value={this.state.lastName} onChange={this.setLastname}/>
                                     <div className="col-lg-12 col-md-12 col-12">

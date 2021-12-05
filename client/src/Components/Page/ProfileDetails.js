@@ -51,12 +51,13 @@ export default class ProfileDetails extends Component {
     }
 
     componentDidMount() {
+        this.fetchUserInformation();  // in case of user updated information
         if (this.state.userLoggedIn.type === 'Doctor'){
             fetch('http://localhost:3000/doctor_details/' + this.state.userLoggedIn._id.toString())
             .then(res => res.json())
             .then((data) => {
                 this.setState({ doctorDetails: data });
-                this.getWorkHours();
+                this.getWorkHours(data);
             })
             .catch(console.log)
 
@@ -93,10 +94,19 @@ export default class ProfileDetails extends Component {
         }
     }
 
-    getWorkHours=()=>{
+    fetchUserInformation = () =>{
+        fetch('http://localhost:3000/users/' + this.state.userLoggedIn._id.toString())
+        .then(res => res.json())
+        .then((data) => {
+            this.setState({ userLoggedIn: data });
+        })
+        .catch(console.log)
+    }
+
+    getWorkHours=(details)=>{
         const dateList = [];
-        Object.keys(this.doctorDetails.facilities.availability).forEach((day)=>{
-            let hours = this.doctorDetails.facilities.availability[day]
+        Object.keys(details.facilities.availability).forEach((day)=>{
+            let hours = details.facilities.availability[day]
             if (hours.length){
                 dateList.push({day, hours});
             }
@@ -234,14 +244,12 @@ export default class ProfileDetails extends Component {
                                         </div>
                                     </div>
                                 }
-                                {/* <button type="button">
-                                    <Link to={{
-                                        pathname: `/ProfileEdit/${user._id}`,
-                                        state: { user: user }
+                                <Link to={{
+                                        pathname: `/ProfileEdit/${userLoggedIn._id}`,
+                                        state: { type: userLoggedIn.type, savedObj: userLoggedIn  }
                                     }}>
-                                    Edit
-                                    </Link>
-                                </button> */}
+                                    Update Information
+                                </Link>
                             </div>
                         </div>
                         {userLoggedIn.type === 'Doctor' && this.state.doctorDetails && 
@@ -250,7 +258,7 @@ export default class ProfileDetails extends Component {
                                 <h5 className="card-title">Facility</h5>
                                 <div className="row">
                                         <div className="col-sm-3"><h6 className="mb-0">Name</h6></div>
-                                        <div className="col-sm-9 text-secondary"> {this.state.doctorDetails.facilities.facilityIName}</div>
+                                        <div className="col-sm-9 text-secondary"> {this.state.doctorDetails.facilities.facilityName}</div>
                                     </div>
                                     <div className="row">
                                         <div className="col-sm-3"><h6 className="mb-0">Availabilty</h6></div>
@@ -265,7 +273,7 @@ export default class ProfileDetails extends Component {
                                 </div>
                             </div>
                         }
-                        {userLoggedIn.type === 'Doctor' && this.state.doctorDetails && this.state.displayedAppointments.length &&
+                        {userLoggedIn.type === 'Doctor' && this.state.doctorDetails &&
                             <div className="card">
                                 <div className="card-body">
                                     <h5 className="card-title">Appointment Calendar</h5>
