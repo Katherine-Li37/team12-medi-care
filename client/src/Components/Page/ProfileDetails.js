@@ -46,51 +46,52 @@ export default class ProfileDetails extends Component {
             // For patient's profile
             pastAppointment: [],
             upcomingAppointment: [],
-
         }       
     }
 
     componentDidMount() {
-        this.fetchUserInformation();  // in case of user updated information
-        if (this.state.userLoggedIn.type === 'Doctor'){
-            fetch('http://localhost:3000/doctor_details/' + this.state.userLoggedIn._id.toString())
-            .then(res => res.json())
-            .then((data) => {
-                this.setState({ doctorDetails: data });
-                this.getWorkHours(data);
-            })
-            .catch(console.log)
+        if (this.state.userLoggedIn){
+            this.fetchUserInformation();  // in case of user updated information
+        
+            if (this.state.userLoggedIn.type === 'Doctor'){
+                fetch('http://localhost:3000/doctor_details/' + this.state.userLoggedIn._id.toString())
+                .then(res => res.json())
+                .then((data) => {
+                    this.setState({ doctorDetails: data });
+                    this.getWorkHours(data);
+                })
+                .catch(console.log)
 
-            fetch('http://localhost:3000/appointments/doctor/' + this.state.userLoggedIn._id.toString())
-            .then(res => res.json())
-            .then((data) => {
-                this.setState({ existedAppointments: data });
-                this.displayAppointments(data);
-            })
-            .catch(console.log)
-        } else if (this.state.userLoggedIn.type === 'Patient'){
-            fetch('http://localhost:3000/appointments/patient/' + this.state.userLoggedIn._id.toString())
-            .then(res => res.json())
-            .then((data) => {
-                // console.log(data);
-                let pastAppointment = [ ];
-                let upcomingAppointment = [];
-                data.forEach((appointment) =>{
-                    if(appointment.status === 'active'){
-                        if (new Date(appointment.date)>= new Date()){
-                            upcomingAppointment.push(appointment);
-                        }else{
-                            pastAppointment.push(appointment);
+                fetch('http://localhost:3000/appointments/doctor/' + this.state.userLoggedIn._id.toString())
+                .then(res => res.json())
+                .then((data) => {
+                    this.setState({ existedAppointments: data });
+                    this.displayAppointments(data);
+                })
+                .catch(console.log)
+
+            } else if (this.state.userLoggedIn.type === 'Patient'){
+                fetch('http://localhost:3000/appointments/patient/' + this.state.userLoggedIn._id.toString())
+                .then(res => res.json())
+                .then((data) => {
+                    let pastAppointment = [ ];
+                    let upcomingAppointment = [];
+                    data.forEach((appointment) =>{
+                        if(appointment.status === 'active'){
+                            if (new Date(appointment.date)>= new Date()){
+                                upcomingAppointment.push(appointment);
+                            }else{
+                                pastAppointment.push(appointment);
+                            }
                         }
-                    }
-                });
-                this.setState({ 
-                    pastAppointment: pastAppointment,
-                    upcomingAppointment: upcomingAppointment
-                });
-                // this.displayAppointments(data);
-            })
-            .catch(console.log)
+                    });
+                    this.setState({ 
+                        pastAppointment: pastAppointment,
+                        upcomingAppointment: upcomingAppointment
+                    });
+                })
+                .catch(console.log)
+            }
         }
     }
 
@@ -111,7 +112,6 @@ export default class ProfileDetails extends Component {
                 dateList.push({day, hours});
             }
         });
-        // this.state.hours=dateList
         this.setState({hours: dateList});
     }
 
@@ -129,26 +129,23 @@ export default class ProfileDetails extends Component {
             }
             appointmentEvents.push(event);
         });
-        // console.log(appointmentEvents);
         this.setState({
             displayedAppointments: appointmentEvents
         });
-        
     }
 
     confirmDeleteAppointment = (appointment) => {
-        // console.log(appointment);
         confirmAlert({
             customUI: ({ onClose }) => {
               return (
                 <div className='custom-ui'>
                   <h1>Confirm to delete appointment</h1>
                   <p>Are you sure to delete the appointment on {new Date(appointment.date).toLocaleDateString('en-US')}  {appointment.time} with Dr. {appointment.doctorName}</p>
-                  <button onClick={() => {
+                  <button className='delete-modal-button' onClick={() => {
                       this.handleDeleteAppointment(appointment)
                       onClose()
                   }}>Yes</button>
-                  <button onClick={onClose}>No</button>
+                  <button className='delete-modal-button' onClick={onClose}>No</button>
                 </div>
               )
             }
@@ -178,7 +175,6 @@ export default class ProfileDetails extends Component {
     renderEventContent=(eventInfo)=> {
         return (
           <>
-            {/* <b>{eventInfo.timeText}</b> */}
             <i>{eventInfo.event.title}</i>
           </>
         )
@@ -193,17 +189,27 @@ export default class ProfileDetails extends Component {
         )
     }
 
-
     render() {
-        // console.log(this.state);
         let user = this.state.user;
         let userLoggedIn = this.state.userLoggedIn;
+        let imagesrc;
+        if (userLoggedIn){
+            if (userLoggedIn.image){
+                imagesrc =  '/images/users/'+userLoggedIn.image;
+            } else {
+                imagesrc =  '/images/users/default.png';
+            }
+        }
 
         if (user && user.type==='Doctor') {  // view doctor's page via doctor list
             return <DoctorDetail doctor={user} facilityInfo={this.state.facilityInfo} userLoggedIn={userLoggedIn}/>
         } else if (userLoggedIn.type==='Admin'){
             return <AdminPanel/>
         } else { // user view own profile page
+            if (userLoggedIn.type==='Doctor' && this.state.doctorDetails){
+                userLoggedIn.facility=this.state.doctorDetails.facilities
+            }
+
             return (
                 <React.Fragment>
                     <Banner pageTitle='Profile / Details' />
@@ -211,6 +217,10 @@ export default class ProfileDetails extends Component {
                         <div className="card">
                             <div className="card-body">
                                 <h5 className="card-title">Information</h5>
+                                <div className="row">
+                                    <div className="col-sm-3"><h6 className="mb-0">Picture</h6></div>
+                                    <p><img src={imagesrc} alt="profile" style={{width:'400px',height:'400px'}}/></p>
+                                </div>
                                 <div className="row">
                                     <div className="col-sm-3"><h6 className="mb-0">Full Name</h6></div>
                                     <div className="col-sm-9 text-secondary"> {userLoggedIn.firstName} {userLoggedIn.lastName}</div>
@@ -266,6 +276,8 @@ export default class ProfileDetails extends Component {
                                             {Object.entries(this.state.doctorDetails.facilities.availability).map((day) => {
                                                 if (day[1].length >0){
                                                     return <li key={day[0]}>{day[0]} {day[1][0]} - {day[1][1]}</li>
+                                                } else{
+                                                    return <li key={day[0]}></li>
                                                 }
                                             })}
                                         </div>
@@ -280,7 +292,6 @@ export default class ProfileDetails extends Component {
                                     <div className="row">
                                         <div className='container new-container'>    
                                             <div className='demo-app'>
-                                                {/* {this.renderSidebar()} */}
                                                 <div className='demo-app-main'>
                                                 <FullCalendar
                                                     plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -295,16 +306,8 @@ export default class ProfileDetails extends Component {
                                                     selectMirror={false}
                                                     dayMaxEvents={true}
                                                     weekends={this.state.weekendsVisible}
-                                                    initialEvents={this.state.displayedAppointments} // alternatively, use the `events` setting to fetch from a feed
-                                                    // select={this.handleDateSelect}
-                                                    eventContent={this.renderEventContent} // custom render function
-                                                    // eventClick={this.handleEventClick}
-                                                    // eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
-                                                    /* you can update a remote database when these fire:
-                                                    eventAdd={function(){}}
-                                                    eventChange={function(){}}
-                                                    eventRemove={function(){}}
-                                                    */
+                                                    initialEvents={this.state.displayedAppointments} 
+                                                    eventContent={this.renderEventContent}
                                                 />
                                                 </div>
                                             </div>

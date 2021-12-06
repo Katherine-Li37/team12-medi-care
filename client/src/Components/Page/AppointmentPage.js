@@ -68,7 +68,6 @@ export default class AppointmentPage extends Component {
             }
         });
         this.state.hours=dateList
-        // this.setState({hours: dateList});
     }
     
     createEventId = () => {
@@ -140,7 +139,6 @@ export default class AppointmentPage extends Component {
         })
         const filteredArray = timeSlotArray.filter(value => !existedAppointmentTime.includes(value));
 
-        // console.log(filteredArray);
         this.setState({
             availableTimeList: filteredArray,
             timeSelected: timeSlotArray[0]
@@ -157,7 +155,6 @@ export default class AppointmentPage extends Component {
     }
 
     onSumbit = () => {
-        // console.log('submit')
         Axios({
           method: 'POST',
           data: {
@@ -183,7 +180,6 @@ export default class AppointmentPage extends Component {
     };
 
     render() {
-        // console.log(this.state);
         return (
             <React.Fragment>
                 <Banner pageTitle='Schedule an Appointment' />
@@ -234,21 +230,19 @@ export default class AppointmentPage extends Component {
                                 <button className='contact-submit-btn' onClick={this.onSumbit}>Submit</button>
                             }   
                             {!this.state.buttonEnabled &&
-                                <button className='contact-submit-btn-disabled' disabled={true}>Submit</button>
+                                <button className='contact-submit-btn-disabled'>Submit</button>
                             }   
 
                         </div>
 
                         {this.state.createAppointmentSuccess && <span className="error-msg">Appointment created</span>}
-                    {/* </form> */}
-                </div>
+                    </div>
                 </div>
                 
                 {this.state.displayedAppointments.length &&
                 <div className='container new-container'>
                     <h2>Availability Calendar for Dr. {this.state.doctor.firstName} {this.state.doctor.lastName}</h2>                
                     <div className='demo-app'>
-                        {/* {this.renderSidebar()} */}
                         <div className='demo-app-main'>
                         <FullCalendar
                             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -263,16 +257,8 @@ export default class AppointmentPage extends Component {
                             selectMirror={false}
                             dayMaxEvents={true}
                             weekends={this.state.weekendsVisible}
-                            initialEvents={this.state.displayedAppointments} // alternatively, use the `events` setting to fetch from a feed
-                            // select={this.handleDateSelect}
-                            eventContent={this.renderEventContent} // custom render function
-                            // eventClick={this.handleEventClick}
-                            // eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
-                            /* you can update a remote database when these fire:
-                            eventAdd={function(){}}
-                            eventChange={function(){}}
-                            eventRemove={function(){}}
-                            */
+                            initialEvents={this.state.displayedAppointments} 
+                            eventContent={this.renderEventContent} 
                         />
                         </div>
                     </div>
@@ -281,79 +267,9 @@ export default class AppointmentPage extends Component {
         )
     }
 
-
-// renderSidebar=()=> {
-//     return (
-//       <div className='demo-app-sidebar'>
-//         <div className='demo-app-sidebar-section'>
-//           <h2>Instructions</h2>
-//           <ul>
-//             <li>Select dates and you will be prompted to create a new event</li>
-//             <li>Drag, drop, and resize events</li>
-//             <li>Click an event to delete it</li>
-//           </ul>
-//         </div>
-//         <div className='demo-app-sidebar-section'>
-//           <label>
-//             <input
-//               type='checkbox'
-//               checked={this.state.weekendsVisible}
-//               onChange={this.handleWeekendsToggle}
-//             ></input>
-//             toggle weekends
-//           </label>
-//         </div>
-//         <div className='demo-app-sidebar-section'>
-//           <h2>All Events ({this.state.currentEvents.length})</h2>
-//           <ul>
-//             {this.state.currentEvents.map(this.renderSidebarEvent)}
-//           </ul>
-//         </div>
-//       </div>
-//     )
-//   }
-
-//   handleWeekendsToggle = () => {
-//     this.setState({
-//       weekendsVisible: !this.state.weekendsVisible
-//     })
-//   }
-
-//   handleDateSelect = (selectInfo) => {
-//     let title = prompt('Please enter a new title for your event')
-//     let calendarApi = selectInfo.view.calendar
-
-//     calendarApi.unselect() // clear date selection
-
-//     if (title) {
-//       calendarApi.addEvent({
-//         id: this.createEventId(),
-//         title,
-//         start: selectInfo.startStr,
-//         end: selectInfo.endStr,
-//         allDay: selectInfo.allDay
-//       })
-//     }
-//   }
-
-//   handleEventClick = (clickInfo) => {
-//       console.log(clickInfo);
-//     // if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-//     //   clickInfo.event.remove()
-//     // }
-//   }
-
-//   handleEvents = (events) => {
-//     this.setState({
-//       currentEvents: events
-//     })
-//   }
-
-
 renderEventContent=(eventInfo)=> {
   return (
     <>
-      {/* <b>{eventInfo.timeText}</b> */}
       <i>{eventInfo.event.title}</i>
     </>
   )

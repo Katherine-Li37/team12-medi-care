@@ -97,6 +97,8 @@ export default class DoctorDetail extends Component {
                                             {Object.entries(doctor.detail.facilities.availability).map((day) => {
                                                 if (day[1].length >0){
                                                     return <li key={day[0]}>{day[0]} {day[1][0]} - {day[1][1]}</li>
+                                                } else{
+                                                    return <li key={day[0]}></li>
                                                 }
                                             })}
                                         </div>

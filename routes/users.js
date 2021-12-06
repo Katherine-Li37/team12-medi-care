@@ -23,7 +23,6 @@ router.get('/doctors', function(req, res) {
 
 // users/register/:id for new user register checking
 router.get('/register/:id', function(req, res) {
-    // console.log('username', req.params.id)
     collection.find({ 'username': req.params.id }, function(err, user) {
         if (err) throw err
         res.json(user);
@@ -59,30 +58,16 @@ router.post('/update/:id', function(req, res) {
     })
 });
 
-// // add new video
-// router.post('/', function(req, res) {
-//     collection.insert({
-//         title: req.body.title,
-//         genre: req.body.genre,
-//         description: req.body.desc,
-//     }, function(err, video) {
-//         if (err) throw err
-//         res.json(video);
-//     })
-// });
-
-// // update an existing video
-// router.post('/:id', function(req, res) {
-//     collection.update({ _id: req.params.id }, {
-//         $set: {
-//             title: req.body.title,
-//             genre: req.body.genre,
-//             description: req.body.desc,
-//         }
-//     }, function(err, video) {
-//         if (err) throw err
-//         res.json(video);
-//     })
-// });
+// upload image to user with user id
+router.post('/imageUpload/:id', function(req, res) {
+    collection.update({ _id: req.params.id }, {
+        $set: {
+            image: req.body.image,
+        }
+    }, function(err, user) {
+        if (err) throw err
+        res.json(user);
+    })
+});
 
 module.exports = router;

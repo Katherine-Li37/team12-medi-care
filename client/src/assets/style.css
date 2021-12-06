@@ -3231,3 +3231,7 @@ span.line {
 .input-disabled {
     background-color: #ccc!important;
 }
+
+.delete-modal-button {
+    margin: 30px 70px;
+}

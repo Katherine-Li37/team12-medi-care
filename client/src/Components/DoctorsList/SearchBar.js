@@ -10,14 +10,14 @@ export default class SearchBar extends Component{
     }
     
     filterChange =(e)=>{
-        this.props.onFilterChange(e.target.value);
+        this.props.onFilterSearchChange(e.target.value, this.state.searchText);
         this.setState({
             titleFilter: e.target.value
         });
     }
 
     searchChange =(e)=>{
-        this.props.onSearchChange(e.target.value);
+        this.props.onFilterSearchChange(this.state.titleFilter, e.target.value);
         this.setState({
             searchText: e.target.value
         });
@@ -35,15 +35,6 @@ export default class SearchBar extends Component{
                 onChange={this.searchChange}
             />
             </div>
-            {/* <p>
-            <input
-                type="checkbox"
-                checked={this.props.availableOnly}
-                onChange={this.handleInStockChange}
-            />
-            {' '} 
-            Only show available doctors
-            </p> */}
             <div className="col-lg-6 col-md-6">
             <span>Filter by position: </span>
             <select 

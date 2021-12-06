@@ -101,7 +101,6 @@ export default class LogIn extends Component {
             }
           })
           .catch(console.log)
-        
     }
 
     setRegisterPassword = (event) => {
@@ -227,7 +226,7 @@ export default class LogIn extends Component {
                                 <button className="contact-submit-btn" onClick={this.register}>Submit</button>
                             }   
                             {!this.state.buttonEnabled &&
-                                <button className="contact-submit-btn-disabled" disabled={true}>Submit</button>
+                                <button className="contact-submit-btn-disabled" >Submit</button>
                             }   
                             {this.state.registerSuccess===true && <span className="error-msg">New User created</span>}
                             

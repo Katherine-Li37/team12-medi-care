@@ -9,7 +9,6 @@ router.get('/', function(req, res) {
 });
 
 router.post('/register', function(req, res) {
-    console.log(req.body);
     User.register(new User({ 
         username: req.body.username,
         type: req.body.type,
@@ -23,6 +22,7 @@ router.post('/register', function(req, res) {
         zipcode: req.body.zipcode ? req.body.zipcode : null,
         services: req.body.services ? req.body.services : [],
         title: req.body.title ? req.body.title : null,
+        image: req.body.image ? req.body.image : null,
         status: 'active'
     }), req.body.password, function(err, user) {
         if (err) throw err;

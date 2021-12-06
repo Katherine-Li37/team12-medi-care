@@ -17,6 +17,7 @@ var user = new Schema({
     title: { type: String, default: '' },
     services: [],
     status: { type: String, default: 'active' },
+    image: { type: String, default: null },
 });
 
 user.plugin(passportLocalMongoose);

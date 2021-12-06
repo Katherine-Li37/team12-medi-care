@@ -3,9 +3,6 @@ import Axios from 'axios';
 import Select from 'react-select';
 import Banner from '../Banner';
 import validator from 'validator';
-// import DoctorTable from '../DoctorsList/DoctorTable';
-// import { confirmAlert } from 'react-confirm-alert'; 
-// import 'react-confirm-alert/src/react-confirm-alert.css';
 
 export default class AdminCreatePage extends Component {
     constructor(props) {
@@ -37,6 +34,7 @@ export default class AdminCreatePage extends Component {
             services: [],
             title: null,
             facility: null,
+            image: null,
 
             buttonEnabled: false,
             createSuccess: false
@@ -180,6 +178,12 @@ export default class AdminCreatePage extends Component {
         this.checkIfEnableButton();
     }
 
+    setImage = (event) => {
+        this.setState({
+            image: event.target.files[0].name
+        });
+    }
+
     checkIfEnableButton=()=>{
         if(this.state.type==='Facility'){
             if ((this.state.name && this.state.email && this.state.ifEmailFormat && this.state.phone
@@ -241,7 +245,8 @@ export default class AdminCreatePage extends Component {
                 state: this.state.state,
                 zipcode: this.state.zipcode,
                 services: this.state.services,
-                title: this.state.title
+                title: this.state.title,
+                image: this.state.image
             },
             withCredentials: true,
             url: 'http://localhost:3000/register',
@@ -319,7 +324,7 @@ export default class AdminCreatePage extends Component {
                                         <button className="contact-submit-btn" onClick={this.createNewFacility}>Submit</button>
                                     }   
                                     {!this.state.buttonEnabled &&
-                                        <button className="contact-submit-btn-disabled" disabled={true}>Submit</button>
+                                        <button className="contact-submit-btn-disabled">Submit</button>
                                     } 
                                     {this.state.createSuccess===true && <span className="error-msg">New Facility added</span>}
                                     </div>
@@ -328,6 +333,7 @@ export default class AdminCreatePage extends Component {
 
                             {this.state.type === 'Doctor' && 
                                 <div className="row">
+                                    <input type="file" onChange={this.setImage}/>
                                     <input placeholder="Username" onChange={this.setUsername}/>
                                     {this.state.ifUserNameExist && <span className="error-msg">Username exists</span>}  
                                     <input placeholder="Firstname" onChange={this.setFirstname}/>
@@ -376,8 +382,8 @@ export default class AdminCreatePage extends Component {
                                         <button className="contact-submit-btn" onClick={this.createNewDoctor}>Submit</button>
                                     }   
                                     {!this.state.buttonEnabled &&
-                                        <button className="contact-submit-btn-disabled" disabled={true}>Submit</button>
-                                    } 
+                                        <button className="contact-submit-btn-disabled" >Submit</button>
+                                    }
                                     {this.state.createSuccess===true && <span className="error-msg">New Doctor added</span>}
                                     </div>
                                 </div>  

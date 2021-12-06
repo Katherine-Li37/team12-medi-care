@@ -94,18 +94,17 @@ export default class AdminPanel extends Component {
     }
 
     confirmDeletePatient = (patient) => {
-        // console.log(appointment);
         confirmAlert({
             customUI: ({ onClose }) => {
               return (
                 <div className='custom-ui'>
                   <h1>Confirm to delete patient</h1>
                   <p>Are you sure to delete this patient?</p>
-                  <button onClick={() => {
+                  <button className='delete-modal-button' onClick={() => {
                       this.handleDeletePatient(patient)
                       onClose()
                   }}>Yes</button>
-                  <button onClick={onClose}>No</button>
+                  <button className='delete-modal-button' onClick={onClose}>No</button>
                 </div>
               )
             }
@@ -137,18 +136,17 @@ export default class AdminPanel extends Component {
     }
 
     confirmDeleteFacility = (facility) => {
-        // console.log(appointment);
         confirmAlert({
             customUI: ({ onClose }) => {
               return (
                 <div className='custom-ui'>
                   <h1>Confirm to delete facility</h1>
                   <p>Are you sure to delete this facility?</p>
-                  <button onClick={() => {
+                  <button className='delete-modal-button' onClick={() => {
                       this.handleDeleteFacility(facility)
                       onClose()
                   }}>Yes</button>
-                  <button onClick={onClose}>No</button>
+                  <button className='delete-modal-button' onClick={onClose}>No</button>
                 </div>
               )
             }
@@ -179,9 +177,19 @@ export default class AdminPanel extends Component {
 
     render() {
         const patientRows = [];
-        this.state.patients.forEach((patient) => {       
+        this.state.patients.forEach((patient) => {     
+            let imagesrc;
+            if (patient.image){
+                imagesrc =  '/images/users/' + patient.image;
+            } else {
+                imagesrc =  '/images/users/default.png';
+            }
+
             patientRows.push(
                 <tr>
+                    <td>
+                        <p><img src={imagesrc} alt="profile" style={{width:'150px',height:'150px'}}/></p>
+                    </td>
                     <td>{ patient.username }</td>
                     <td>
                         { patient.firstName } { patient.lastName }
@@ -306,6 +314,7 @@ export default class AdminPanel extends Component {
                         <table className="table">
                             <thead>
                             <tr>
+                                <th>Picture</th>
                                 <th>Username</th>
                                 <th>Name</th>
                                 <th>Email</th>

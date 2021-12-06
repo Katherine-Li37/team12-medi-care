@@ -17,7 +17,6 @@ export default class DoctorsList extends Component {
         };
         
         this.fetchDoctorDetail = this.fetchDoctorDetail.bind(this);
-        // this.mapFacilityInfoIntoDoctor = this.mapFacilityInfoIntoDoctor.bind(this);
     }
 
     componentDidMount() {
@@ -87,43 +86,33 @@ export default class DoctorsList extends Component {
         });
     } 
 
-    onFilterChange = (filterValue) => {
+    onFilterSearchChange = (titleFilter, searchText) =>{
         var doctorFiltered = [];
-        this.state.doctors.forEach((doctor)=>{
-            if (filterValue==='All'){
+
+        if (!searchText.length){// No search
+            if (titleFilter==='All'){ // No filter
                 doctorFiltered = this.state.doctors
-            } else{
-                if (doctor.title === filterValue){
-                    doctorFiltered.push(doctor);
-                }
+            } else { // has filter
+                this.state.doctors.forEach((doctor)=>{
+                    if (doctor.title === titleFilter)
+                        doctorFiltered.push(doctor);
+                });
             }
-        });
-        this.setState({
-            titleFilter: filterValue,
-            filteredList: doctorFiltered,
-        });
-    }
-
-    onSearchChange = (searchText) => {
-        var doctorFiltered = [];
-        if(!searchText.length && this.state.titleFilter==='All'){
-            doctorFiltered = this.state.doctors
-        } else if(!searchText.length && this.state.titleFilter!=='All'){
-            this.state.doctors.forEach((doctor)=>{
-                if (doctor.title === this.state.titleFilter){
-                    doctorFiltered.push(doctor);
-                }
-            });
-        }
-        else{
-            this.state.filteredList.forEach((doctor)=>{
-            if (doctor.fullName.toLowerCase().includes(searchText.toLowerCase())){
-                doctorFiltered.push(doctor);
+        } else { // has search
+            if (titleFilter==='All'){ // No filter
+                this.state.doctors.forEach((doctor)=>{
+                    if (doctor.fullName.toLowerCase().includes(searchText.toLowerCase()))
+                        doctorFiltered.push(doctor);
+                });
+            } else {
+                this.state.doctors.forEach((doctor)=>{
+                    if (doctor.title === titleFilter && doctor.fullName.toLowerCase().includes(searchText.toLowerCase()))
+                        doctorFiltered.push(doctor);
+                });
             }
-        });
         }
-
         this.setState({
+            titleFilter: titleFilter,
             searchText: searchText,
             filteredList: doctorFiltered,
         });
@@ -135,13 +124,13 @@ export default class DoctorsList extends Component {
                 <Banner pageTitle='Doctors & Orthodontists' />
                 <div className="container new-container">
                     <SearchBar
-                        onSearchChange={this.onSearchChange}
-                        onFilterChange={this.onFilterChange}
+                        onFilterSearchChange={this.onFilterSearchChange}
                         failitiesFilterOption={this.state.facilities}
                     />
                     <DoctorTable
                         doctors={this.state.filteredList}
                         facilities={this.state.facilities}
+                        userLoggedIn={this.props.location.state.userLoggedIn}
                         doctorDetails={this.state.doctorDetails}
                         admin={false}
                     />

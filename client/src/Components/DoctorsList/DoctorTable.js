@@ -31,18 +31,17 @@ export default class DoctorTable extends Component {
     }
 
     confirmDeleteDoctor = (doctor) => {
-        // console.log(appointment);
         confirmAlert({
             customUI: ({ onClose }) => {
               return (
                 <div className='custom-ui'>
                   <h1>Confirm to delete doctor</h1>
                   <p>Are you sure to delete this doctor?</p>
-                  <button onClick={() => {
+                  <button className='delete-modal-button' onClick={() => {
                       this.handleDeleteDoctor(doctor)
                       onClose()
                   }}>Yes</button>
-                  <button onClick={onClose}>No</button>
+                  <button className='delete-modal-button' onClick={onClose}>No</button>
                 </div>
               )
             }
@@ -77,12 +76,21 @@ export default class DoctorTable extends Component {
         const rows = [];
       
         this.props.doctors.forEach((doctor) => {
+            let imagesrc;
+            if (doctor.image){
+                imagesrc =  '/images/users/' + doctor.image;
+            } else {
+                imagesrc =  '/images/users/default.png';
+            }
+
             var index = this.props.doctorDetails.findIndex(detail => detail.userID.toString() === doctor._id.toString());
             if (index !== -1 ){
                 doctor.detail = this.props.doctorDetails[index];
                     rows.push(
                         <tr>
-                        <td></td>
+                        <td>
+                            <p><img src={imagesrc} alt="profile" style={{width:'150px',height:'150px'}}/></p>
+                        </td>
                         <td>
                             <Link to={{
                                 pathname: `/Profile/${doctor._id}`,
@@ -128,7 +136,7 @@ export default class DoctorTable extends Component {
             <table className="table">
                 <thead>
                 <tr>
-                    <th>Photo</th>
+                    <th>Picture</th>
                     <th>Name</th>
                     <th>Position</th>
                     <th>Service</th>

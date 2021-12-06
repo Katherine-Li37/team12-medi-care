@@ -54,7 +54,11 @@ export default class Navbar extends Component {
                                         <li><Link to='/'>Home</Link></li>
                                         <li><Link to='/About'>About</Link></li>
                                         <li><Link to='/ServiceDetails'>Services</Link></li>
-                                        <li><Link to='/Doctors'>Doctors</Link></li>
+                                        <li><Link to={{
+                                                pathname:'/Doctors',
+                                                state: { userLoggedIn: this.state.userLoggedIn }
+                                            }}>Doctors</Link>
+                                        </li>
                                         {!this.state.username && <li><Link to='/LogIn'>Sign up/ Log in</Link></li>}
                                         {this.state.username && 
                                             <li><Link to={{
@@ -88,7 +92,11 @@ export default class Navbar extends Component {
                                         <Link className="nav-link" to='/ServiceDetails'>Services</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link" to='/Doctors'>Doctors</Link>
+                                        <Link className="nav-link" to={{
+                                                pathname:'/Doctors',
+                                                state: { userLoggedIn: this.state.userLoggedIn }
+                                            }}>Doctors
+                                        </Link>
                                     </li>
                                     {!this.state.username &&
                                         <li className="nav-item">

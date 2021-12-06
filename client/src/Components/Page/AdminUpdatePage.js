@@ -3,9 +3,6 @@ import Axios from 'axios';
 import Select from 'react-select';
 import Banner from '../Banner';
 import validator from 'validator';
-// import DoctorTable from '../DoctorsList/DoctorTable';
-// import { confirmAlert } from 'react-confirm-alert'; 
-// import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const serviceOptions =[
     { value: 'Teeth Cleaning', label: 'Teeth Cleaning' },
@@ -22,7 +19,6 @@ const titleOptions =[
 export default class AdminUpdatePage extends Component {
     constructor(props) {
         super(props);
-        console.log(this.props.location.state);
     
         const serviceSelectedList = [];
         if (this.props.location.state.savedObj.services && this.props.location.state.savedObj.services.length){
@@ -62,7 +58,7 @@ export default class AdminUpdatePage extends Component {
             city: this.props.location.state.savedObj.city? this.props.location.state.savedObj.city:null,
             state: this.props.location.state.savedObj.state? this.props.location.state.savedObj.state:null,
             zipcode: this.props.location.state.savedObj.zipcode? this.props.location.state.savedObj.zipcode:null,
-            
+            image: this.props.location.state.savedObj.image? this.props.location.state.savedObj.image:null,
             
             servicesSelected: this.props.location.state.savedObj.services,
             serviceOptionSelected: serviceSelectedList,
@@ -109,35 +105,6 @@ export default class AdminUpdatePage extends Component {
         });
 
     }
-    
-    // setUsername = (event) => {
-    //     let usernameValue = event.target.value
-    //     if (this.state.typingTimeout) {
-    //         clearTimeout(this.state.typingTimeout);
-    //      }
-     
-    //      this.setState({
-    //         username: usernameValue,
-    //         typing: false,
-    //         typingTimeout: setTimeout(() => {
-    //             this.checkIfUsernameExists(usernameValue);
-    //         }, 1000)
-    //      });
-    // }
-    // checkIfUsernameExists = usernameValue => {
-    //     fetch('http://localhost:3000/users/register/' + usernameValue)
-    //       .then(res => res.json())
-    //       .then((data) => {
-    //         if (data.length!==0){
-    //             this.setState({ifUserNameExist: true});
-    //             this.checkIfEnableButton();
-    //         } else {
-    //             this.setState({ifUserNameExist: false});
-    //             this.checkIfEnableButton();
-    //         }
-    //       })
-    //       .catch(console.log)
-    // }
 
     setFirstname = (event) => {
         this.setState({ firstName: event.target.value });
@@ -231,6 +198,12 @@ export default class AdminUpdatePage extends Component {
         this.checkIfEnableButton();
     }
 
+    setImage = (event) => {
+        this.setState({
+            image: event.target.files[0].name
+        });
+    }
+
     checkIfEnableButton=()=>{
         if(this.state.type==='Facility'){
             if ((this.state.name && this.state.email && this.state.ifEmailFormat && this.state.phone
@@ -282,6 +255,9 @@ export default class AdminUpdatePage extends Component {
     };
 
     updatePatient = () => {
+        if (this.state.image !== this.props.location.state.savedObj.image){
+            this.updateUserImage();
+        }
         Axios({
         method: "POST",
         data: {
@@ -309,6 +285,9 @@ export default class AdminUpdatePage extends Component {
     };
 
     updateDoctor = () => {
+        if (this.state.image !== this.props.location.state.savedObj.image){
+            this.updateUserImage();
+        }
         Axios({
             method: "POST",
             data: {
@@ -355,9 +334,23 @@ export default class AdminUpdatePage extends Component {
         });
     }
 
+    updateUserImage =()=>{
+        Axios({
+            method: "POST",
+            data: {
+                image: this.state.image
+            },
+            withCredentials: true,
+            url: "http://localhost:3000/users//imageUpload/" + this.state.savedObj._id,
+        }).then((res) => {
+            if(res.data){
+                console.log('Image uploaded.')
+            }
+        });
+    }
+
 
     render() {
-        console.log(this.state.facilityOptionSelected)
         return (
             <React.Fragment>
                 <Banner pageTitle='Update' />
@@ -394,7 +387,7 @@ export default class AdminUpdatePage extends Component {
                                         <button className="contact-submit-btn" onClick={this.updateFacility}>Submit</button>
                                     }   
                                     {!this.state.buttonEnabled &&
-                                        <button className="contact-submit-btn-disabled" disabled={true}>Submit</button>
+                                        <button className="contact-submit-btn-disabled">Submit</button>
                                     } 
                                     {this.state.updateSuccess===true && <span className="error-msg">Facility Updated</span>}
                                     </div>
@@ -403,6 +396,8 @@ export default class AdminUpdatePage extends Component {
 
                             {this.state.type === 'Doctor' && 
                                 <div className="row">
+                                    {this.state.image && <img alt="profile" src={this.state.image}/>}
+                                    <input type="file" onChange={this.setImage}/>
                                     <input className="input-disabled" placeholder="Username" value={this.state.username} disabled={true}/>
                                     <input placeholder="Firstname" value={this.state.firstName} onChange={this.setFirstname}/>
                                     <input placeholder="Lastname" value={this.state.lastName} onChange={this.setLastname}/>
@@ -453,7 +448,7 @@ export default class AdminUpdatePage extends Component {
                                         <button className="contact-submit-btn" onClick={this.updateDoctor}>Submit</button>
                                     }   
                                     {!this.state.buttonEnabled &&
-                                        <button className="contact-submit-btn-disabled" disabled={true}>Submit</button>
+                                        <button className="contact-submit-btn-disabled">Submit</button>
                                     } 
                                     {this.state.updateSuccess===true && <span className="error-msg">Doctor updated</span>}
                                     </div>
@@ -463,7 +458,9 @@ export default class AdminUpdatePage extends Component {
 
                             {this.state.type === 'Patient' && 
                                 <div className="row">
-                                    <input className="input-disabled" placeholder="Username" value={this.state.username} value={this.state.username} disabled={true}/>
+                                    {this.state.image && <img alt="profile" src={this.state.image}/>}
+                                    <input type="file" onChange={this.setImage}/>
+                                    <input className="input-disabled" placeholder="Username" value={this.state.username} disabled={true}/>
                                     <input placeholder="Firstname" value={this.state.firstName} onChange={this.setFirstname}/>
                                     <input placeholder="Lastname" value={this.state.lastName} onChange={this.setLastname}/>
                                     <input placeholder="Email" value={this.state.email} onChange={this.setEmail}/>
@@ -479,7 +476,7 @@ export default class AdminUpdatePage extends Component {
                                         <button className="contact-submit-btn" onClick={this.updatePatient}>Submit</button>
                                     }   
                                     {!this.state.buttonEnabled &&
-                                        <button className="contact-submit-btn-disabled" disabled={true}>Submit</button>
+                                        <button className="contact-submit-btn-disabled">Submit</button>
                                     } 
                                     {this.state.updateSuccess===true && <span className="error-msg">Patient updated</span>}
                                     </div>
