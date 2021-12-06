@@ -210,11 +210,11 @@ export default class LogIn extends Component {
                             </div>  
                             {this.state.ifUserNameExist && <span className="error-msg">Username exists</span>}  
                             <div className="col-lg-6 col-md-6 col-12">
-                                <input placeholder="password" onChange={this.setRegisterPassword}/>
+                                <input type="password" placeholder="password" onChange={this.setRegisterPassword}/>
                             </div>
                             {!this.state.ifStrongPassword && <span className="error-msg">Password need to be with minimum length 8, containing at least 1 lowercase, 1 uppercase, 1 number and 1 symbol</span>}  
                             <div className="col-lg-6 col-md-6 col-12">
-                                <input placeholder="confirm password" onChange={this.setRegisterRepeatPassword}/>
+                                <input type="password" placeholder="confirm password" onChange={this.setRegisterRepeatPassword}/>
                             </div>  
                             {!this.state.ifPasswordMatch && <span className="error-msg">Password not match</span>}
                             <div className="col-lg-6 col-md-6 col-12">
@@ -238,7 +238,7 @@ export default class LogIn extends Component {
                                 <input placeholder="username" onChange={this.setLoginUsername}/>
                             </div>
                             <div className="col-lg-6 col-md-6 col-12">
-                                <input placeholder="password" onChange={this.setLoginPassword}/>
+                                <input type="password" placeholder="password" onChange={this.setLoginPassword}/>
                             </div>
                             {this.state.loginSuccess===false && <span className="error-msg">Log in failed</span>}
                             <button className="contact-submit-btn" onClick={this.login}>Submit</button>
