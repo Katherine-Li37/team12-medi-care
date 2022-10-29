@@ -17,6 +17,7 @@
         "bootstrap": "^4.4.1",
         "font-awesome": "^4.7.0",
         "fullcalendar": "^5.10.1",
+        "google-map-react": "^2.2.0",
         "install": "^0.13.0",
         "jquery": "^3.4.1",
         "react": "^16.12.0",

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import HomeOne from './Components/HomeOne';
+import Home from './Components/Home';
 import Header from './Components/Header/Header';
 import FooterOne from './Components/Footer/FooterOne';
 import About from './Components/Page/About';
@@ -25,12 +25,9 @@ function App() {
         <Router >
             <Header />
 
-            <Route exact path = '/'render = {props => ( 
-                <React.Fragment >
-                    <HomeOne />
-                </React.Fragment>
+            <Route exact path = '/' render = {props => ( 
+                <Home />
             )} />
-
             <Route path = '/About'component = { About } /> 
             <Route path = '/ServiceDetails'component = { ServiceDetails }/> 
             <Route path = '/Doctors' component = { DoctorsList }/> 

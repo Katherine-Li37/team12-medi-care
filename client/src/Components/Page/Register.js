@@ -210,30 +210,30 @@ export default class Register extends Component {
                                                     
                             <li><Link to='/LogIn'>Already have an account? Log in</Link></li>
                             
-                            <div className="col-lg-6 col-md-6 col-12">
+                            <div className="col-lg-12 col-md-12 col-12">
                                 <input placeholder="Email" onChange={this.setEmail}/>
                             </div>  
                             {this.state.ifEmailExist && <span className="error-msg">Email exists</span>}  
                             {!this.state.ifEmailFormat && <span className="error-msg">Not valid email</span>}
                             
-                            <div className="col-lg-6 col-md-6 col-12">
+                            <div className="col-lg-12 col-md-12 col-12">
                                 <input type="password" placeholder="Password" onChange={this.setPassword}/>
                             </div>
                             {!this.state.ifStrongPassword && <span className="error-msg">Password need to be with minimum length 6</span>}  
-                            <div className="col-lg-6 col-md-6 col-12">
+                            <div className="col-lg-12 col-md-12 col-12">
                                 <input type="password" placeholder="Confirm Password" onChange={this.setRepeatPassword}/>
                             </div>  
                             {!this.state.ifPasswordMatch && <span className="error-msg">Password not match</span>}
 
 
-                            <div className="col-lg-6 col-md-6 col-12">
+                            <div className="col-lg-12 col-md-12 col-12">
                                 <input placeholder="First Name" onChange={this.setFirstName}/>
                             </div>
-                            <div className="col-lg-6 col-md-6 col-12">
+                            <div className="col-lg-12 col-md-12 col-12">
                                 <input placeholder="Last Name" onChange={this.setLastName}/>
                             </div>
 
-                            <div className="col-lg-6 col-md-6 col-12">
+                            <div className="col-lg-12 col-md-12 col-12">
                                 <input placeholder="Phone Number" onChange={this.setPhone}/>
                             </div>  
                             {this.state.ifPhoneExist && <span className="error-msg">Phone number exists</span>}  

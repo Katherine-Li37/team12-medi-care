@@ -38,14 +38,13 @@ export class FooterOne extends Component {
                             <div className="col-sm-6 col-lg-3 offset-lg-1 col-12">
                                 <div className="single-footer-widget">
                                     <div className="f-widget-title">
-                                        <h2>Our Address</h2>
+                                        <h2>About Us</h2>
                                     </div>
                                     <div className="widegts-content">
-                                        <p>Datobbo Dentistry 5212 Cedar
-                                <br /> Village Dr Mason, NY.</p>
-                                        <li><span>Phone:</span>+1 3500 5867 340</li>
-                                        <li><span>Email:</span>yourdomain@gmail.com</li>
-                                        <li><span>Fax:</span>+1 675 5867 340</li>
+                                        <p>CS 6326 Team 12
+                                        <br /> University of Texas at Dallas</p>
+                                        <p>800 W Campbell Rd 
+                                        <br />Richardson, TX 75080</p>
                                     </div>
                                 </div>
                             </div>

@@ -60,10 +60,10 @@ export default class LogIn extends Component {
                             <h1>Login</h1>
                             <li><Link to='/Register'>New to here? Register</Link></li>
                             
-                            <div className="col-lg-6 col-md-6 col-12">
+                            <div className="col-lg-12 col-md-12 col-12">
                                 <input placeholder="Email" onChange={this.setLoginEmail}/>
                             </div>
-                            <div className="col-lg-6 col-md-6 col-12">
+                            <div className="col-lg-12 col-md-12 col-12">
                                 <input type="Password" placeholder="password" onChange={this.setLoginPassword}/>
                             </div>
                             {this.state.loginSuccess===false && <span className="error-msg">Log in failed</span>}
