@@ -13,7 +13,7 @@ var app = express();
 var User = require('./models/user');
 
 //----------------------------------------- END OF IMPORTS---------------------------------------------------
-mongoose.connect('mongodb://localhost:27017/dentist', {
+mongoose.connect('mongodb://localhost:27017/medicare', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     },

@@ -3,7 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 
 var monk = require('monk');
-var db = monk('localhost:27017/dentist');
+var db = monk('localhost:27017/medicare');
 
 var collection = db.get('appointments');
 

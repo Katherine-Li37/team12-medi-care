@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var monk = require('monk');
-var db = monk('localhost:27017/dentist');
+var db = monk('localhost:27017/medicare');
 
 var collection = db.get('users');
 
@@ -21,9 +21,15 @@ router.get('/doctors', function(req, res) {
     })
 });
 
-// users/register/:id for new user register checking
-router.get('/register/:id', function(req, res) {
+// users/register/email/:id for new user register checking on email
+router.get('/register/email/:id', function(req, res) {
     collection.find({ 'username': req.params.id }, function(err, user) {
+        if (err) throw err
+        res.json(user);
+    })
+});
+router.get('/register/phone/:id', function(req, res) {
+    collection.find({ 'phone': req.params.id }, function(err, user) {
         if (err) throw err
         res.json(user);
     })

@@ -11,18 +11,9 @@ router.get('/', function(req, res) {
 router.post('/register', function(req, res) {
     User.register(new User({ 
         username: req.body.username,
-        type: req.body.type,
         firstName: req.body.firstName ? req.body.firstName : null,
         lastName: req.body.lastName ? req.body.lastName : null,
-        email: req.body.email,
         phone: req.body.phone ? req.body.phone : null,
-        address: req.body.address ? req.body.address : null,
-        city: req.body.city ? req.body.city : null,
-        state: req.body.state ? req.body.state : null,
-        zipcode: req.body.zipcode ? req.body.zipcode : null,
-        services: req.body.services ? req.body.services : [],
-        title: req.body.title ? req.body.title : null,
-        image: req.body.image ? req.body.image : null,
         status: 'active'
     }), req.body.password, function(err, user) {
         if (err) throw err;
@@ -39,7 +30,7 @@ router.post('/login', (req, res, next) => {
             res.json({ success: false, message: err })
         } else {
             if (!user) {
-                res.json({ success: false, message: 'username or password incorrect' })
+                res.json({ success: false, message: 'Email or password incorrect' })
             } else {
                 req.login(user, function(err) {
                     if (err) {

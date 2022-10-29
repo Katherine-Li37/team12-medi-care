@@ -1,59 +1,34 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import Banner from '../Banner';
-import validator from 'validator';
+import {Link} from 'react-router-dom';
 
 export default class LogIn extends Component {
     constructor(props) {
         super(props);
         this.state ={
-            typing: false,
-            typingTimeout: 0,
-            
-            registerUsername: '',
-            ifUserNameExist: false,
-            registerPassword: '',
-            ifStrongPassword: true,
-            registerRepeatPassword: '',
-            ifPasswordMatch: true,
-            registerEmail:'',
-            ifEmailFormat:true,
-            buttonEnabled: false,
-            registerSuccess: null,
-
-            loginUsername: '',
+            loginEmail: '',
             loginPassword: '',
             loginSuccess: null,
-
-            data: null,
         }       
     }
 
-    register = () => {
-        Axios({
-          method: 'POST',
-          data: {
-            username: this.state.registerUsername,
-            type: 'Patient',
-            password: this.state.registerPassword,
-            email: this.state.registerEmail
-          },
-          withCredentials: true,
-          url: 'http://localhost:3000/register',
-        }).then((res) => {
-            if(res.data.message==='User Created'){
-                this.setState({
-                    registerSuccess: true
-                })
-            }
-        });
-    };
+    setLoginEmail = (event) => {
+        this.setState({
+            loginEmail: event.target.value
+        })
+    }
+    setLoginPassword = (event) => {
+        this.setState({
+            loginPassword: event.target.value
+        })
+    }
 
     login = () => {
         Axios({
           method: 'POST',
           data: {
-            username: this.state.loginUsername,
+            username: this.state.loginEmail,
             password: this.state.loginPassword,
           },
           withCredentials: true,
@@ -65,8 +40,9 @@ export default class LogIn extends Component {
                 this.setState({
                     loginSuccess: true
                 })
-                window.location.reload(false);
-            }else {
+                this.props.history.push("/");
+                window.location.reload(true);
+            } else {
                 this.setState({
                     loginSuccess: false
                 })
@@ -74,174 +50,26 @@ export default class LogIn extends Component {
         });
     };
 
-    setRegisterUsername = (event) => {
-        if (this.state.typingTimeout) {
-            clearTimeout(this.state.typingTimeout);
-         }
-     
-         this.setState({
-            registerUsername: event.target.value,
-            typing: false,
-            typingTimeout: setTimeout(() => {
-                this.checkIfUsernameExists();
-            }, 1000)
-         });
-    }
-
-    checkIfUsernameExists = () => {
-        fetch('http://localhost:3000/users/register/' + this.state.registerUsername)
-          .then(res => res.json())
-          .then((data) => {
-            if (data.length!==0){
-                this.setState({ifUserNameExist: true});
-                this.checkIfEnableButton();
-            } else {
-                this.setState({ifUserNameExist: false});
-                this.checkIfEnableButton();
-            }
-          })
-          .catch(console.log)
-    }
-
-    setRegisterPassword = (event) => {
-        if (this.state.typingTimeout) {
-            clearTimeout(this.state.typingTimeout);
-         }
-     
-         this.setState({
-            registerPassword: event.target.value,
-            typing: false,
-            typingTimeout: setTimeout(() => {
-                this.checkPasswordStrength();
-            }, 1000)
-         });
-    }
-
-    checkPasswordStrength = () => {
-        if (validator.isStrongPassword(this.state.registerPassword, {
-              minLength: 8, minLowercase: 1,
-              minUppercase: 1, minNumbers: 1, minSymbols: 1
-            })) {
-              this.setState({ifStrongPassword:true});
-            } else {
-              this.setState({ifStrongPassword:false});
-            }
-        this.checkIfEnableButton();
-    }
-
-    setRegisterRepeatPassword = (event) => {
-        if (this.state.typingTimeout) {
-            clearTimeout(this.state.typingTimeout);
-         }
-     
-         this.setState({
-            registerRepeatPassword: event.target.value,
-            typing: false,
-            typingTimeout: setTimeout(() => {
-                this.checkIfPasswordMatch();
-            }, 1000)
-         });
-    }
-
-    checkIfPasswordMatch=()=>{
-        if(this.state.registerPassword === this.state.registerRepeatPassword){
-            this.setState({ifPasswordMatch: true })
-        } else{
-            this.setState({ifPasswordMatch: false })
-        }
-        this.checkIfEnableButton();
-    }
-
-    setRegisterEmail=(event)=>{
-        if (this.state.typingTimeout) {
-            clearTimeout(this.state.typingTimeout);
-         }
-     
-         this.setState({
-            registerEmail: event.target.value,
-            typing: false,
-            typingTimeout: setTimeout(() => {
-                this.checkIfEmailFormat();
-            }, 1000)
-         });
-    }
-
-    checkIfEmailFormat =()=>{
-        if (validator.isEmail(this.state.registerEmail)) {
-            this.setState({ifEmailFormat:true});
-          } else {
-            this.setState({ifEmailFormat:false});
-          }
-        this.checkIfEnableButton();
-    }
-
-    checkIfEnableButton=()=>{
-        if ((this.state.registerUsername.length && !this.state.ifUserNameExist 
-            && this.state.registerPassword.length && this.state.ifStrongPassword
-            && this.state.registerRepeatPassword.length && this.state.ifPasswordMatch
-            && this.state.registerEmail.length && this.state.ifEmailFormat)){
-            this.setState({buttonEnabled: true});
-        } else{
-            this.setState({buttonEnabled: false});
-        }
-    }
-
-    setLoginUsername = (event) => {
-        this.setState({
-            loginUsername: event.target.value
-        })
-    }
-    setLoginPassword = (event) => {
-        this.setState({
-            loginPassword: event.target.value
-        })
-    }
-
     render() {
         return (
             <React.Fragment>
-                <Banner pageTitle='Sign Up / Log In' />
+                <Banner pageTitle='Log In' />
                 <div className="user-form-wrapper">
                     <div className="container">
                         <div className="user-form-one">
-                            <h1>Register</h1>
-                            <div className="col-lg-6 col-md-6 col-12">
-                                <input placeholder="username" onChange={this.setRegisterUsername}/>
-                            </div>  
-                            {this.state.ifUserNameExist && <span className="error-msg">Username exists</span>}  
-                            <div className="col-lg-6 col-md-6 col-12">
-                                <input type="password" placeholder="password" onChange={this.setRegisterPassword}/>
-                            </div>
-                            {!this.state.ifStrongPassword && <span className="error-msg">Password need to be with minimum length 8, containing at least 1 lowercase, 1 uppercase, 1 number and 1 symbol</span>}  
-                            <div className="col-lg-6 col-md-6 col-12">
-                                <input type="password" placeholder="confirm password" onChange={this.setRegisterRepeatPassword}/>
-                            </div>  
-                            {!this.state.ifPasswordMatch && <span className="error-msg">Password not match</span>}
-                            <div className="col-lg-6 col-md-6 col-12">
-                                <input placeholder="email" onChange={this.setRegisterEmail}/>
-                            </div>  
-                            {!this.state.ifEmailFormat && <span className="error-msg">Not valid email</span>}
-
-                            {this.state.buttonEnabled &&
-                                <button className="contact-submit-btn" onClick={this.register}>Submit</button>
-                            }   
-                            {!this.state.buttonEnabled &&
-                                <button className="contact-submit-btn-disabled" >Submit</button>
-                            }   
-                            {this.state.registerSuccess===true && <span className="error-msg">New User created</span>}
-                            
-                        </div>
-                    
-                        <div className="user-form-one">
                             <h1>Login</h1>
+                            <li><Link to='/Register'>New to here? Register</Link></li>
+                            
                             <div className="col-lg-6 col-md-6 col-12">
-                                <input placeholder="username" onChange={this.setLoginUsername}/>
+                                <input placeholder="Email" onChange={this.setLoginEmail}/>
                             </div>
                             <div className="col-lg-6 col-md-6 col-12">
-                                <input type="password" placeholder="password" onChange={this.setLoginPassword}/>
+                                <input type="Password" placeholder="password" onChange={this.setLoginPassword}/>
                             </div>
                             {this.state.loginSuccess===false && <span className="error-msg">Log in failed</span>}
-                            <button className="contact-submit-btn" onClick={this.login}>Submit</button>
+                            <div>
+                                <button className="contact-submit-btn" onClick={this.login}>Submit</button>
+                            </div>
                         </div>
                     </div>
                 </div>

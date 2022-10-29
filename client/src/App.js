@@ -13,6 +13,7 @@ import EditProfile from './Components/Page/EditProfile';
 import Contact from './Components/Page/Contact';
 import FooterData from './Components/Data/FooterData';
 import LogIn from './Components/Page/LogIn';
+import Register from './Components/Page/Register';
 import AdminPanel from './Components/Page/AdminPanel';
 import AdminCreatePage from './Components/Page/AdminCreatePage';
 import AdminUpdatePage from './Components/Page/AdminUpdatePage';
@@ -39,6 +40,7 @@ function App() {
             <Route path = '/ProfileEdit/:id' component = { EditProfile }/> 
             <Route path = '/Contact' component = { Contact }/> 
             <Route path = '/LogIn' component = { LogIn }/> 
+            <Route path = '/Register' component = { Register }/> 
             <Route path = '/Admin' component = { AdminPanel }/>
             <Route path = '/AdminCreate' component = { AdminCreatePage }/>
             <Route path = '/AdminUpdate' component = { AdminUpdatePage }/>
