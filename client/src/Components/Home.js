@@ -87,7 +87,7 @@ export default class Home extends Component {
                         <div className="map-section">
                             <GoogleMapReact  className="map-section"
                               bootstrapURLKeys={{
-                                  key: "AIzaSyDibkcWH_CpqYF3-GDROBfGov220vWRfew",
+                                  key: "",
                                   language: 'en'
                               }}
                               defaultCenter={{lat: this.state.centerLat, lng: this.state.centerLng}}
