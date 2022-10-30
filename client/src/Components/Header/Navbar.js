@@ -45,7 +45,7 @@ export default class Navbar extends Component {
                         <div className="row align-items-center">
                             <div className="col-md-3 col-lg-2 d-flex col-5">
                                 <Link className="navbar-brand logo" to='/'>
-                                    <img src={require("../../assets/img/logo.png") } alt="donto" />
+                                    <img src={require("../../assets/img/newlogo.jpg") } alt="donto" />
                                 </Link>
                             </div>
                             <div className="col-lg-10 col-md-9 d-none d-lg-block text-lg-right">

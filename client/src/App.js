@@ -3,20 +3,21 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './Components/Home';
 import Header from './Components/Header/Header';
 import FooterOne from './Components/Footer/FooterOne';
-import About from './Components/Page/About';
-import ServiceDetails from './Components/Page/ServiceDetails';
-import DoctorsList from './Components/DoctorsList/DoctorsList';
-import AppointmentPage from './Components/Page/AppointmentPage';
-import EditAppointment from './Components/Page/EditAppointment';
+// import About from './Components/Page/About';
+// import ServiceDetails from './Components/Page/ServiceDetails';
+// import DoctorsList from './Components/DoctorsList/DoctorsList';
+// import AppointmentPage from './Components/Page/AppointmentPage';
+// import EditAppointment from './Components/Page/EditAppointment';
 import ProfileDetails from './Components/Page/ProfileDetails';
-import EditProfile from './Components/Page/EditProfile';
-import Contact from './Components/Page/Contact';
+import ClinicDetails from './Components/Page/ClinicDetails';
+// import EditProfile from './Components/Page/EditProfile';
+// import Contact from './Components/Page/Contact';
 import FooterData from './Components/Data/FooterData';
 import LogIn from './Components/Page/LogIn';
 import Register from './Components/Page/Register';
-import AdminPanel from './Components/Page/AdminPanel';
-import AdminCreatePage from './Components/Page/AdminCreatePage';
-import AdminUpdatePage from './Components/Page/AdminUpdatePage';
+// import AdminPanel from './Components/Page/AdminPanel';
+// import AdminCreatePage from './Components/Page/AdminCreatePage';
+// import AdminUpdatePage from './Components/Page/AdminUpdatePage';
 import './App.css';
 
 function App() {
@@ -28,19 +29,20 @@ function App() {
             <Route exact path = '/' render = {props => ( 
                 <Home />
             )} />
-            <Route path = '/About'component = { About } /> 
+            {/* <Route path = '/About'component = { About } /> 
             <Route path = '/ServiceDetails'component = { ServiceDetails }/> 
             <Route path = '/Doctors' component = { DoctorsList }/> 
             <Route path = '/ScheduleAppointment' component = { AppointmentPage }/>
-            <Route path = '/EditAppointment' component = { EditAppointment }/>
+            <Route path = '/EditAppointment' component = { EditAppointment }/> */}
             <Route path = '/Profile/:id' component = { ProfileDetails }/> 
-            <Route path = '/ProfileEdit/:id' component = { EditProfile }/> 
-            <Route path = '/Contact' component = { Contact }/> 
+            <Route path = '/Clinic/:id' component = { ClinicDetails }/> 
+            {/* <Route path = '/ProfileEdit/:id' component = { EditProfile }/>  */}
+            {/* <Route path = '/Contact' component = { Contact }/>  */}
             <Route path = '/LogIn' component = { LogIn }/> 
             <Route path = '/Register' component = { Register }/> 
-            <Route path = '/Admin' component = { AdminPanel }/>
+            {/* <Route path = '/Admin' component = { AdminPanel }/>
             <Route path = '/AdminCreate' component = { AdminCreatePage }/>
-            <Route path = '/AdminUpdate' component = { AdminUpdatePage }/>
+            <Route path = '/AdminUpdate' component = { AdminUpdatePage }/> */}
 
             <FooterOne FooterData = { FooterData }/>
         </Router> 
