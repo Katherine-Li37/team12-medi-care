@@ -52,13 +52,13 @@ export default class Navbar extends Component {
                                 <nav id="responsive-menu" className="menu-style-one">
                                     <ul className="menu-items">
                                         <li><Link to='/'>Home</Link></li>
-                                        <li><Link to='/About'>About</Link></li>
+                                        {/* <li><Link to='/About'>About</Link></li>
                                         <li><Link to='/ServiceDetails'>Services</Link></li>
                                         <li><Link to={{
                                                 pathname:'/Doctors',
                                                 state: { userLoggedIn: this.state.userLoggedIn }
                                             }}>Doctors</Link>
-                                        </li>
+                                        </li> */}
                                         {!this.state.username && <li><Link to='/LogIn'>Sign up/ Log in</Link></li>}
                                         {this.state.username && 
                                             <li><Link to={{
@@ -85,7 +85,7 @@ export default class Navbar extends Component {
                                     <li className="nav-item active">
                                         <Link className="nav-link" to='/'>Home</Link>
                                     </li>
-                                    <li className="nav-item">
+                                    {/* <li className="nav-item">
                                         <Link className="nav-link" to='/About'>about</Link>
                                     </li>
                                     <li className="nav-item">
@@ -97,7 +97,7 @@ export default class Navbar extends Component {
                                                 state: { userLoggedIn: this.state.userLoggedIn }
                                             }}>Doctors
                                         </Link>
-                                    </li>
+                                    </li> */}
                                     {!this.state.username &&
                                         <li className="nav-item">
                                             <Link className="nav-link" to='/LogIn'>Sign up/ Log in</Link>

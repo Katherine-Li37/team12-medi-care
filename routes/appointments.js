@@ -8,9 +8,9 @@ var db = monk('localhost:27017/medicare');
 var collection = db.get('appointments');
 
 
-// appointments/doctor/id: get appointment by doctor id
-router.get('/doctor/:id', function(req, res) {
-    collection.find({ 'doctorID': req.params.id }, function(err, appointments) {
+// appointments/clinic/id: get appointment by clinic id
+router.get('/clinic/:id', function(req, res) {
+    collection.find({ 'clinicID': req.params.id }, function(err, appointments) {
         res.json(appointments);
     })
 });
@@ -25,16 +25,14 @@ router.get('/patient/:id', function(req, res) {
 // add new appointment: appointments/create
 router.post('/create', function(req, res) {
     collection.insert({
-        doctorID: req.body.doctorID,
-        doctorName: req.body.doctorName,
-        facilityID: req.body.facilityID,
-        facilityName: req.body.facilityName,
+        clinicID: req.body.clinicID,
+        clinicName: req.body.clinicName,
         patientID: req.body.patientID,
         patientName: req.body.patientName,
         date: req.body.date,
         time: req.body.time,
         procedure: req.body.procedure,
-        status: req.body.status,
+        status: req.body.status
     }, function(err, appointment) {
         if (err) throw err
         res.json(appointment);

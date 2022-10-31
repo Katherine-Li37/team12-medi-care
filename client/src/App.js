@@ -6,7 +6,7 @@ import FooterOne from './Components/Footer/FooterOne';
 // import About from './Components/Page/About';
 // import ServiceDetails from './Components/Page/ServiceDetails';
 // import DoctorsList from './Components/DoctorsList/DoctorsList';
-// import AppointmentPage from './Components/Page/AppointmentPage';
+import AppointmentPage from './Components/Page/AppointmentPage';
 // import EditAppointment from './Components/Page/EditAppointment';
 import ProfileDetails from './Components/Page/ProfileDetails';
 import ClinicDetails from './Components/Page/ClinicDetails';
@@ -31,9 +31,9 @@ function App() {
             )} />
             {/* <Route path = '/About'component = { About } /> 
             <Route path = '/ServiceDetails'component = { ServiceDetails }/> 
-            <Route path = '/Doctors' component = { DoctorsList }/> 
+            <Route path = '/Doctors' component = { DoctorsList }/>  */}
             <Route path = '/ScheduleAppointment' component = { AppointmentPage }/>
-            <Route path = '/EditAppointment' component = { EditAppointment }/> */}
+            {/* <Route path = '/EditAppointment' component = { EditAppointment }/> */}
             <Route path = '/Profile/:id' component = { ProfileDetails }/> 
             <Route path = '/Clinic/:id' component = { ClinicDetails }/> 
             {/* <Route path = '/ProfileEdit/:id' component = { EditProfile }/>  */}
