@@ -13,7 +13,7 @@ var app = express();
 var User = require('./models/user');
 
 //----------------------------------------- END OF IMPORTS---------------------------------------------------
-mongoose.connect('mongodb://localhost:27017/medicare', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/medicare', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     },
@@ -68,5 +68,9 @@ app.use(function(err, req, res, next) {
     // render the error page
     res.status(err.status || 500).json(err);
 });
+
+if (process.env.NODE_ENV === 'production'){
+    app.use(express.static('client/build'))
+}
 
 module.exports = app;
